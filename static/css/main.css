@@ -1,5 +1,7 @@
-.jumbotron {
-    margin-top: 1rem;
+/**
+ * Header
+ */
+ .jumbotron {
     color: #fff;
     background-color: rgb(34, 32, 153);
 }
@@ -7,10 +9,29 @@
     font-weight: bold;
     font-family: sans-serif;
 }
-.jumbotron hr {
-    background-color: #fff;
+.jumbotron h1 a {
+    color: #fff;
 }
 .jumbotron.compact {
     padding: 0.5rem 1rem;
-    margin-top: 0.5rem;
+}
+/**
+ * Layout
+ */
+ .main-header {
+    position: relative;
+    z-index: 500;
+    border-radius: 0;
+}
+.main-footer {
+    margin-top: 2em;
+    border-top: 3px solid #222;
+    padding: 1.5em 1em;
+}
+ .fullscreen-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
