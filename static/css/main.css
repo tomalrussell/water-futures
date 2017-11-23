@@ -1,0 +1,16 @@
+.jumbotron {
+    margin-top: 1rem;
+    color: #fff;
+    background-color: rgb(34, 32, 153);
+}
+.jumbotron h1 {
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.jumbotron hr {
+    background-color: #fff;
+}
+.jumbotron.compact {
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+}
