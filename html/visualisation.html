@@ -13,25 +13,43 @@
     <header class="jumbotron compact main-header">
         <h1 class="container"><a href="index.html">Water Futures</a></h1>
     </header>
-    <!-- <div class="row">
-        <div class="col-sm">
-            <h2>Scenarios</h2>
-            <h3>Flows</h3>
-            <h3>Usage</h3>
-            <h3>Population</h3>
-
-            <h2>Strategies</h2>
-            <h3>Demand-side</h3>
-            <h3>Supply-side</h3>
+    <!-- <div id="map" class="fullscreen-map"></div>
+    <div id="chart" class="overlay-chart"></div> -->
+    <div id="map" class="half left"></div>
+    <div id="chart-area" class="half right">
+        <div id="chart" class="chart-container"></div>
+    </div>
+    <div class="pullout">
+        <div class="tabs">
+            <div class="tabs-inner">
+                <div class="tab">Water system</div>
+                <div class="tab">Possible futures</div>
+                <div class="tab">Actions and interventions</div>
+            </div>
         </div>
-        <div class="col-sm">
-            <h2>Water system</h2>
-            <div id="map"></div>
+        <div class="content">
+            <h3>Water system</h3>
+            <ul>
+                <li>Reservoirs</li>
+                <li>Demand centres</li>
+                <li>Flow measuring points</li>
+            </ul>
 
-            <h2>Metrics</h2>
+            <h3>Possible futures</h3>
+            <ul>
+                <li>Flows</li>
+                <li>Usage</li>
+                <li>Population</li>
+            </ul>
+
+            <h3>Actions and interventions</h3>
+            <ul>
+                <li>Demand-side</li>
+                <li>Supply-side</li>
+            </ul>
         </div>
-    </div> -->
-    <div id="map" class="fullscreen-map"></div>
+    </div>
+    <script src="../static/js/plotly-1.31.2.min.js"></script>
     <script src="../static/js/leaflet.js"></script>
     <script src="../static/js/main.js"></script>
 </body>
