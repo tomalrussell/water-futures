@@ -14,7 +14,7 @@
     }
 
     function chart(){
-        Plotly.d3.csv("../data/lower_thames_river_flows.csv", function(err, rows){
+        Plotly.d3.csv("../data/model_outputs/lower_thames_river_flows.csv", function(err, rows){
             var trace = {
                 type: "scatter",
                 mode: "lines",
@@ -69,19 +69,48 @@
             {id: 'Satellite', attribution: basemaps.esri_worldimagery.attribution}
         );
 
+
         var map = L.map('map', {
             center: [51.505, -0.09],
-            zoom: 11,
-            layers: [satellite, positron]
+            zoom: 7,
+            layers: [positron]
         });
 
         var baseMaps = {
             "Satellite": satellite,
             "Map": positron
         };
-        L.control.layers(baseMaps).addTo(map);
+        var overlays = {
+            // Water Resource Zones
+            // Abstraction Points
+        }
+        control = L.control.layers(baseMaps, overlays).addTo(map);
 
         map.zoomControl.setPosition('bottomright');
+        add_water_resource_zones(map, control);
+        add_abstraction_points(map, control);
+    }
+
+    function add_water_resource_zones(map, control){
+        d3.json('../data/boundaries/wrz.geojson', function(error, data){
+            if (error) throw error;
+            console.log(data);
+            var layer = L.geoJson(data);
+            control.addOverlay(layer, "Water Resource Zones");
+        });
+    }
+
+    function add_abstraction_points(map, control){
+        d3.json('../data/system/abs.geojson', function(error, data){
+            if (error) throw error;
+            console.log(data);
+            var layer = L.geoJson(data, {
+                onEachFeature: function(feature, layer){
+                    layer.bindPopup(feature.properties["Point_Name"])
+                }
+            });
+            control.addOverlay(layer, "Abstraction Points");
+        });
     }
 
     function pullout(){
