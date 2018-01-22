@@ -101,8 +101,16 @@
                 console.error(error);
                 return;
             }
-            var layer = L.geoJson(data);
+            var layer = L.geoJson(data, {
+                onEachFeature: function(feature, layer){
+                    layer.bindPopup(
+                        feature.properties["name"] + " (" +
+                        feature.properties["company"] + ")"
+                    )
+                }
+            });
             control.addOverlay(layer, "Water Resource Zones");
+            map.addLayer(layer);
         });
     }
 
@@ -115,12 +123,12 @@
             var layer = L.geoJson(data, {
                 onEachFeature: function(feature, layer){
                     layer.bindPopup(
-                        feature.properties["name"] + " (" +
-                        feature.properties["type"] + ")"
+                        feature.properties["name"]
                     )
                 }
             });
             control.addOverlay(layer, "Points");
+            map.addLayer(layer);
         });
     }
 
