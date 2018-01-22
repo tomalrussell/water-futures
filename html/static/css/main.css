@@ -15,6 +15,24 @@
 .jumbotron.compact {
     padding: 0.5rem 1rem;
 }
+.navbar {
+    flex-direction: column;
+}
+.navbar-brand {
+    display: flex;
+}
+.navbar-nav {
+    padding-top: 1em;
+}
+@media (min-width: 768px) {
+    .navbar {
+        flex-direction: row;
+    }
+    .navbar-nav {
+        padding-top: 4em;
+    }
+}
+
 /**
  * Layout
  */
