@@ -14,7 +14,11 @@
     }
 
     function chart(){
-        Plotly.d3.csv("../data/model_outputs/lower_thames_river_flows.csv", function(err, rows){
+        Plotly.d3.csv("/data/model_outputs/lower_thames_river_flows.csv", function(error, rows){
+            if (error){
+                console.error(error);
+                return;
+            }
             var trace = {
                 type: "scatter",
                 mode: "lines",
@@ -71,8 +75,8 @@
 
 
         var map = L.map('map', {
-            center: [51.505, -0.09],
-            zoom: 7,
+            center: [51.525, -0.07],
+            zoom: 11,
             layers: [positron]
         });
 
@@ -88,28 +92,35 @@
 
         map.zoomControl.setPosition('bottomright');
         add_water_resource_zones(map, control);
-        add_abstraction_points(map, control);
+        add_points(map, control);
     }
 
     function add_water_resource_zones(map, control){
-        d3.json('../data/boundaries/wrz.geojson', function(error, data){
-            if (error) throw error;
-            console.log(data);
+        d3.json('/data/boundaries/wrz.geojson', function(error, data){
+            if (error){
+                console.error(error);
+                return;
+            }
             var layer = L.geoJson(data);
             control.addOverlay(layer, "Water Resource Zones");
         });
     }
 
-    function add_abstraction_points(map, control){
-        d3.json('../data/system/abs.geojson', function(error, data){
-            if (error) throw error;
-            console.log(data);
+    function add_points(map, control){
+        d3.json('/data/system/points.geojson', function(error, data){
+            if (error){
+                console.error(error);
+                return;
+            }
             var layer = L.geoJson(data, {
                 onEachFeature: function(feature, layer){
-                    layer.bindPopup(feature.properties["Point_Name"])
+                    layer.bindPopup(
+                        feature.properties["name"] + " (" +
+                        feature.properties["type"] + ")"
+                    )
                 }
             });
-            control.addOverlay(layer, "Abstraction Points");
+            control.addOverlay(layer, "Points");
         });
     }
 
