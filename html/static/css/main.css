@@ -36,29 +36,54 @@
 /**
  * Layout
  */
- .main-header {
+.main-header {
     position: relative;
     z-index: 500;
     border-radius: 0;
 }
 .main-footer {
-    padding-bottom: 15em;
+    padding-bottom: 5em;
+}
+.logo-block img {
+    margin: 2em 0;
+}
+@media (min-width: 768px) {
+    .logo-block img {
+        margin: 0;
+    }
+}
+.main-header.hover-to-show {
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4dadc;
+    z-index: 1500;
+    transform: translateY(-183px);
+    transition: transform 0.2s;
+}
+.main-header.hover-to-show:hover {
+    transform: translateY(0);
+}
+@media (min-width: 768px) {
+    .main-header.hover-to-show {
+        transform: translateY(-120px);
+    }
 }
 .half {
     position: absolute;
-    top: 135px; /* header */
+    top: 19px; /* header */
     bottom: 0;
     width: 50%;
 }
 .half.left {
     left: 0;
+    background-color: #d4dadc;
 }
 .half.right {
     right: 0;
 }
 .fullscreen-map {
     position: absolute;
-    top: 81px; /* header */
+    top: 19px; /* header */
     left: 0;
     right: 0;
     bottom: 0;
@@ -83,6 +108,8 @@ nav ul a {
     border-bottom: 0.2em solid transparent;
     margin: 0 0.5em;
 }
+nav ul a:active,
+nav ul a:focus,
 nav ul a:hover {
     color: #555;
     text-decoration: none;
@@ -102,7 +129,7 @@ strong {
  */
 .pullout {
     position: absolute;
-    top: 135px; /* header */
+    top: 20px; /* header + 1*/
     left: 0;
     bottom: 0;
     width: 20em;

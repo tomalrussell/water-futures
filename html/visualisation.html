@@ -15,7 +15,7 @@
   <![endif]-->
 </head>
 <body>
-<header class="container-fluid main-header">
+<header class="container-fluid main-header hover-to-show">
     <nav class="navbar navbar-expand">
       <a class="navbar-brand" href="index.html">
         <h1>
@@ -35,43 +35,45 @@
       </ul>
     </nav>
   </header>
-  <!-- <div id="map" class="fullscreen-map"></div>
-  <div id="chart" class="overlay-chart"></div> -->
-  <div id="map" class="half left"></div>
-  <div id="chart-area" class="half right">
-    <div id="chart" class="chart-container"></div>
-  </div>
-  <div class="pullout">
-    <div class="tabs">
-      <div class="tabs-inner">
-        <div class="tab">Water system</div>
-        <div class="tab">Possible futures</div>
-        <div class="tab">Actions and interventions</div>
+  <main id="visualisation-container" class="fullscreen-showable">
+    <!-- <div id="map" class="fullscreen-map"></div>
+    <div id="chart" class="overlay-chart"></div> -->
+    <div id="map" class="half left"></div>
+    <div id="chart-area" class="half right">
+      <div id="chart" class="chart-container"></div>
+    </div>
+    <div class="pullout">
+      <div class="tabs">
+        <div class="tabs-inner">
+          <div class="tab">Water system</div>
+          <div class="tab">Possible futures</div>
+          <div class="tab">Actions and interventions</div>
+        </div>
+      </div>
+      <div class="content">
+        <h3>Water system</h3>
+        <ul>
+          <li>Reservoirs</li>
+          <li>Demand centres</li>
+          <li>Flow measuring points</li>
+        </ul>
+
+        <h3>Possible futures</h3>
+        <ul>
+          <li>Flows</li>
+          <li>Usage</li>
+          <li>Population</li>
+        </ul>
+
+        <h3>Actions and interventions</h3>
+        <ul>
+          <li>Demand-side</li>
+          <li>Supply-side</li>
+        </ul>
       </div>
     </div>
-    <div class="content">
-      <h3>Water system</h3>
-      <ul>
-        <li>Reservoirs</li>
-        <li>Demand centres</li>
-        <li>Flow measuring points</li>
-      </ul>
-
-      <h3>Possible futures</h3>
-      <ul>
-        <li>Flows</li>
-        <li>Usage</li>
-        <li>Population</li>
-      </ul>
-
-      <h3>Actions and interventions</h3>
-      <ul>
-        <li>Demand-side</li>
-        <li>Supply-side</li>
-      </ul>
-    </div>
-  </div>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
+  </main>
+  <script src="./static/js/d3.v4.min.js"></script>
   <script src="./static/js/plotly-1.31.2.min.js"></script>
   <script src="./static/js/leaflet.js"></script>
   <script src="./static/js/main.js"></script>
