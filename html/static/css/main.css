@@ -79,20 +79,20 @@ nav ul a {
     color: #555;
     border-bottom: 0.2em solid transparent;
     margin: 0 0.5em;
-    position: relative;
-    top: 2em;
 }
 nav ul a:hover {
     color: #555;
     text-decoration: none;
     border-bottom-color: #555;
 }
-
- article p {
+article p {
     max-width: 45em;
 }
 img, video {
     max-width:100%;
+}
+strong {
+    font-weight: bold;
 }
 /**
  * Pullout
