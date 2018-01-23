@@ -115,6 +115,9 @@ nav ul a:hover {
     text-decoration: none;
     border-bottom-color: #555;
 }
+.h6 {
+    font-weight: bold;
+}
 article p {
     max-width: 45em;
 }
