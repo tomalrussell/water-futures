@@ -1,3 +1,4 @@
+APP = {};
 (function(window, document, L, undefined){
     var basemaps = {
         esri_worldimagery: {
@@ -120,10 +121,21 @@
                 console.error(error);
                 return;
             }
+
+            // cache locations
+            APP.points = {}
+            for (var i = 0; i < data.features.length; i++) {
+                APP.points[data.features[i].properties.name] = [
+                    data.features[i].geometry.coordinates[1],
+                    data.features[i].geometry.coordinates[0]
+                ];
+            }
+
             var layer = L.geoJson(data, {
                 onEachFeature: function(feature, layer){
+                    var content = feature.properties.html || feature.properties.name
                     layer.bindPopup(
-                        feature.properties["name"]
+                        content
                     )
                 }
             });
