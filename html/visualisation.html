@@ -48,31 +48,81 @@
     <div class="pullout">
       <div class="tabs">
         <div class="tabs-inner">
-          <div class="tab">Water system</div>
-          <div class="tab">Possible futures</div>
-          <div class="tab">Actions and interventions</div>
+          <a href="#tab-content-system" class="tab">Water system</a>
+          <a href="#tab-content-future" class="tab">Possible futures</a>
+          <a href="#tab-content-action" class="tab">Actions</a>
         </div>
       </div>
       <div class="content">
-        <h3>Water system</h3>
-        <ul>
-          <li>Reservoirs</li>
-          <li>Demand centres</li>
-          <li>Flow measuring points</li>
-        </ul>
+        <a href="#" class="close">×</a>
+        <div id="tab-content-system" class="tab-content">
+          <h2 class="h5">Water system</h3>
+          <h3 class="h6">Reservoirs</h3>
+          <p>
+            <a href="#" class="map-link" data-location="North London reservoirs" data-zoom="12">North London reservoirs</a>
+            and
+            <a href="#" class="map-link" data-location="South London reservoirs" data-zoom="12">South London reservoirs</a>
+          </p>
+          <h3 class="h6">Pumping stations</h3>
+          <p><a href="#" class="map-link" data-location="Littleton Pumping Station" data-zoom="16">Littleton Pumping Station</a></p>
+          <h3 class="h6">Demand centres</h3>
+          <p><a href="#" class="map-link" data-location="London" data-zoom="10">London</a></p>
+          <h3 class="h6">Flow measuring points</h3>
+          <p><a href="#" class="map-link" data-location="Teddington Weir" data-zoom="16">Teddington Weir</a></p>
+        </div>
+        <form id="tab-content-future" class="tab-content">
+          <h2 class="h5">Possible futures</h3>
+          <h3 class="h6">River Flows</h3>
+          <p>
 
-        <h3>Possible futures</h3>
-        <ul>
-          <li>Flows</li>
-          <li>Usage</li>
-          <li>Population</li>
-        </ul>
+            In the future, the amount of water flowing down the Thames might
+            change with the climate. See possible <a href="#chart" class="show-chart">future flows</a>
 
-        <h3>Actions and interventions</h3>
-        <ul>
-          <li>Demand-side</li>
-          <li>Supply-side</li>
-        </ul>
+          </p>
+
+          <h3 class="h6">Usage</h3>
+          <p>
+            <label for="usage-change">
+              How might the amount of water we use change?
+            </label>
+            <input id="usage-change" type="range" min="0" max="20" step="10" value="10">
+            <br>
+            <output for="usage-change">10</output> litres per person per day
+          </p>
+
+          <h3 class="h6">Population</h3>
+          <p>
+            <label for="population-change">
+              How might the population of London change?
+            </label>
+            <input id="population-change" type="range" min="65" max="85" step="10" value="65">
+            <br>
+            <output for="population-change">65</output> million people
+          </p>
+
+          <h3 class="h6">Total usage</h3>
+          <p>
+            <output id="total-usage">650</output> million litres per day
+          </p>
+        </form>
+
+        <form id="tab-content-action" class="tab-content">
+          <h2 class="h5">Actions and interventions</h3>
+          <h3 class="h6">Demand-side</h3>
+          <p>
+
+            How could we reduce water usage?
+
+          </p>
+          <h3 class="h6">Supply-side</h3>
+          <p>
+
+            How could we supply more water to meet rising demand?
+
+          </p>
+
+
+        </form>
       </div>
     </div>
   </main>
