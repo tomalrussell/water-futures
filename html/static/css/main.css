@@ -132,7 +132,7 @@ strong {
  */
 .pullout {
     position: absolute;
-    top: 20px; /* header + 1*/
+    top: 19px; /* header */
     left: 0;
     bottom: 0;
     width: 20em;
@@ -163,14 +163,58 @@ strong {
     height: 2em;
     display: inline-block;
     white-space: nowrap;
-    background: #fff;
+    background: #efefef;
     padding: 0 0.5em;
     border-radius: 3px 3px 0 0;
     border: 1px solid #222;
     box-shadow: 2px -2px 2px -2px #222;
     border-width: 1px 1px 0 0;
     cursor: pointer;
+    color: #222;
 }
-.pullout .content {
+.pullout .tab:hover {
+    text-decoration: none;
+}
+.pullout .tab.active,
+.pullout .tab:active,
+.pullout .tab:hover,
+.pullout .tab:focus {
+    background-color: #fff;
+    outline: none;
+}
+.pullout .tab-content {
+    display: none;
     padding: 1em 0.5em;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+}
+.pullout .tab-content.active {
+    display: block;
+}
+.pullout .close {
+    z-index: 100;
+    position: absolute;
+    top: 1px;
+    right: 13px;
+}
+
+.offscreen-right {
+    background: #fff;
+    box-shadow: -2px 0px 2px -2px #222;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.2s;
+}
+.offscreen-right.active {
+    transform: translateX(0);
+}
+.offscreen-right .close {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    z-index: 100;
 }
