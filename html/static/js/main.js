@@ -87,23 +87,24 @@ APP = {};
         );
 
 
-        var map = L.map('map', {
-            center: [51.525, -0.07],
-            zoom: 11,
-            layers: [positron]
+        var map = APP.map = L.map('map', {
+            // center: [51.525, -0.07],
+            center: [51.523014, -0.008132],
+            zoom: 18,
+            layers: [satellite]
         });
+        map.zoomControl.setPosition('topright');
 
-        var baseMaps = {
+        APP.baseMaps = {
             "Satellite": satellite,
             "Map": positron
         };
-        var overlays = {
+        APP.overlays = {
             // Water Resource Zones
             // Abstraction Points
         }
-        control = L.control.layers(baseMaps, overlays).addTo(map);
+        control = L.control.layers(APP.baseMaps, APP.overlays).addTo(APP.map);
 
-        map.zoomControl.setPosition('bottomright');
         add_water_resource_zones(map, control);
         add_points(map, control);
     }
@@ -123,7 +124,6 @@ APP = {};
                 }
             });
             control.addOverlay(layer, "Water Resource Zones");
-            map.addLayer(layer);
         });
     }
 
@@ -180,8 +180,73 @@ APP = {};
         if (pullout.classList.contains('active') && tab.classList.contains('active')){
             pullout.classList.remove('active');
         } else {
-            pullout.classList.add('active');
+            if (!tab.classList.contains('active')){
+                // clear others, activate this
+                var id = tab.attributes["href"].value.replace('#','');
+                var content = document.getElementById(id);
+                tab.classList.add('active');
+                content.classList.add('active');
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i] != tab){
+                        tabs[i].classList.remove('active');
+                    }
+                }
+                for (var i = 0; i < tab_contents.length; i++) {
+                    if (tab_contents[i] != content) {
+                        tab_contents[i].classList.remove('active');
+                    }
+                }
+            }
+            if (!pullout.classList.contains('active')) {
+                pullout.classList.add('active');
+            }
         }
+    }
+
+    function link_to_map(){
+        var links = document.querySelectorAll('.map-link');
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener("click", map_link_clicked);
+        }
+    }
+
+    function map_link_clicked(e){
+        e.preventDefault();
+        var link = e.originalTarget;
+        var name = link.dataset.location;
+        var location = APP.points[name];
+        var zoom = link.dataset.zoom;
+        if (name && location){
+            (zoom)? APP.map.flyTo(location, zoom) : APP.map.flyTo(location, 14)
+        }
+    }
+
+    function scenario(){
+        var ranges = document.querySelectorAll('input[type=range]');
+        var output, range;
+        for (var i = 0; i < ranges.length; i++) {
+            range = ranges[i];
+            range.addEventListener("input", range_change);
+            output = document.querySelector('output[for="'+range.id+'"]');
+            output.value = range.value;
+        }
+
+        set_total();
+    }
+
+    function range_change(e){
+        var range = e.originalTarget;
+        var output = document.querySelector('output[for="'+range.id+'"]');
+        output.value = range.value;
+
+        set_total();
+    }
+
+    function set_total(){
+        var total = document.getElementById('total-usage');
+        var a = document.getElementById('usage-change');
+        var b = document.getElementById('population-change');
+        total.value = parseInt(a.value) * parseInt(b.value);
     }
 
     function setup(){
