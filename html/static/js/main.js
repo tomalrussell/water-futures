@@ -66,6 +66,18 @@ APP = {};
         });
     }
 
+    function toggleChart(){
+        var container = document.getElementById('chart-area');
+        document.querySelector('.show-chart').addEventListener("click", function(e){
+            e.preventDefault();
+            container.classList.add('active');
+        });
+        document.querySelector('#chart-area .close').addEventListener("click", function(e){
+            e.preventDefault();
+            container.classList.remove('active');
+        })
+    }
+
     function map(){
         var positron = L.tileLayer(basemaps.carto_positron.url,
             {id: 'Map', attribution: basemaps.carto_positron.attribution}
@@ -146,15 +158,26 @@ APP = {};
 
     function pullout(){
         var tabs = document.querySelectorAll('.pullout .tab');
-        for (let i = 0; i < tabs.length; i++) {
-            const tab = tabs[i];
-            tab.addEventListener("click", togglePullout);
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].addEventListener("click", togglePullout);
         }
+        var close = document.querySelector('.pullout .close');
+        close.addEventListener("click", closePullout);
+    }
+
+    function closePullout(e){
+        e.preventDefault();
+        var pullout = document.querySelector('.pullout');
+        pullout.classList.remove('active');
     }
 
     function togglePullout(e){
+        e.preventDefault();
         var pullout = document.querySelector('.pullout');
-        if (pullout.classList.contains('active')){
+        var tabs = document.querySelectorAll('.pullout .tab');
+        var tab_contents = document.querySelectorAll('.pullout .tab-content');
+        var tab = e.originalTarget;
+        if (pullout.classList.contains('active') && tab.classList.contains('active')){
             pullout.classList.remove('active');
         } else {
             pullout.classList.add('active');
@@ -162,16 +185,21 @@ APP = {};
     }
 
     function setup(){
-        if (document.querySelector('#map')){
+        if (document.getElementById('map')){
             map();
         }
-        if (document.querySelector('#chart')){
+        if (document.getElementById('chart')){
             chart();
+        }
+        if (document.querySelector('.show-chart')){
+            toggleChart();
         }
         if (document.querySelector('.pullout')){
             pullout();
         }
 
+        link_to_map();
+        scenario();
     }
 
     setup();
