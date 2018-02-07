@@ -1,7 +1,11 @@
 /*
 Water Futures Copyright 2018 Tom Russell License: MIT
 */
-APP = {};
+APP = {
+    system: {}, // feature id => geojson feature
+    layers: {}, // layer id => leaflet layer
+    layer_active: {}, // layer id => boolean
+}
 (function(window, document, L, undefined){
     var basemaps = {
         esri_worldimagery: {
@@ -132,7 +136,12 @@ APP = {};
                     )
                 }
             });
-            control.addOverlay(layer, "Water Resource Zones");
+            control.addOverlay(
+                layer,
+                '<span class="layer-control-text water_resource_zone">' +
+                'Water Resource Zones' +
+                '</span>'
+            );
         });
     }
 
@@ -143,22 +152,120 @@ APP = {};
                 return;
             }
 
-            // cache locations
-            APP.system = {}
+            // Rely on globals
+            // APP.system = {}
+            // APP.layers = {}
+            // APP.layer_active = {}
+            var features_by_layer = {
+                'reservoir': [],
+                'abstraction': [],
+                'treatment': [],
+                'pumping': [],
+                'distribution': [],
+                'desalination': [],
+                'link': [],
+            }
             for (var i = 0; i < data.features.length; i++) {
-                APP.system[data.features[i].properties.id] = data.features[i];
+                var feature = data.features[i]
+                var id = feature.properties.id;
+                var type = feature.properties.type;
+                APP.system[id] = feature;
+                if (features_by_layer[type]){
+                    features_by_layer[type].push(feature);
+                } else {
+                    features_by_layer[type] = [feature];
+                }
             }
 
-            var layer = L.geoJson(data, {
-                onEachFeature: function(feature, layer){
-                    var content = feature.properties.html || feature.properties.name || feature.properties.type
-                    layer.bindPopup(
-                        content
-                    )
-                }
+            var options_by_layer = {
+                reservoir: {
+                    style: {
+                        color: '#8031ff'
+                    },
+                    onEachFeature: function(feature, layer){
+                        var content = feature.properties.name || feature.properties.type
+                        layer.bindPopup(
+                            content
+                        )
+                    }
+                },
+                abstraction: {
+                    style: {
+                        color: '#28fd81'
+                    },
+                    onEachFeature: function(feature, layer){
+                        var content = feature.properties.name || feature.properties.type
+                        layer.bindPopup(
+                            content
+                        )
+                    }
+                },
+                treatment: {
+                    style: {
+                        color: '#ff2aad'
+                    },
+                    onEachFeature: function(feature, layer){
+                        var content = feature.properties.name || feature.properties.type
+                        layer.bindPopup(
+                            content
+                        )
+                    }
+                },
+                pumping: {
+                    style: {
+                        color: '#fd5b2a'
+                    },
+                    onEachFeature: function(feature, layer){
+                        var content = feature.properties.name || feature.properties.type
+                        layer.bindPopup(
+                            content
+                        )
+                    }
+                },
+                distribution: {
+                    style: {
+                        color: '#01ca55'
+                    },
+                    onEachFeature: function(feature, layer){
+                        var content = feature.properties.name || feature.properties.type
+                        layer.bindPopup(
+                            content
+                        )
+                    }
+                },
+                desalination: {
+                    style: {
+                        color: '#3af8ff'
+                    },
+                    onEachFeature: function(feature, layer){
+                        var content = feature.properties.name || feature.properties.type
+                        layer.bindPopup(
+                            content
+                        )
+                    }
+                },
+                link: {
+                    style: {
+                        color: '#ffdf28'
+                    }
+                },
+            }
+
+            _.mapObject(features_by_layer, function(data, layer_id){
+                var layer = L.geoJson(data, options_by_layer[layer_id]);
+                control.addOverlay(
+                    layer,
+                    '<span class="layer-control-text '+layer_id+'">' +
+                    uppercase_first(layer_id) +
+                    '</span>');
+                APP.layers[layer_id] = layer;
+                APP.layer_active[layer_id] = false;
             });
-            control.addOverlay(layer, "Points");
         });
+    }
+
+    function uppercase_first(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     function pullout(options){

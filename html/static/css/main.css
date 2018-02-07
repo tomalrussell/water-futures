@@ -203,3 +203,41 @@ strong {
     right: 4px;
     z-index: 100;
 }
+/**
+ * Layer control
+ */
+.layer-control-text::before {
+    content: ' ';
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 0.35em;
+    margin: 0 0.2em 0.1em 0;
+}
+.layer-control-text.reservoir::before {
+    background: #8031ff;
+}
+.layer-control-text.abstraction::before {
+    background: #28fd81;
+}
+.layer-control-text.treatment::before {
+    background: #ff2aad;
+}
+.layer-control-text.pumping::before {
+    background: #fd5b2a;
+}
+.layer-control-text.distribution::before {
+    background: #01ca55;
+}
+.layer-control-text.desalination::before {
+    background: #3af8ff;
+}
+.layer-control-text.link::before {
+    background: #ffdf28;
+}
+.layer-control-text.water_resource_zone::before {
+    background: #3e8bff;
+}
+.layer-control-text.catchment_area::before {
+    background: #3e8bff;
+}
