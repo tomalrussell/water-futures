@@ -56,19 +56,27 @@
       <div class="content">
         <a href="#" class="close">×</a>
         <div id="tab-content-system" class="tab-content">
-          <h2 class="h5">Water system</h3>
+          <h2 class="h5">Water system</h2>
           <h3 class="h6">Reservoirs</h3>
-          <p>
-            <a href="#" class="map-link" data-location="North London reservoirs" data-zoom="12">North London reservoirs</a>
-            and
-            <a href="#" class="map-link" data-location="South London reservoirs" data-zoom="12">South London reservoirs</a>
-          </p>
+          <ul>
+            <li><a href="#" class="map-link" data-location="8" data-zoom="12">North London Reservoirs</a></li>
+            <li><a href="#" class="map-link" data-location="7" data-zoom="12">South London Reservoirs</a></li>
+            <li><a href="#" class="map-link" data-location="10" data-zoom="12">Lee Reservoirs</a></li>
+          </ul>
+          <h3 class="h6">Treatment</h3>
+          <ul>
+            <li><a href="#" class="map-link" data-location="1" data-zoom="12">London Reservoirs Treatment Works</a></li>
+            <li><a href="#" class="map-link" data-location="2" data-zoom="12">Lee Reservoirs Treatment Works</a></li>
+            <li><a href="#" class="map-link" data-location="3" data-zoom="12">Groundwater Treatment</a></li>
+          </ul>
           <h3 class="h6">Pumping stations</h3>
-          <p><a href="#" class="map-link" data-location="Littleton Pumping Station" data-zoom="16">Littleton Pumping Station</a></p>
-          <h3 class="h6">Demand centres</h3>
-          <p><a href="#" class="map-link" data-location="London" data-zoom="10">London</a></p>
-          <h3 class="h6">Flow measuring points</h3>
-          <p><a href="#" class="map-link" data-location="Teddington Weir" data-zoom="16">Teddington Weir</a></p>
+          <ul>
+            <li><a href="#" class="map-link" data-location="12" data-zoom="14">Abbey Mills Pumping Station</a></li>
+          </ul>
+          <h3 class="h6">Distribution network</h3>
+          <ul>
+            <li><a href="#" class="map-link" data-location="5" data-zoom="9">London</a></li>
+          </ul>
         </div>
         <form id="tab-content-future" class="tab-content">
           <h2 class="h5">Possible futures</h3>
@@ -129,6 +137,7 @@
   <script src="./static/js/promise.min.js"></script>
   <script src="./static/js/symbol.min.js"></script>
   <script src="./static/js/underscore.min.js"></script>
+  <script src="./static/js/turf.min.js"></script>
   <script src="./static/js/d3.v4.min.js"></script>
   <script src="./static/js/vega-core.min.js"></script>
   <script src="./static/js/vega-lite.min.js"></script>

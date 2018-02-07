@@ -1,3 +1,6 @@
+/*
+Water Futures Copyright 2018 Tom Russell License: MIT
+*/
 APP = {};
 (function(window, document, L, undefined){
     var basemaps = {
@@ -141,12 +144,9 @@ APP = {};
             }
 
             // cache locations
-            APP.points = {}
+            APP.system = {}
             for (var i = 0; i < data.features.length; i++) {
-                APP.points[data.features[i].properties.id] = [
-                    data.features[i].geometry.coordinates[1],
-                    data.features[i].geometry.coordinates[0]
-                ];
+                APP.system[data.features[i].properties.id] = data.features[i];
             }
 
             var layer = L.geoJson(data, {
@@ -218,11 +218,13 @@ APP = {};
     function map_link_clicked(e){
         e.preventDefault();
         var link = e.target;
-        var name = link.dataset.location;
-        var location = APP.points[name];
+        var id = link.dataset.location;
+        var feature = APP.system[id];
         var zoom = link.dataset.zoom;
-        if (name && location){
-            (zoom)? APP.map.flyTo(location, zoom) : APP.map.flyTo(location, 14)
+        if (id && feature){
+            var coords = turf.centroid(feature).geometry.coordinates;
+            var center = [coords[1], coords[0]];
+            (zoom)? APP.map.flyTo(center, zoom) : APP.map.flyTo(center, 14)
         }
     }
 
