@@ -1,20 +1,12 @@
 /**
+ * Layout
+ */
+ body, html {
+     overflow: hidden;
+ }
+ /**
  * Header
  */
- .jumbotron {
-    color: #fff;
-    background-color: rgb(34, 32, 153);
-}
-.jumbotron h1 {
-    font-weight: bold;
-    font-family: sans-serif;
-}
-.jumbotron h1 a {
-    color: #fff;
-}
-.jumbotron.compact {
-    padding: 0.5rem 1rem;
-}
 .navbar {
     flex-direction: column;
 }
@@ -32,10 +24,6 @@
         padding-top: 4em;
     }
 }
-
-/**
- * Layout
- */
 .main-header {
     position: relative;
     z-index: 500;
@@ -67,6 +55,7 @@
     .main-header.hover-to-show {
         transform: translateY(-120px);
     }
+
 }
 .half {
     position: absolute;
@@ -95,10 +84,6 @@
     height: 20em;
     width: 50em;
     z-index: 900;
-}
-.modebar,
-.plotly-notifier {
-    display: none;
 }
 /**
  * Text
