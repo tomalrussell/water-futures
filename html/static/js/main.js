@@ -161,19 +161,31 @@ APP = {};
         });
     }
 
-    function pullout(){
+    function pullout(options){
         var tabs = document.querySelectorAll('.pullout .tab');
         for (var i = 0; i < tabs.length; i++) {
             tabs[i].addEventListener("click", togglePullout);
         }
         var close = document.querySelector('.pullout .close');
         close.addEventListener("click", closePullout);
+
+        var el = document.querySelector('.pullout');
+        if (options.tab){
+            el.classList.add('active');
+            var tab = document.querySelector('.tab[href="#'+options.tab+'"]');
+            tab.classList.add('active');
+            var content = document.getElementById(options.tab);
+            content.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
     }
 
     function closePullout(e){
         e.preventDefault();
         var el = document.querySelector('.pullout');
         el.classList.remove('active');
+        set_hash({'tab': null});
     }
 
     function togglePullout(e){
@@ -184,6 +196,7 @@ APP = {};
         var tab = e.target;
         if (el.classList.contains('active') && tab.classList.contains('active')){
             el.classList.remove('active');
+            set_hash({'tab': null});
         } else {
             if (!tab.classList.contains('active')){
                 // clear others, activate this
@@ -201,6 +214,7 @@ APP = {};
                         tab_contents[i].classList.remove('active');
                     }
                 }
+                set_hash({'tab': id});
             }
             if (!el.classList.contains('active')) {
                 el.classList.add('active');
@@ -303,7 +317,7 @@ APP = {};
             toggleChart();
         }
         if (document.querySelector('.pullout')){
-            pullout();
+            pullout(url_options);
         }
 
         link_to_map();
