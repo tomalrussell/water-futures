@@ -78,7 +78,7 @@ APP = {};
         })
     }
 
-    function map(){
+    function setup_map(options){
         var positron = L.tileLayer(basemaps.carto_positron.url,
             {id: 'Map', attribution: basemaps.carto_positron.attribution}
         );
@@ -88,9 +88,8 @@ APP = {};
 
 
         var map = APP.map = L.map('map', {
-            // center: [51.525, -0.07],
-            center: [51.523014, -0.008132],
-            zoom: 18,
+            center: options.center,
+            zoom: options.zoom,
             layers: [satellite]
         });
         map.zoomControl.setPosition('topright');
@@ -101,16 +100,23 @@ APP = {};
         };
         APP.overlays = {
             // Water Resource Zones
+            // Catchment Areas
+            // River Thames
+            // Tributaries
+            // Reservoirs
             // Abstraction Points
+            // Pumping stations
         }
         control = L.control.layers(APP.baseMaps, APP.overlays).addTo(APP.map);
 
         add_water_resource_zones(map, control);
-        add_points(map, control);
+        add_system(map, control);
+
+        return map;
     }
 
     function add_water_resource_zones(map, control){
-        d3.json('/data/boundaries/wrz.geojson', function(error, data){
+        d3.json('/data/boundaries/water_resource_zones.geojson', function(error, data){
             if (error){
                 console.error(error);
                 return;
@@ -127,8 +133,8 @@ APP = {};
         });
     }
 
-    function add_points(map, control){
-        d3.json('/data/system/points.geojson', function(error, data){
+    function add_system(map, control){
+        d3.json('/data/system/system.geojson', function(error, data){
             if (error){
                 console.error(error);
                 return;
@@ -137,7 +143,7 @@ APP = {};
             // cache locations
             APP.points = {}
             for (var i = 0; i < data.features.length; i++) {
-                APP.points[data.features[i].properties.name] = [
+                APP.points[data.features[i].properties.id] = [
                     data.features[i].geometry.coordinates[1],
                     data.features[i].geometry.coordinates[0]
                 ];
@@ -145,14 +151,13 @@ APP = {};
 
             var layer = L.geoJson(data, {
                 onEachFeature: function(feature, layer){
-                    var content = feature.properties.html || feature.properties.name
+                    var content = feature.properties.html || feature.properties.name || feature.properties.type
                     layer.bindPopup(
                         content
                     )
                 }
             });
             control.addOverlay(layer, "Points");
-            map.addLayer(layer);
         });
     }
 
@@ -167,18 +172,18 @@ APP = {};
 
     function closePullout(e){
         e.preventDefault();
-        var pullout = document.querySelector('.pullout');
-        pullout.classList.remove('active');
+        var el = document.querySelector('.pullout');
+        el.classList.remove('active');
     }
 
     function togglePullout(e){
         e.preventDefault();
-        var pullout = document.querySelector('.pullout');
+        var el = document.querySelector('.pullout');
         var tabs = document.querySelectorAll('.pullout .tab');
         var tab_contents = document.querySelectorAll('.pullout .tab-content');
-        var tab = e.originalTarget;
-        if (pullout.classList.contains('active') && tab.classList.contains('active')){
-            pullout.classList.remove('active');
+        var tab = e.target;
+        if (el.classList.contains('active') && tab.classList.contains('active')){
+            el.classList.remove('active');
         } else {
             if (!tab.classList.contains('active')){
                 // clear others, activate this
@@ -197,8 +202,8 @@ APP = {};
                     }
                 }
             }
-            if (!pullout.classList.contains('active')) {
-                pullout.classList.add('active');
+            if (!el.classList.contains('active')) {
+                el.classList.add('active');
             }
         }
     }
@@ -212,7 +217,7 @@ APP = {};
 
     function map_link_clicked(e){
         e.preventDefault();
-        var link = e.originalTarget;
+        var link = e.target;
         var name = link.dataset.location;
         var location = APP.points[name];
         var zoom = link.dataset.zoom;
@@ -235,7 +240,7 @@ APP = {};
     }
 
     function range_change(e){
-        var range = e.originalTarget;
+        var range = e.target;
         var output = document.querySelector('output[for="'+range.id+'"]');
         output.value = range.value;
 
@@ -249,12 +254,48 @@ APP = {};
         total.value = parseInt(a.value) * parseInt(b.value);
     }
 
+    function get_hash(){
+        /**
+         * Decode JSON object from window hash
+         */
+        try {
+            return JSON.parse(decodeURIComponent(window.location.hash.replace('#','')));
+        } catch (error) {
+            console.log(error);
+            return {}
+        }
+    }
+
+    function set_hash(data){
+        /**
+         * Encode JSON object as window hash
+         */
+        var prev = get_hash()
+        var next = _.defaults(data, prev)
+        try {
+            window.location.hash = encodeURIComponent(JSON.stringify(next));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     function setup(){
+        var url_options = get_hash();
+
         if (document.getElementById('map')){
-            map();
+            var options = _.defaults(url_options, {
+                'center': {'lat': 51.523014, 'lng': -0.008132},
+                'zoom': 4
+            });
+            setup_map(options).on('moveend', function(ev){
+                var map_options = {}
+                map_options.center = ev.target.getCenter();
+                map_options.zoom = ev.target.getZoom();
+                set_hash(map_options);
+            });
         }
         if (document.getElementById('chart')){
-            chart();
+            // chart();
         }
         if (document.querySelector('.show-chart')){
             toggleChart();
