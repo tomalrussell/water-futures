@@ -1,12 +1,12 @@
 /*
 Water Futures Copyright 2018 Tom Russell License: MIT
 */
-APP = {
+var APP = {
     system: {}, // feature id => geojson feature
     layers: {}, // layer id => leaflet layer
     layer_active: {}, // layer id => boolean
-}
-(function(window, document, L, undefined){
+};
+(function(window, document, L, APP, undefined){
     var basemaps = {
         esri_worldimagery: {
             active: true,
@@ -433,4 +433,4 @@ APP = {
 
     setup();
 
-}(window, document, L));
+}(window, document, L, APP));
