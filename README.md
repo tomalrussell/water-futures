@@ -2,6 +2,8 @@
 
 Interactive visualisation of water supply scenarios and outcomes.
 
+See the [beta site](http://waterfutures-eastlondon.org.uk/) under development.
+
 ## Description
 
 Water Futures is an educational visualisation tool aiming to communicate water
@@ -12,6 +14,7 @@ interest.
 
 ## Author and license
 
-Water Futures is developed by Tom Russell under the MIT License in collaboraton
-the [Environmental Change Institute, University of
-Oxford](http://www.eci.ox.ac.uk/)
+Water Futures visualisation code is developed by Tom Russell under the MIT
+License at the [Environmental Change Institute, University of
+Oxford](http://www.eci.ox.ac.uk/) in collaboration with
+[Thames21](https://www.thames21.org.uk/).
