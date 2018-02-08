@@ -4,7 +4,6 @@ Water Futures Copyright 2018 Tom Russell License: MIT
 var APP = {
     system: {}, // feature id => geojson feature
     layers: {}, // layer id => leaflet layer
-    layer_active: {}, // layer id => boolean
 };
 (function(window, document, L, APP, undefined){
     var basemaps = {
@@ -106,20 +105,136 @@ var APP = {
             "Map": positron
         };
         APP.overlays = {
-            // Water Resource Zones
-            // Catchment Areas
             // River Thames
             // Tributaries
+            // Water Resource Zones
+            // Catchment Areas
             // Reservoirs
             // Abstraction Points
             // Pumping stations
         }
-        control = L.control.layers(APP.baseMaps, APP.overlays).addTo(APP.map);
+        control = L.control.layers(
+            APP.baseMaps,
+            APP.overlays,
+            {
+                sortLayers: true,
+                sortFunction: function(layerA, layerB, nameA, nameB){
+                    var order = {
+                        'River Thames': 1,
+                        'Tributaries': 10,
+                        'Water Resource Zones': 20,
+                        'Catchment Areas': 30,
+                        'Reservoirs': 40,
+                        'Abstraction': 50,
+                        'Desalination': 55,
+                        'Pumping': 60,
+                        'Treatment': 70,
+                        'Distribution': 80,
+                        'Link': 100
+                    }
+                    if (order[nameA] && order[nameB]){
+                        // nameA and nameB are HTML string: need to include span
+                        // and class for this to work
+                        return order[nameA] - order[nameB]
+                    } else {
+                        // fall back to alphabetical
+                        return (nameA > nameB)? 1 : (nameA < nameB)? -1 : 0;
+                    }
+                }
+            }
+        ).addTo(APP.map);
 
+        add_thames(map, control);
+        add_tributaries(map, control);
+        add_catchment_areas(map, control);
         add_water_resource_zones(map, control);
         add_system(map, control);
 
         return map;
+    }
+
+    function add_thames(map, control){
+        d3.json('/data/system/river_thames.geojson', function(error, data){
+            if (error){
+                console.error(error);
+                return;
+            }
+            store_features(data);
+            var layer = L.geoJson(data, {
+                style: {
+                    color: '#0f9fff'
+                },
+                onEachFeature: function(feature, layer){
+                    layer.bindPopup(
+                        feature.properties["name"]
+                    )
+                }
+            });
+            control.addOverlay(
+                layer,
+                '<span class="layer-control-text river_thames">' +
+                'River Thames' +
+                '</span>'
+            );
+            var layer_id = 'river_thames';
+            APP.layers[layer_id] = layer;
+        });
+    }
+
+    function add_tributaries(map, control){
+        d3.json('/data/system/thames_basin_rivers.geojson', function(error, data){
+            if (error){
+                console.error(error);
+                return;
+            }
+            store_features(data);
+            var layer = L.geoJson(data, {
+                style: {
+                    color: '#61c5ff',
+                    weight: 2
+                },
+                onEachFeature: function(feature, layer){
+                    layer.bindPopup(
+                        feature.properties["name"]
+                    )
+                }
+            });
+            control.addOverlay(
+                layer,
+                '<span class="layer-control-text thames_basin_rivers">' +
+                'Tributaries' +
+                '</span>'
+            );
+            var layer_id = 'thames_basin_rivers';
+            APP.layers[layer_id] = layer;
+        });
+    }
+    function add_catchment_areas(map, control){
+        d3.json('/data/boundaries/catchment_areas.geojson', function(error, data){
+            if (error){
+                console.error(error);
+                return;
+            }
+            store_features(data);
+            var layer = L.geoJson(data, {
+                style: {
+                    color: '#513eff'
+                },
+                onEachFeature: function(feature, layer){
+                    layer.bindPopup(
+                        feature.properties["name"]
+                    )
+                }
+            });
+            control.addOverlay(
+                layer,
+                '<span class="layer-control-text catchment_areas">' +
+                'Catchment Areas' +
+                '</span>'
+            );
+            var layer_id = 'catchment_areas';
+            APP.layers[layer_id] = layer;
+        });
     }
 
     function add_water_resource_zones(map, control){
@@ -128,7 +243,11 @@ var APP = {
                 console.error(error);
                 return;
             }
+            store_features(data);
             var layer = L.geoJson(data, {
+                style: {
+                    color: '#ff3e5e'
+                },
                 onEachFeature: function(feature, layer){
                     layer.bindPopup(
                         feature.properties["name"] + " (" +
@@ -138,11 +257,25 @@ var APP = {
             });
             control.addOverlay(
                 layer,
-                '<span class="layer-control-text water_resource_zone">' +
+                '<span class="layer-control-text water_resource_zones">' +
                 'Water Resource Zones' +
                 '</span>'
             );
+            var layer_id = 'water_resource_zones';
+            APP.layers[layer_id] = layer;
         });
+    }
+
+    function store_features(data){
+        /**
+         * Store features in APP.system for reference
+         */
+        for (var i = 0; i < data.features.length; i++) {
+            var feature = data.features[i]
+            var id = feature.properties.id;
+            var type = feature.properties.type;
+            APP.system[id] = feature;
+        }
     }
 
     function add_system(map, control){
@@ -155,7 +288,6 @@ var APP = {
             // Rely on globals
             // APP.system = {}
             // APP.layers = {}
-            // APP.layer_active = {}
             var features_by_layer = {
                 'reservoir': [],
                 'abstraction': [],
@@ -165,6 +297,8 @@ var APP = {
                 'desalination': [],
                 'link': [],
             }
+            // split features to layers
+            // and store to APP.system
             for (var i = 0; i < data.features.length; i++) {
                 var feature = data.features[i]
                 var id = feature.properties.id;
@@ -259,7 +393,6 @@ var APP = {
                     uppercase_first(layer_id) +
                     '</span>');
                 APP.layers[layer_id] = layer;
-                APP.layer_active[layer_id] = false;
             });
         });
     }
@@ -342,9 +475,13 @@ var APP = {
         var id = link.dataset.location;
         var feature = APP.system[id];
         var zoom = link.dataset.zoom;
+        var layer = link.dataset.layer;
         if (id && feature){
             var coords = turf.centroid(feature).geometry.coordinates;
             var center = [coords[1], coords[0]];
+            if (layer && !APP.map.hasLayer(APP.layers[layer])){
+                APP.map.addLayer(APP.layers[layer]);
+            }
             (zoom)? APP.map.flyTo(center, zoom) : APP.map.flyTo(center, 14)
         }
     }

@@ -214,6 +214,12 @@ strong {
     border-radius: 0.35em;
     margin: 0 0.2em 0.1em 0;
 }
+.layer-control-text.river_thames::before {
+    background: #0f9fff;
+}
+.layer-control-text.thames_basin_rivers::before {
+    background: #61c5ff;
+}
 .layer-control-text.reservoir::before {
     background: #8031ff;
 }
@@ -235,9 +241,9 @@ strong {
 .layer-control-text.link::before {
     background: #ffdf28;
 }
-.layer-control-text.water_resource_zone::before {
-    background: #3e8bff;
+.layer-control-text.water_resource_zones::before {
+    background: #ff3e5e;
 }
-.layer-control-text.catchment_area::before {
-    background: #3e8bff;
+.layer-control-text.catchment_areas::before {
+    background: #513eff;
 }
