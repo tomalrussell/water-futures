@@ -1,6 +1,7 @@
 # misc
 .DS_STORE
 *~
+aws.txt
 
 # data
 data/*
