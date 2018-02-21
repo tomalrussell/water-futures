@@ -2,8 +2,51 @@
  * Layout
  */
  .fullscreen-showable {
-     overflow: hidden;
+    overflow: hidden;
+    position: absolute;
+    top: 14px; /* header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 780px;
  }
+    .fullscreen-map {
+        position: absolute;
+        top: 0;
+        left: 320px; /* pullout */
+        right: 0;
+        bottom: 0;
+    }
+
+    #chart-area {
+        background: #fff;
+        box-shadow: -2px 0px 2px -2px #222;
+        position: absolute;
+        top: 50%;
+        bottom: 0;
+        right: 0;
+        left: 320px;
+        z-index: 1000;
+        transform: translateY(100%);
+        transition: transform 0.2s;
+    }
+    #chart-area.active {
+        transform: translateY(0);
+    }
+    #chart-area .close {
+        position: absolute;
+        top: 0;
+        right: 4px;
+        z-index: 100;
+    }
+        .overlay-chart {
+            position: absolute;
+            top: 5em;
+            right: 5em;
+            height: 20em;
+            width: 50em;
+            z-index: 900;
+        }
  /**
  * Header
  */
@@ -57,34 +100,6 @@
     }
 
 }
-.half {
-    position: absolute;
-    top: 19px; /* header */
-    bottom: 0;
-    width: 50%;
-}
-.half.left {
-    left: 0;
-    background-color: #d4dadc;
-}
-.half.right {
-    right: 0;
-}
-.fullscreen-map {
-    position: absolute;
-    top: 19px; /* header */
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-.overlay-chart {
-    position: absolute;
-    top: 5em;
-    right: 5em;
-    height: 20em;
-    width: 50em;
-    z-index: 900;
-}
 /**
  * Text
  */
@@ -117,18 +132,13 @@ strong {
  */
 .pullout {
     position: absolute;
-    top: 19px; /* header */
+    top: 0;
     left: 0;
     bottom: 0;
-    width: 20em;
+    width: 320px;
     background: #fff;
     box-shadow: 2px 0px 2px -2px #222;
     z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.2s;
-}
-.pullout.active {
-    transform: translateX(0);
 }
 .pullout .tabs {
     position: absolute;
@@ -185,23 +195,6 @@ strong {
     position: absolute;
     top: 1px;
     right: 13px;
-}
-
-.offscreen-right {
-    background: #fff;
-    box-shadow: -2px 0px 2px -2px #222;
-    z-index: 1000;
-    transform: translateX(100%);
-    transition: transform 0.2s;
-}
-.offscreen-right.active {
-    transform: translateX(0);
-}
-.offscreen-right .close {
-    position: absolute;
-    top: 0;
-    right: 4px;
-    z-index: 100;
 }
 /**
  * Layer control

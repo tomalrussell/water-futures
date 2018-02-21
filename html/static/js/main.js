@@ -403,21 +403,20 @@ var APP = {
 
     function pullout(options){
         var tabs = document.querySelectorAll('.pullout .tab');
+        var tab_contents = document.querySelectorAll('.pullout .tab-content');
         for (var i = 0; i < tabs.length; i++) {
             tabs[i].addEventListener("click", togglePullout);
+            if (options.tab){
+                tabs[i].classList.remove('active');
+                tab_contents[i].classList.remove('active');
+            }
         }
-        var close = document.querySelector('.pullout .close');
-        close.addEventListener("click", closePullout);
-
         var el = document.querySelector('.pullout');
         if (options.tab){
-            el.classList.add('active');
             var tab = document.querySelector('.tab[href="#'+options.tab+'"]');
             tab.classList.add('active');
             var content = document.getElementById(options.tab);
             content.classList.add('active');
-        } else {
-            el.classList.remove('active');
         }
     }
 
