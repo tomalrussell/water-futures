@@ -20,67 +20,349 @@ var APP = {
         }
     }
 
-    function chart(){
-        Plotly.d3.csv("/data/model_outputs/lower_thames_river_flows.csv", function(error, rows){
-            if (error){
-                console.error(error);
-                return;
-            }
-            var trace = {
-                type: "scatter",
-                mode: "lines",
-                name: 'Lower Thames River Flows',
-                x: rows.map(function(row) { return row['date']; }),
-                y: rows.map(function(row) { return row['flow']; }),
-                line: {color: '#17BECF'}
-            }
-
-            var data = [trace];
-            var start_end = ['2070-01-01', '2099-12-30']
-
-            var layout = {
-                title: 'Lower Thames River Flows',
-                xaxis: {
-                    autorange: true,
-                    range: start_end,
-                    rangeselector: {buttons: [
+    function setup_chart(){
+        var spec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+            "data": {
+                "url": "data/model_outputs/extract_FF_2065B.csv"
+            },
+            "vconcat": [
+                {
+                    "layer": [
                         {
-                            count: 1,
-                            label: '1y',
-                            step: 'year',
-                            stepmode: 'backward'
+                            "mark": "area",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate"
+                                },
+                                "y": {
+                                    "field": "flow_windsor_min",
+                                    "type": "quantitative",
+                                    "axis": {"title": "Thames flow at Windsor"}
+                                },
+                                "y2": {
+                                    "field": "flow_windsor_max",
+                                    "type": "quantitative"
+                                },
+                                "opacity": {"value": 0.3}
+                            }
                         },
                         {
-                            count: 10,
-                            label: '10y',
-                            step: 'year',
-                            stepmode: 'backward'
+                            "mark": "line",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate",
+                                    "axis": {"title": ""}
+                                },
+                                "y": {
+                                    "field": "flow_windsor_mean",
+                                    "type": "quantitative"
+                                }
+                            }
+                        }
+                    ],
+                    "width": 1000
+                },
+                {
+                    "layer": [
+                        {
+                            "mark": "area",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate"
+                                },
+                                "y": {
+                                    "field": "flow_teddington_min",
+                                    "type": "quantitative",
+                                    "axis": {"title": "Thames flow at Teddington"}
+                                },
+                                "y2": {
+                                    "field": "flow_teddington_max",
+                                    "type": "quantitative"
+                                },
+                                "opacity": {"value": 0.3}
+                            }
                         },
-                        {step: 'all'}
-                    ]},
-                    rangeslider: {range: start_end},
-                    type: 'date'
-              },
-              yaxis: {
-                    autorange: true,
-                    range: [0, 45000],
-                    type: 'linear'
-              }
-            };
+                        {
+                            "mark": "line",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate",
+                                    "axis": {"title": ""}
+                                },
+                                "y": {
+                                    "field": "flow_teddington_mean",
+                                    "type": "quantitative"
+                                }
+                            }
+                        }
+                    ],
+                    "width": 1000
+                },
+                {
+                    "layer": [
+                        {
+                            "mark": "area",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate"
+                                },
+                                "y": {
+                                    "field": "abstraction_lower_thames_min",
+                                    "type": "quantitative",
+                                    "axis": {"title": "Lower Thames total abstraction"}
+                                },
+                                "y2": {
+                                    "field": "abstraction_lower_thames_max",
+                                    "type": "quantitative"
+                                },
+                                "opacity": {"value": 0.3}
+                            }
+                        },
+                        {
+                            "mark": "line",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate",
+                                    "axis": {"title": ""}
+                                },
+                                "y": {
+                                    "field": "abstraction_lower_thames_mean",
+                                    "type": "quantitative"
+                                }
+                            }
+                        }
+                    ],
+                    "width": 1000
+                },
+                {
+                    "layer": [
+                        {
+                            "mark": "area",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate"
+                                },
+                                "y": {
+                                    "field": "storage_lower_thames_min",
+                                    "type": "quantitative",
+                                    "axis": {"title": "Lower Thames total storage"}
+                                },
+                                "y2": {
+                                    "field": "storage_lower_thames_max",
+                                    "type": "quantitative"
+                                },
+                                "opacity": {"value": 0.3}
+                            }
+                        },
+                        {
+                            "mark": "line",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate",
+                                    "axis": {"title": ""}
+                                },
+                                "y": {
+                                    "field": "storage_lower_thames_mean",
+                                    "type": "quantitative"
+                                }
+                            }
+                        }
+                    ],
+                    "width": 1000
+                },
+                {
+                    "layer": [
+                        {
+                            "mark": "area",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate"
+                                },
+                                "y": {
+                                    "field": "shortfall_london_min",
+                                    "type": "quantitative",
+                                    "axis": {"title": "London shortfall"}
+                                },
+                                "y2": {
+                                    "field": "shortfall_london_max",
+                                    "type": "quantitative"
+                                },
+                                "opacity": {"value": 0.3}
+                            }
+                        },
+                        {
+                            "mark": "line",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate",
+                                    "axis": {"title": ""}
+                                },
+                                "y": {
+                                    "field": "shortfall_london_mean",
+                                    "type": "quantitative"
+                                }
+                            }
+                        }
+                    ],
+                    "width": 1000
+                },
+                {
+                    "layer": [
+                        {
+                            "mark": "area",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate"
+                                },
+                                "y": {
+                                    "field": "restriction_level_lower_thames_min",
+                                    "type": "quantitative",
+                                    "axis": {"title": "Lower Thames Restriction levels"}
+                                },
+                                "y2": {
+                                    "field": "restriction_level_lower_thames_max",
+                                    "type": "quantitative"
+                                },
+                                "opacity": {"value": 0.3}
+                            }
+                        },
+                        {
+                            "mark": "line",
+                            "transform": [
+                                {"filter": {"selection": "brush"}}
+                            ],
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "yearmonthdate",
+                                    "axis": {"title": ""}
+                                },
+                                "y": {
+                                    "field": "restriction_level_lower_thames_mean",
+                                    "type": "quantitative"
+                                }
+                            }
+                        }
+                    ],
+                    "width": 1000
+                },
+                {
+                    "width": 1000,
+                    "height": 30,
+                    "mark": "area",
+                    "selection": {
+                        "brush": {"type": "interval", "encodings": ["x"]}
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "date",
+                            "type": "temporal",
+                            "timeUnit": "yearmonthdate",
+                            "axis": {"format": "%Y", "title": "Filter by date","orient": "top"}
+                        }
+                    }
+                }
+            ]
+        }
 
-            Plotly.newPlot('chart', data, layout);
-        });
+        var container = document.getElementById('chart-area');
+        var chart_name = get_hash().chart;
+        var name_to_url = {
+            FF_2065B: "data/model_outputs/extract_FF_2065B.csv",
+            FF_2065U: "data/model_outputs/extract_FF_2065U.csv",
+            NF_2065B: "data/model_outputs/extract_NF_2065B.csv",
+            NF_2065U: "data/model_outputs/extract_NF_2065U.csv",
+            NF_2045B: "data/model_outputs/extract_NF_2045B.csv",
+            NF_2045U: "data/model_outputs/extract_NF_2045U.csv"
+        }
+        if (chart_name){
+            container.classList.add('active');
+            spec.data.url = name_to_url[chart_name];
+
+            vegaEmbed('#chart', spec, {
+                actions: {
+                    export: true,
+                    source: false,
+                    editor: false
+                }
+            }).catch(function(error){
+                console.log(error);
+            });
+        }
     }
 
     function toggleChart(){
         var container = document.getElementById('chart-area');
-        document.querySelector('.show-chart').addEventListener("click", function(e){
-            e.preventDefault();
-            container.classList.add('active');
-        });
+        var links = document.querySelectorAll('.show-chart')
+
+        for (let index = 0; index < links.length; index++) {
+            links[index].addEventListener("click", function(e){
+                e.preventDefault();
+                set_hash({'chart': e.target.dataset.model});
+                setup_chart();
+            });
+        }
         document.querySelector('#chart-area .close').addEventListener("click", function(e){
             e.preventDefault();
             container.classList.remove('active');
+            set_hash({'chart': null});
         })
     }
 
@@ -554,7 +836,7 @@ var APP = {
             });
         }
         if (document.getElementById('chart')){
-            // chart();
+            setup_chart();
         }
         if (document.querySelector('.show-chart')){
             toggleChart();
