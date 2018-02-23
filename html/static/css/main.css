@@ -26,7 +26,7 @@
         bottom: 0;
         right: 0;
         left: 320px;
-        padding-left: 2em;
+        padding: 0.5em 2.5em;
         z-index: 1000;
         transform: translateY(100%);
         transition: transform 0.2s;
@@ -48,6 +48,21 @@
             height: 20em;
             width: 50em;
             z-index: 900;
+        }
+        .loading-indicator {
+            display: none;
+        }
+        .loading .chart-container{
+            display: none;
+        }
+        .loading .loading-indicator {
+            display: block;
+        }
+        .error-indicator {
+            display: none;
+        }
+        .error .error-indicator {
+            display: block;
         }
  /**
  * Header

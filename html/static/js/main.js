@@ -322,29 +322,56 @@ var APP = {
             ]
         }
 
-        var container = document.getElementById('chart-area');
         var chart_name = get_hash().chart;
+        var name_to_title = {
+            FF_2065B: "Far future (2065, B)",
+            FF_2065U: "Far future (2065, U)",
+            NF_2065B: "Near future (2065, B)",
+            NF_2065U: "Near future (2065, U)",
+            NF_2040B: "Near future (2040, B)",
+            NF_2040U: "Near future (2040, U)"
+        }
         var name_to_url = {
             FF_2065B: "data/model_outputs/extract_FF_2065B.csv",
             FF_2065U: "data/model_outputs/extract_FF_2065U.csv",
             NF_2065B: "data/model_outputs/extract_NF_2065B.csv",
             NF_2065U: "data/model_outputs/extract_NF_2065U.csv",
-            NF_2045B: "data/model_outputs/extract_NF_2045B.csv",
-            NF_2045U: "data/model_outputs/extract_NF_2045U.csv"
+            NF_2040B: "data/model_outputs/extract_NF_2040B.csv",
+            NF_2040U: "data/model_outputs/extract_NF_2040U.csv"
         }
-        if (chart_name){
-            container.classList.add('active');
-            spec.data.url = name_to_url[chart_name];
 
-            vegaEmbed('#chart', spec, {
-                actions: {
-                    export: true,
-                    source: false,
-                    editor: false
+        if (chart_name){
+            var container = document.getElementById('chart-area');
+            container.classList.remove('error');
+            container.classList.add('active');
+
+            var title = document.getElementById('chart-title');
+            title.textContent = name_to_title[chart_name];
+
+            container.classList.add('loading');
+            console.log('Start loading')
+
+            data_url = name_to_url[chart_name];
+            d3.csv(data_url, function(data){
+                spec.data = {
+                    "values": data
                 }
-            }).catch(function(error){
-                console.log(error);
-            });
+                vegaEmbed('#chart', spec, {
+                    actions: {
+                        export: true,
+                        source: false,
+                        editor: false
+                    }
+                }).then(function(data){
+                    container.classList.remove('loading');
+                    container.classList.remove('error');
+                    console.log('done')
+                }).catch(function(error){
+                    container.classList.remove('loading');
+                    container.classList.add('error');
+                    console.log(error);
+                });
+            })
         }
     }
 
