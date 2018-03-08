@@ -729,44 +729,33 @@ var APP = {
         }
     }
 
-    function closePullout(e){
-        e.preventDefault();
-        var el = document.querySelector('.pullout');
-        el.classList.remove('active');
-        set_hash({'tab': null});
-    }
-
     function togglePullout(e){
         e.preventDefault();
         var el = document.querySelector('.pullout');
         var tabs = document.querySelectorAll('.pullout .tab');
         var tab_contents = document.querySelectorAll('.pullout .tab-content');
         var tab = e.target;
-        if (el.classList.contains('active') && tab.classList.contains('active')){
-            el.classList.remove('active');
-            set_hash({'tab': null});
-        } else {
-            if (!tab.classList.contains('active')){
-                // clear others, activate this
-                var id = tab.attributes["href"].value.replace('#','');
-                var content = document.getElementById(id);
-                tab.classList.add('active');
-                content.classList.add('active');
-                for (var i = 0; i < tabs.length; i++) {
-                    if (tabs[i] != tab){
-                        tabs[i].classList.remove('active');
-                    }
+
+        if (!tab.classList.contains('active')){
+            // clear others, activate this
+            var id = tab.attributes["href"].value.replace('#','');
+            var content = document.getElementById(id);
+            tab.classList.add('active');
+            content.classList.add('active');
+            for (var i = 0; i < tabs.length; i++) {
+                if (tabs[i] != tab){
+                    tabs[i].classList.remove('active');
                 }
-                for (var i = 0; i < tab_contents.length; i++) {
-                    if (tab_contents[i] != content) {
-                        tab_contents[i].classList.remove('active');
-                    }
+            }
+            for (var i = 0; i < tab_contents.length; i++) {
+                if (tab_contents[i] != content) {
+                    tab_contents[i].classList.remove('active');
                 }
-                set_hash({'tab': id});
             }
-            if (!el.classList.contains('active')) {
-                el.classList.add('active');
-            }
+            set_hash({'tab': id});
+        }
+        if (!el.classList.contains('active')) {
+            el.classList.add('active');
         }
     }
 
