@@ -690,7 +690,7 @@ var APP = {
     /**
      * Store features in APP.system for reference
      *
-     * @param {*} data
+     * @param {GeoJSON FeatureCollection} data
      */
     function store_features(data){
         for (var i = 0; i < data.features.length; i++) {
@@ -766,15 +766,27 @@ var APP = {
         var link = e.target;
         var id = link.dataset.location;
         var feature = APP.system[id];
-        var zoom = link.dataset.zoom;
-        var layer = link.dataset.layer;
+        var zoom = link.dataset.zoom || 14;
+        var layer_name = link.dataset.layer;
+        var layer = APP.layers[layer_name];
         if (id && feature){
             var coords = turf.centroid(feature).geometry.coordinates;
             var center = [coords[1], coords[0]];
-            if (layer && !APP.map.hasLayer(APP.layers[layer])){
-                APP.map.addLayer(APP.layers[layer]);
+            if (layer && !APP.map.hasLayer(layer)){
+                APP.map.addLayer(layer);
             }
-            (zoom)? APP.map.flyTo(center, zoom) : APP.map.flyTo(center, 14)
+            get_geojson_feature_layer(layer, feature).openPopup()
+            APP.map.flyTo(center, zoom)
+        }
+    }
+
+    function get_geojson_feature_layer(layer, feature){
+        var layers = layer.getLayers()
+        for (var i = 0; i < layers.length; i++) {
+            var l = layers[i];
+            if (l.feature === feature){
+                return l
+            }
         }
     }
 
