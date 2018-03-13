@@ -586,6 +586,7 @@ var APP = {
             }
             // split features to layers
             // and store to APP.system
+            // used by e.g. links to refer to the features they link
             for (var i = 0; i < data.features.length; i++) {
                 var feature = data.features[i]
                 var id = feature.properties.id;
@@ -640,7 +641,8 @@ var APP = {
                     style: {
                         color: '#ffdf28',
                         weight: 5
-                    }
+                    },
+                    onEachFeature: link_popup
                 },
             }
 
@@ -682,6 +684,23 @@ var APP = {
     function system_popup(feature, layer){
         var content = feature.properties.popup || feature.properties.name ||
             feature.properties.type
+        layer.bindPopup(
+            content
+        )
+    }
+
+    function link_popup(feature, layer){
+        var from = APP.system[feature.properties.from];
+        var to = APP.system[feature.properties.to];
+        var content = '';
+
+        if (!(from && to)){
+            console.error("Missing from and to features for link", feature.properties);
+            content = feature.properties.from + ' ➟ ' + feature.properties.to;
+        } else {
+            content = from.properties.name + ' ➟ ' + to.properties.name;
+        }
+
         layer.bindPopup(
             content
         )
