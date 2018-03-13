@@ -477,7 +477,8 @@ var APP = {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
-                    color: '#0f9fff'
+                    color: '#0f9fff',
+                    weight: 5
                 },
                 onEachFeature: name_popup
             });
@@ -502,7 +503,7 @@ var APP = {
             var layer = L.geoJson(data, {
                 style: {
                     color: '#61c5ff',
-                    weight: 2
+                    weight: 4
                 },
                 onEachFeature: name_popup
             });
@@ -624,7 +625,8 @@ var APP = {
                 },
                 distribution: {
                     style: {
-                        color: '#01ca55'
+                        color: '#01ca55',
+                        weight: 5
                     },
                     onEachFeature: system_popup
                 },
@@ -636,7 +638,8 @@ var APP = {
                 },
                 link: {
                     style: {
-                        color: '#ffdf28'
+                        color: '#ffdf28',
+                        weight: 5
                     }
                 },
             }
