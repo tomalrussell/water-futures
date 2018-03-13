@@ -794,7 +794,7 @@ var APP = {
             if (layer && !APP.map.hasLayer(layer)){
                 APP.map.addLayer(layer);
             }
-            get_geojson_feature_layer(layer, feature).openPopup()
+            get_geojson_feature_layer(layer, feature).openPopup(center)
             APP.map.flyTo(center, zoom)
         }
     }
