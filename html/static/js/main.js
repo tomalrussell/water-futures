@@ -786,17 +786,36 @@ var APP = {
         var id = link.dataset.location;
         var feature = APP.system[id];
         var zoom = link.dataset.zoom || 14;
-        var layer_name = link.dataset.layer;
-        var layer = APP.layers[layer_name];
-        if (id && feature){
-            var coords = turf.centroid(feature).geometry.coordinates;
-            var center = [coords[1], coords[0]];
+        var layer_names = link.dataset.layers.split(" ");
+        var layers = [];
+
+        var layer_name, layer;
+
+        clear_layers_except(layer_names);
+
+        for (var i = 0; i < layer_names.length; i++) {
+            layer_name = layer_names[i];
+            layer = APP.layers[layer_name];
             if (layer && !APP.map.hasLayer(layer)){
                 APP.map.addLayer(layer);
             }
-            get_geojson_feature_layer(layer, feature).openPopup(center)
+        }
+
+        layer = APP.layers[layer_names.pop()]; // last layer in list must contain feature
+        if (id && feature){
+            var coords = turf.centroid(feature).geometry.coordinates;
+            var center = [coords[1], coords[0]];
+            get_geojson_feature_layer(layer, feature).openPopup(center);
             APP.map.flyTo(center, zoom)
         }
+    }
+
+    function clear_layers_except(except){
+        _.mapObject(APP.layers, function(layer, layer_name){
+            if (!_.contains(except, layer_name)){
+                APP.map.removeLayer(layer);
+            }
+        });
     }
 
     function get_geojson_feature_layer(layer, feature){
