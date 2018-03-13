@@ -418,9 +418,13 @@ var APP = {
             // Tributaries
             // Water Resource Zones
             // Catchment Areas
-            // Reservoirs
-            // Abstraction Points
-            // Pumping stations
+            // Reservoir
+            // Abstraction
+            // Desalination
+            // Pumping
+            // Treatment
+            // Link
+            // Distribution
         }
         control = L.control.layers(
             APP.baseMaps,
@@ -433,18 +437,20 @@ var APP = {
                         'Tributaries': 10,
                         'Water Resource Zones': 20,
                         'Catchment Areas': 30,
-                        'Reservoirs': 40,
+                        'Reservoir': 40,
                         'Abstraction': 50,
                         'Desalination': 55,
                         'Pumping': 60,
                         'Treatment': 70,
-                        'Distribution': 80,
-                        'Link': 100
+                        'Link': 80,
+                        'Distribution': 100
                     }
+                    // names are HTML strings: need to replace <span...>
+                    nameA = nameA.replace(/\<[^\>]*\>/g, '');
+                    nameB = nameB.replace(/\<[^\>]*\>/g, '');
+
                     if (order[nameA] && order[nameB]){
-                        // nameA and nameB are HTML string: need to include span
-                        // and class for this to work
-                        return order[nameA] - order[nameB]
+                        return order[nameA] - order[nameB];
                     } else {
                         // fall back to alphabetical
                         return (nameA > nameB)? 1 : (nameA < nameB)? -1 : 0;
@@ -473,11 +479,7 @@ var APP = {
                 style: {
                     color: '#0f9fff'
                 },
-                onEachFeature: function(feature, layer){
-                    layer.bindPopup(
-                        feature.properties["name"]
-                    )
-                }
+                onEachFeature: name_popup
             });
             control.addOverlay(
                 layer,
@@ -502,11 +504,7 @@ var APP = {
                     color: '#61c5ff',
                     weight: 2
                 },
-                onEachFeature: function(feature, layer){
-                    layer.bindPopup(
-                        feature.properties["name"]
-                    )
-                }
+                onEachFeature: name_popup
             });
             control.addOverlay(
                 layer,
@@ -529,11 +527,7 @@ var APP = {
                 style: {
                     color: '#513eff'
                 },
-                onEachFeature: function(feature, layer){
-                    layer.bindPopup(
-                        feature.properties["name"]
-                    )
-                }
+                onEachFeature: ca_popup
             });
             control.addOverlay(
                 layer,
@@ -557,12 +551,7 @@ var APP = {
                 style: {
                     color: '#ff3e5e'
                 },
-                onEachFeature: function(feature, layer){
-                    layer.bindPopup(
-                        feature.properties["name"] + " (" +
-                        feature.properties["company"] + ")"
-                    )
-                }
+                onEachFeature: wrz_popup
             });
             control.addOverlay(
                 layer,
@@ -573,18 +562,6 @@ var APP = {
             var layer_id = 'water_resource_zones';
             APP.layers[layer_id] = layer;
         });
-    }
-
-    function store_features(data){
-        /**
-         * Store features in APP.system for reference
-         */
-        for (var i = 0; i < data.features.length; i++) {
-            var feature = data.features[i]
-            var id = feature.properties.id;
-            var type = feature.properties.type;
-            APP.system[id] = feature;
-        }
     }
 
     function add_system(map, control){
@@ -625,67 +602,37 @@ var APP = {
                     style: {
                         color: '#8031ff'
                     },
-                    onEachFeature: function(feature, layer){
-                        var content = feature.properties.name || feature.properties.type
-                        layer.bindPopup(
-                            content
-                        )
-                    }
+                    onEachFeature: system_popup
                 },
                 abstraction: {
                     style: {
                         color: '#28fd81'
                     },
-                    onEachFeature: function(feature, layer){
-                        var content = feature.properties.name || feature.properties.type
-                        layer.bindPopup(
-                            content
-                        )
-                    }
+                    onEachFeature: system_popup
                 },
                 treatment: {
                     style: {
                         color: '#ff2aad'
                     },
-                    onEachFeature: function(feature, layer){
-                        var content = feature.properties.name || feature.properties.type
-                        layer.bindPopup(
-                            content
-                        )
-                    }
+                    onEachFeature: system_popup
                 },
                 pumping: {
                     style: {
                         color: '#fd5b2a'
                     },
-                    onEachFeature: function(feature, layer){
-                        var content = feature.properties.name || feature.properties.type
-                        layer.bindPopup(
-                            content
-                        )
-                    }
+                    onEachFeature: system_popup
                 },
                 distribution: {
                     style: {
                         color: '#01ca55'
                     },
-                    onEachFeature: function(feature, layer){
-                        var content = feature.properties.name || feature.properties.type
-                        layer.bindPopup(
-                            content
-                        )
-                    }
+                    onEachFeature: system_popup
                 },
                 desalination: {
                     style: {
                         color: '#3af8ff'
                     },
-                    onEachFeature: function(feature, layer){
-                        var content = feature.properties.name || feature.properties.type
-                        layer.bindPopup(
-                            content
-                        )
-                    }
+                    onEachFeature: system_popup
                 },
                 link: {
                     style: {
@@ -704,6 +651,51 @@ var APP = {
                 APP.layers[layer_id] = layer;
             });
         });
+    }
+
+    /**
+     * Bind a simple popup
+     * - use as callback for onEachFeature
+     *
+     * @param {GeoJSON feature} feature
+     * @param {Leaflet layer} layer
+     */
+    function name_popup(feature, layer){
+        layer.bindPopup(feature.properties.name);
+    }
+
+    function wrz_popup(feature, layer){
+        layer.bindPopup(
+            feature.properties.name + " (" + feature.properties.company + ")"
+        )
+    }
+
+    function ca_popup(feature, layer){
+        layer.bindPopup(
+            feature.properties.name + ", " + feature.properties.area
+        )
+    }
+
+    function system_popup(feature, layer){
+        var content = feature.properties.popup || feature.properties.name ||
+            feature.properties.type
+        layer.bindPopup(
+            content
+        )
+    }
+
+    /**
+     * Store features in APP.system for reference
+     *
+     * @param {*} data
+     */
+    function store_features(data){
+        for (var i = 0; i < data.features.length; i++) {
+            var feature = data.features[i]
+            var id = feature.properties.id;
+            var type = feature.properties.type;
+            APP.system[id] = feature;
+        }
     }
 
     function uppercase_first(string){
