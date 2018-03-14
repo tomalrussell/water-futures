@@ -639,7 +639,182 @@ APP.charts.historical_monthly_all = {
     }
 };
 
-//     future_annual: "data/model_outputs/future_annual.csv"
+// future_annual: "data/model_outputs/future_annual.csv"
+APP.charts.future_flow_windsor_mean = {
+    title: "Future flows at Windsor",
+    data_url: "data/model_outputs/future_annual.csv",
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "data": undefined,
+        "vconcat": [
+            {
+                "mark": "line",
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "scenario",
+                            "oneOf": ['FF_2065_B', 'NF_2065_B']
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "flow_windsor_mean",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": "Thames flow at Windsor (ML/day)"
+                        }
+                    },
+                    "color": {
+                        "field": "scenario",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000
+            },
+            {
+                "width": 1000,
+                "height": 30,
+                "mark": "area",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"]}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "format": "%Y",
+                            "title": "Select a date range","orient": "top"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+};
+
+APP.charts.future_flow_windsor_all = {
+    title: "Future flows at Windsor",
+    data_url: "data/model_outputs/future_annual.csv",
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "data": undefined,
+        "transform": [
+            {
+                "filter": {
+                    "field": "scenario",
+                    "oneOf": ['FF_2065_B', 'NF_2065_B']
+                }
+            }
+        ],
+        "vconcat": [
+            {
+                "layer": [
+                    {
+                        "mark": "area",
+                        "transform": [
+                            {"filter": {"selection": "brush"}}
+                        ],
+                        "encoding": {
+                            "x": {
+                                "field": "year",
+                                "type": "temporal",
+                                "timeUnit": "year",
+                                "axis": {
+                                    "title": "",
+                                    "format": "%Y",
+                                }
+                            },
+                            "y": {
+                                "field": "flow_windsor_amax",
+                                "type": "quantitative"
+                            },
+                            "y2": {
+                                "field": "flow_windsor_amin",
+                                "type": "quantitative"
+                            },
+                            "opacity": {"value": 0.3},
+                            "color": {
+                                "field": "scenario",
+                                "type": "nominal",
+                                "scale": {
+                                  "domain": ['FF_2065_B', 'NF_2065_B'],
+                                  "range": ["#e7ba52","#1f77b4"]
+                                },
+                                "legend": {
+                                    "title": "Scenario",
+                                    "values": ['Far future', 'Near future']
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "mark": "line",
+                        "transform": [
+                            {"filter": {"selection": "brush"}}
+                        ],
+                        "encoding": {
+                            "x": {
+                                "field": "year",
+                                "type": "temporal",
+                                "timeUnit": "year",
+                                "axis": {
+                                    "title": "",
+                                    "format": "%Y",
+                                }
+                            },
+                            "y": {
+                                "field": "flow_windsor_mean",
+                                "type": "quantitative",
+                                "axis": {
+                                    "title": "Thames flow at Windsor (ML/day)"
+                                }
+                            },
+                            "color": {
+                                "field": "scenario",
+                                "type": "nominal"
+                            }
+                        }
+                    }
+                ],
+                "width": 1000
+            },
+            {
+                "width": 1000,
+                "height": 30,
+                "mark": "area",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"], "resolve": "global"}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "format": "%Y",
+                            "title": "Select a date range","orient": "top"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+};
 
 (function(window, document, L, APP, undefined){
     var basemaps = {
@@ -675,6 +850,13 @@ APP.charts.historical_monthly_all = {
         container.classList.add('loading');
         console.log('Start loading');
 
+        if (APP.live_chart){
+            // prepare for removal
+            APP.live_chart.finalize();
+            // remove
+            document.getElementById('chart').textContent = '';
+        }
+
         d3.csv(chart.data_url, function(data){
             try {
                 if (chart.unroll_data){
@@ -696,7 +878,8 @@ APP.charts.historical_monthly_all = {
                     source: false,
                     editor: false
                 }
-            }).then(function(data){
+            }).then(function(result){
+                APP.live_chart = result.view
                 container.classList.remove('loading');
                 container.classList.remove('error');
                 console.log('done')
@@ -1182,34 +1365,6 @@ APP.charts.historical_monthly_all = {
         }
     }
 
-    function scenario(){
-        var ranges = document.querySelectorAll('input[type=range]');
-        var output, range;
-        for (var i = 0; i < ranges.length; i++) {
-            range = ranges[i];
-            range.addEventListener("input", range_change);
-            output = document.querySelector('output[for="'+range.id+'"]');
-            output.value = range.value;
-        }
-
-        set_total();
-    }
-
-    function range_change(e){
-        var range = e.target;
-        var output = document.querySelector('output[for="'+range.id+'"]');
-        output.value = range.value;
-
-        set_total();
-    }
-
-    function set_total(){
-        var total = document.getElementById('total-usage');
-        var a = document.getElementById('usage-change');
-        var b = document.getElementById('population-change');
-        total.value = parseInt(a.value) * parseInt(b.value);
-    }
-
     /**
      * Decode JSON object from window hash
      */
@@ -1261,9 +1416,9 @@ APP.charts.historical_monthly_all = {
         if (document.querySelector('.pullout')){
             pullout(url_options);
         }
-
-        link_to_map();
-        scenario();
+        if (document.querySelector('.map-link')){
+            link_to_map();
+        }
     }
 
     setup();

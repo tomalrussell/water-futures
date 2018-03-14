@@ -57,6 +57,7 @@
             opacity: 1;
             transition: opacity 0.2s;
         }
+        .error .chart-outer-container,
         .loading .chart-outer-container{
             opacity: 0;
             transition: opacity 0s;
