@@ -26,7 +26,7 @@
         bottom: 0;
         right: 0;
         left: 320px;
-        padding: 0.5em 2.5em;
+        padding: 0.5em 2.5em 0.5em 3.5em;
         z-index: 1000;
         transform: translateY(100%);
         transition: transform 0.2s;
@@ -37,9 +37,10 @@
     }
     #chart-area .close {
         position: absolute;
-        top: 0;
-        right: 4px;
+        top: 4px;
+        right: 16px;
         z-index: 100;
+        padding: 12px;
     }
         .overlay-chart {
             position: absolute;
@@ -52,8 +53,13 @@
         .loading-indicator {
             display: none;
         }
-        .loading .chart-container{
-            display: none;
+        .chart-outer-container {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+        .loading .chart-outer-container{
+            opacity: 0;
+            transition: opacity 0s;
         }
         .loading .loading-indicator {
             display: block;

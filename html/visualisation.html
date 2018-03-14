@@ -44,13 +44,15 @@
     <div id="chart-area" class="offscreen-right half right">
         <a href="#" class="close">×</a>
         <h2 class="h3" id="chart-title">No data loaded</h2>
-        <p class="alert alert-primary loading-indicator">
-          Loading data &hellip;
+        <p class="loading-indicator">
+          <img width="75" src="/static/images/loading.gif" alt="Loading"> Loading data &hellip;
         </p>
-        <p class="alert alert-primary error-indicator">
+        <p class="alert alert-error error-indicator">
           Error loading data.
         </p>
-        <div id="chart" class="chart-container"></div>
+        <div class="chart-outer-container">
+          <div id="chart" class="chart-container"></div>
+        </div>
     </div>
     <div class="pullout">
       <div class="tabs">
@@ -65,7 +67,14 @@
           <h2 class="h5">Water system</h2>
           <h3 class="h6">Rivers</h3>
           <ul>
-            <li><a href="#" class="map-link" data-location="TH01" data-layers="river_thames" data-zoom="8">River Thames</a></li>
+            <li>
+              <a href="#" class="map-link" data-location="TH01" data-layers="river_thames" data-zoom="8">River Thames</a>
+              <ul>
+                <li><a class="show-chart" href="#chart" data-chart="historical_daily_flow_windsor">2010</a></li>
+                <li><a class="show-chart" href="#chart" data-chart="historical_annual_flow_windsor">1970-2010</a></li>
+                <li><a class="show-chart" href="#chart" data-chart="historical_monthly_flow_windsor">1970-1980</a></li>
+              </ul>
+            </li>
             <li><a href="#" class="map-link" data-location="53LN" data-layers="river_thames thames_basin_rivers" data-zoom="10">River Lee</a></li>
           </ul>
           <h3 class="h6">Areas</h3>
