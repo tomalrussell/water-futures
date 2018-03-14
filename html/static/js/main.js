@@ -1326,6 +1326,11 @@ APP.charts.future_flow_windsor_all = {
         var layer_names = link.dataset.layers.split(" ");
         var layers = [];
 
+        var chart_area = document.getElementById('chart-area');
+        if (chart_area.classList.contains('active')){
+            chart_area.classList.remove('active')
+        }
+
         var layer_name, layer;
 
         clear_layers_except(layer_names);
