@@ -117,6 +117,7 @@ APP.charts.historical_monthly_flow_windsor = {
     data_url: "data/model_outputs/historical_monthly.csv",
     spec: {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
         "data": undefined,
         "vconcat": [
             {
@@ -169,7 +170,7 @@ APP.charts.historical_monthly_flow_windsor = {
                         "field": "flow_windsor",
                         "type": "quantitative",
                         "axis": {
-                            "title": "Thames flow at Windsor (ML/day)"
+                            "title": ""
                         }
                     }
                 }
@@ -178,12 +179,12 @@ APP.charts.historical_monthly_flow_windsor = {
     }
 };
 
-
 APP.charts.historical_annual_flow_windsor = {
     title: "River flows at Windsor 1970-2010",
     data_url: "data/model_outputs/historical_annual.csv",
     spec: {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
         "data": undefined,
         "vconcat": [
             {
@@ -205,16 +206,276 @@ APP.charts.historical_annual_flow_windsor = {
                         "axis": {
                             "title": "Thames flow at Windsor (ML/day)"
                         }
+                    }
+                },
+                "width": 1000
+            },
+            {
+                "width": 1000,
+                "height": 30,
+                "mark": "line",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"]}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "format": "%Y",
+                            "title": "Select a date range","orient": "top"
+                        }
                     },
-                    "color": {
-                        "type": "nominal",
-                        "value": "#cccccc",
-                        "legend": {
-                            "values": ["Daily flow"]
+                    "y": {
+                        "field": "flow_windsor",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": ""
+                        }
+                    }
+                }
+            }
+        ]
+    }
+};
+
+APP.charts.historical_annual_storage = {
+    title: "Reservoir storage 1970-2010",
+    data_url: "data/model_outputs/historical_annual.csv",
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "data": undefined,
+        "vconcat": [
+            {
+                "mark": "line",
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "storage",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": "Reservoir level"
                         }
                     }
                 },
                 "width": 1000
+            },
+            {
+                "width": 1000,
+                "height": 30,
+                "mark": "line",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"]}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "format": "%Y",
+                            "title": "Select a date range","orient": "top"
+                        }
+                    },
+                    "y": {
+                        "field": "storage",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": ""
+                        }
+                    }
+                }
+            }
+        ]
+    }
+};
+
+APP.charts.historical_monthly_storage = {
+    title: "Reservoir storage 1970-1980",
+    data_url: "data/model_outputs/historical_monthly.csv",
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "data": undefined,
+        "vconcat": [
+            {
+                "mark": "line",
+                "encoding": {
+                    "x": {
+                        "field": "date",
+                        "type": "temporal",
+                        "timeUnit": "yearmonthdate",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "storage",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": "Reservoir level"
+                        }
+                    }
+                },
+                "width": 1000
+            },
+            {
+                "width": 1000,
+                "height": 30,
+                "mark": "line",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"]}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "date",
+                        "type": "temporal",
+                        "timeUnit": "yearmonthdate",
+                        "axis": {
+                            "format": "%Y",
+                            "title": "Select a date range","orient": "top"
+                        }
+                    },
+                    "y": {
+                        "field": "storage",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": ""
+                        }
+                    }
+                }
+            }
+        ]
+    }
+};
+
+APP.charts.historical_annual_all = {
+    title: "Whole system 1970-1980",
+    data_url: "data/model_outputs/historical_annual.csv",
+    unroll_data: true,
+    keep_keys: ['year'],
+    unroll_keys: ['storage', 'restrictions', 'flow_windsor', 'flow_teddington'],
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "data": undefined,
+        "vconcat": [
+            {
+                "mark": "line",
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "series",
+                            "equal": 'flow_windsor'
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {"title": "River flow (ML/day)"}
+                    },
+                    "color": {
+                        "field": "series",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000
+            },
+            {
+                "mark": "line",
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "series",
+                            "equal": 'storage'
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {"title": "Reservoir level"}
+                    },
+                    "color": {
+                        "field": "series",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000,
+                "height": 100
+            },
+            {
+                "mark": {
+                    "type": "line",
+                    "interpolate": "step-after"
+                },
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "series",
+                            "equal": 'restrictions'
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "temporal",
+                        "timeUnit": "year",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {"title": "Mean restriction level"}
+                    },
+                    "color": {
+                        "field": "series",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000,
+                "height": 100
             },
             {
                 "width": 1000,
@@ -228,6 +489,145 @@ APP.charts.historical_annual_flow_windsor = {
                         "field": "year",
                         "type": "temporal",
                         "timeUnit": "year",
+                        "axis": {
+                            "format": "%Y",
+                            "title": "Select a date range","orient": "top"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+};
+
+
+APP.charts.historical_monthly_all = {
+    title: "Whole system 1970-1980",
+    data_url: "data/model_outputs/historical_monthly.csv",
+    unroll_data: true,
+    keep_keys: ['date'],
+    unroll_keys: ['storage', 'restrictions', 'flow_windsor', 'flow_teddington'],
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "data": undefined,
+        "vconcat": [
+            {
+                "mark": "line",
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "series",
+                            "equal": 'flow_windsor'
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "date",
+                        "type": "temporal",
+                        "timeUnit": "yearmonthdate",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {"title": "River flow (ML/day)"}
+                    },
+                    "color": {
+                        "field": "series",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000
+            },
+            {
+                "mark": "line",
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "series",
+                            "equal": 'storage'
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "date",
+                        "type": "temporal",
+                        "timeUnit": "yearmonthdate",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {"title": "Reservoir level"}
+                    },
+                    "color": {
+                        "field": "series",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000,
+                "height": 100
+            },
+            {
+                "mark": {
+                    "type": "line",
+                    "interpolate": "step-after"
+                },
+                "transform": [
+                    {
+                        "filter": {
+                            "field": "series",
+                            "equal": 'restrictions'
+                        }
+                    }
+                ],
+                "encoding": {
+                    "x": {
+                        "field": "date",
+                        "type": "temporal",
+                        "timeUnit": "yearmonthdate",
+                        "axis": {
+                            "title": "",
+                            "format": "%Y",
+                        },
+                        "scale": {"domain": {"selection": "brush"}},
+                    },
+                    "y": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {"title": "Mean restriction level"}
+                    },
+                    "color": {
+                        "field": "series",
+                        "type": "nominal"
+                    }
+                },
+                "width": 1000,
+                "height": 100
+            },
+            {
+                "width": 1000,
+                "height": 30,
+                "mark": "area",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"]}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "date",
+                        "type": "temporal",
+                        "timeUnit": "yearmonthdate",
                         "axis": {
                             "format": "%Y",
                             "title": "Select a date range","orient": "top"
@@ -276,6 +676,16 @@ APP.charts.historical_annual_flow_windsor = {
         console.log('Start loading');
 
         d3.csv(chart.data_url, function(data){
+            try {
+                if (chart.unroll_data){
+                    data = unroll_data(data, chart.keep_keys, chart.unroll_keys);
+                }
+            } catch (error) {
+                container.classList.remove('loading');
+                container.classList.add('error');
+                return
+            }
+
             chart.spec.data = {
                 "values": data
             }
@@ -296,6 +706,27 @@ APP.charts.historical_annual_flow_windsor = {
                 console.log(error);
             });
         });
+    }
+
+    function unroll_data(data, keep_keys, unroll_keys){
+        var unrolled = [];
+        var obs, unroll_key, keep_key;
+        for (var i = 0; i < data.length; i++) {
+            obs = data[i];
+            for (var j = 0; j < unroll_keys.length; j++) {
+                unroll_key = unroll_keys[j];
+                datum = {
+                    value: obs[unroll_key],
+                    series: unroll_key
+                };
+                for (var k = 0; k < keep_keys.length; k++) {
+                    keep_key = keep_keys[k];
+                    datum[keep_key] = obs[keep_key];
+                }
+                unrolled.push(datum);
+            }
+        }
+        return unrolled;
     }
 
     function toggleChart(){

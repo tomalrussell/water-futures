@@ -44,10 +44,10 @@
     <div id="chart-area" class="offscreen-right half right">
         <a href="#" class="close">×</a>
         <h2 class="h3" id="chart-title">No data loaded</h2>
-        <p class="loading-indicator">
+        <p class="alert alert-light loading-indicator">
           <img width="75" src="/static/images/loading.gif" alt="Loading"> Loading data &hellip;
         </p>
-        <p class="alert alert-error error-indicator">
+        <p class="alert alert-danger error-indicator">
           Error loading data.
         </p>
         <div class="chart-outer-container">
@@ -84,7 +84,13 @@
           </ul>
           <h3 class="h6">Sources</h3>
           <ul>
-            <li><a href="#" class="map-link" data-location="8" data-zoom="11" data-layers="river_thames reservoir">London Reservoirs</a></li>
+            <li>
+              <a href="#" class="map-link" data-location="8" data-zoom="11" data-layers="river_thames reservoir">London Reservoirs</a>
+              <ul>
+                <li><a class="show-chart" href="#chart" data-chart="historical_annual_storage">1970-2010</a></li>
+                <li><a class="show-chart" href="#chart" data-chart="historical_monthly_storage">1970-1980</a></li>
+              </ul>
+            </li>
             <li><a href="#" class="map-link" data-location="10" data-zoom="11" data-layers="river_thames thames_basin_rivers reservoir">Lee Reservoirs</a></li>
             <li><a href="#" class="map-link" data-location="6" data-zoom="12" data-layers="abstraction">Groundwater abstraction</a></li>
             <li><a href="#" class="map-link" data-location="9" data-zoom="12" data-layers="river_thames reservoir abstraction">Thames-Lee transfer abstraction</a></li>
@@ -104,6 +110,11 @@
           <h3 class="h6">Distribution network</h3>
           <ul>
             <li><a href="#" class="map-link" data-location="5" data-zoom="11" data-layers="reservoir abstraction link distribution">London</a></li>
+          </ul>
+          <h3 class="h6">Whole system</h3>
+          <ul>
+            <li><a href="#chart" class="show-chart" data-chart="historical_annual_all">1970-2010</a></li>
+            <li><a href="#chart" class="show-chart" data-chart="historical_monthly_all">1970-1980</a></li>
           </ul>
         </div>
         <form id="tab-content-future" class="tab-content">
