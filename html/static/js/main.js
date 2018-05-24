@@ -833,8 +833,11 @@ APP.charts.future_flow_windsor_all = {
 
     function setup_chart(){
         var chart_name = get_hash().chart;
-        var chart = APP.charts[chart_name];
+        if (!chart_name){
+            return;
+        }
 
+        var chart = APP.charts[chart_name];
         if (!chart){
             console.log("Chart " + chart_name + " not found");
             return;
@@ -1017,7 +1020,7 @@ APP.charts.future_flow_windsor_all = {
                     color: '#0f9fff',
                     weight: 5
                 },
-                onEachFeature: name_popup
+                onEachFeature: system_popup
             });
             control.addOverlay(
                 layer,
@@ -1042,7 +1045,7 @@ APP.charts.future_flow_windsor_all = {
                     color: '#61c5ff',
                     weight: 4
                 },
-                onEachFeature: name_popup
+                onEachFeature: system_popup
             });
             control.addOverlay(
                 layer,
@@ -1203,27 +1206,26 @@ APP.charts.future_flow_windsor_all = {
      * @param {Leaflet layer} layer
      */
     function name_popup(feature, layer){
-        layer.bindPopup(feature.properties.name);
+        var content = feature.properties.popup || feature.properties.name;
+        layer.bindPopup(content);
     }
 
     function wrz_popup(feature, layer){
-        layer.bindPopup(
-            feature.properties.name + " (" + feature.properties.company + ")"
-        )
+        var content = feature.properties.popup || feature.properties.name +
+            " (" + feature.properties.company + ")";
+        layer.bindPopup(content);
     }
 
     function ca_popup(feature, layer){
-        layer.bindPopup(
-            feature.properties.name + ", " + feature.properties.area
-        )
+        var content = feature.properties.popup || feature.properties.name +
+            ", " + feature.properties.area;
+        layer.bindPopup(content);
     }
 
     function system_popup(feature, layer){
         var content = feature.properties.popup || feature.properties.name ||
             feature.properties.type
-        layer.bindPopup(
-            content
-        )
+        layer.bindPopup(content);
     }
 
     function link_popup(feature, layer){
@@ -1375,7 +1377,11 @@ APP.charts.future_flow_windsor_all = {
      */
     function get_hash(){
         try {
-            return JSON.parse(decodeURIComponent(window.location.hash.replace('#','')));
+            if (window.location.hash) {
+                return JSON.parse(decodeURIComponent(window.location.hash.replace('#','')));
+            } else {
+                return {}
+            }
         } catch (error) {
             console.log(error);
             return {}
