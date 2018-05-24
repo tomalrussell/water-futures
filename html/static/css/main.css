@@ -29,6 +29,13 @@
     .leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
         font-size: 0.833rem;
     }
+    .leaflet-popup-content-wrapper {
+        max-height: 500px;
+        overflow-y: scroll;
+    }
+    .leaflet-container a.leaflet-popup-close-button {
+        right: 15px; /* nudge close button out from over scroll bar */
+    }
 
     #chart-area {
         background: #fff;
