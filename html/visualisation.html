@@ -58,8 +58,7 @@
       <div class="tabs">
         <div class="tabs-inner">
           <a href="#tab-content-system" class="tab active">Water system</a>
-          <a href="#tab-content-future" class="tab">Possible futures</a>
-          <a href="#tab-content-action" class="tab">Actions</a>
+          <a href="#tab-content-model" class="tab">Model</a>
         </div>
       </div>
       <div class="content">
@@ -99,36 +98,71 @@
             <li><a href="#" class="map-link" data-location="5" data-zoom="11" data-layers="reservoir abstraction link distribution">London</a></li>
           </ul>
         </div>
-        <form id="tab-content-future" class="tab-content">
-          <h2 class="h5">Possible futures</h3>
-          <h3 class="h6">River Flows</h3>
+        <form id="tab-content-model" class="tab-content">
+          <h2 class="h5">Model</h3>
+
+          <h3 class="h6">River flow</h3>
           <p>
             In the future, the amount of water flowing down the Thames might
             change with the climate.
           </p>
-          <ul>
-            <li><a href="#chart" class="show-chart" data-chart="historical_annual_flow_windsor">Past</a></li>
-            <li><a href="#chart" class="show-chart" data-chart="future_flow_windsor_mean">&hellip; and possible futures</a></li>
-            <li><a href="#chart" class="show-chart" data-chart="future_flow_windsor_all">&hellip; with uncertainty</a></li>
-          </ul>
-        </form>
+          <div class="form-group">
+            <label for="period">Test a climate scenario:</label>
+            <select name="period" id="period" class="form-control">
+              <option value="historical">Historical (1970-2010)</option>
+              <option value="near-future">Near future climate scenario</option>
+              <option value="far-future">Far future climate scenario</option>
+            </select>
+          </div>
 
-        <form id="tab-content-action" class="tab-content">
-          <h2 class="h5">Actions and interventions</h3>
-          <h3 class="h6">Demand-side</h3>
+          <h3 class="h6">Water consumption</h3>
           <p>
-
-            How could we reduce water usage?
-
+            In the future, the amount of water being used might change with the
+            number of people and how we act.
           </p>
-          <h3 class="h6">Supply-side</h3>
+          <div class="form-group">
+            <label for="demand">Test a demand scenario:</label>
+            <select name="demand" id="demand" class="form-control">
+              <option value="">Historical (1970-2010)</option>
+              <option disabled value="2063">Low</option>
+              <option disabled value="2547">Baseline</option>
+              <option disabled value="2935">High</option>
+            </select>
+          </div>
+
+          <h3 class="h6">Possible action</h3>
           <p>
-
-            How could we supply more water to meet rising demand?
-
+            What should we do in response to how the world might change?
           </p>
-
-
+          <div class="form-group">
+            <div class="form-check">
+              <input type="radio" name="action" id="action-none" value="0" checked>
+              <label class="form-check-label" for="action-none">No change</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" name="action" id="action-reuse" value="1">
+              <label class="form-check-label" for="action-reuse">Water reuse</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" name="action" id="action-reservoir" value="2">
+              <label class="form-check-label" for="action-reservoir">New reservoir</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" name="action" id="action-desalination" value="3">
+              <label class="form-check-label" for="action-desalination">Desalination</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" name="action" id="action-usage" value="4">
+              <label class="form-check-label" for="action-usage">Usage reduction</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" name="action" id="action-leakage" value="5">
+              <label class="form-check-label" for="action-leakage">Leakage reduction</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Run model" class="btn btn-primary btn-block">
+          </div>
         </form>
       </div>
     </div>
