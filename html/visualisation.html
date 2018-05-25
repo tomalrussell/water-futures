@@ -123,10 +123,10 @@
           <div class="form-group">
             <label for="demand">Test a demand scenario:</label>
             <select name="demand" id="demand" class="form-control">
-              <option value="">Historical (1970-2010)</option>
-              <option disabled value="2063">Low</option>
-              <option disabled value="2547">Baseline</option>
-              <option disabled value="2935">High</option>
+              <option value="historical">Historical (1970-2010)</option>
+              <option value="2063">Low</option>
+              <option value="2547">Baseline</option>
+              <option value="2935">High</option>
             </select>
           </div>
 
@@ -136,7 +136,7 @@
           </p>
           <div class="form-group">
             <div class="form-check">
-              <input type="radio" name="action" id="action-none" value="0" checked>
+              <input type="radio" name="action" id="action-none" value="none" checked>
               <label class="form-check-label" for="action-none">No change</label>
             </div>
             <div class="form-check">
@@ -161,7 +161,7 @@
             </div>
           </div>
           <div class="form-group">
-            <input type="submit" value="Run model" class="btn btn-primary btn-block">
+            <input type="submit" value="Run model" class="btn btn-primary btn-block show-chart">
           </div>
         </form>
       </div>
