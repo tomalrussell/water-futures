@@ -7,6 +7,8 @@ var APP = {
 };
 APP.charts = {}
 
+vega.scheme('waterfutures', ['#0078c8', '#f5871c', '#e45756', '#4b33aa']);
+
 APP.charts.multi_detail = {
     title: undefined,
     data_url: undefined,
@@ -48,7 +50,9 @@ APP.charts.multi_detail = {
                     },
                     "color": {
                         "field": "series",
-                        "type": "nominal"
+                        "type": "nominal",
+                        "scale": {"scheme": "waterfutures"},
+                        "legend": {"title": "Legend"}
                     }
                 },
                 "width": 1000
@@ -83,7 +87,9 @@ APP.charts.multi_detail = {
                     },
                     "color": {
                         "field": "series",
-                        "type": "nominal"
+                        "type": "nominal",
+                        "scale": {"scheme": "waterfutures"},
+                        "legend": {"title": "Legend"}
                     }
                 },
                 "width": 1000,
@@ -119,7 +125,9 @@ APP.charts.multi_detail = {
                     },
                     "color": {
                         "field": "series",
-                        "type": "nominal"
+                        "type": "nominal",
+                        "scale": {"scheme": "waterfutures"},
+                        "legend": {"title": "Legend"}
                     }
                 },
                 "width": 1000,
@@ -155,7 +163,9 @@ APP.charts.multi_detail = {
                     },
                     "color": {
                         "field": "series",
-                        "type": "nominal"
+                        "type": "nominal",
+                        "scale": {"scheme": "waterfutures"},
+                        "legend": {"title": "Legend"}
                     }
                 },
                 "width": 1000,
