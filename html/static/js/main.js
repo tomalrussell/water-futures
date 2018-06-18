@@ -46,7 +46,7 @@ APP.charts.multi_detail = {
                     "y": {
                         "field": "value",
                         "type": "quantitative",
-                        "axis": {"title": "River flow (ML/day)"}
+                        "axis": {"title": "River flow at Windsor (ML/day)"}
                     },
                     "color": {
                         "field": "series",
@@ -83,7 +83,7 @@ APP.charts.multi_detail = {
                     "y": {
                         "field": "value",
                         "type": "quantitative",
-                        "axis": {"title": "Reservoir level"}
+                        "axis": {"title": "Total Lower Thames Storage (ML)"}
                     },
                     "color": {
                         "field": "series",
