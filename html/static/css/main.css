@@ -171,6 +171,12 @@ strong {
     font-weight: bold;
 }
 /**
+ * Forms (see bootstrap components)
+ */
+.btn-outline-light {
+    border-color: #ced4da;
+}
+/**
  * Pullout
  */
 .pullout {
@@ -186,13 +192,15 @@ strong {
 .pullout .tabs {
     position: absolute;
     top: 0;
+    font-size: 0;
     right: -2em;
     width: 2em;
 }
 .pullout .tabs-inner {
     position: absolute;
     left: 0;
-    top: -2em;
+    top: -32px;
+    height: 32px;
     white-space: nowrap;
     transform: rotate(90deg);
     transform-origin: bottom left;
@@ -200,6 +208,8 @@ strong {
 .pullout .tab {
     height: 2em;
     display: inline-block;
+    margin-right: 1px;
+    font-size: 1rem;
     white-space: nowrap;
     background: #efefef;
     padding: 0 0.5em;
