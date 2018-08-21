@@ -13,7 +13,7 @@ var chart_elements = {}
 chart_elements.config = {
     "title": {
         "anchor": "start",
-        "fontSize": 14,
+        "fontSize": 16,
         "fontColor": "#222"
     }
 }
@@ -174,7 +174,10 @@ chart_elements.restrictions = {
 }
 
 chart_elements.brush = {
-    "title": "Click and drag to select a date range",
+    "title": {
+        "text": "Click and drag to select a date range:",
+        "fontSize": 14
+    },
     "width": 1000,
     "height": 20,
     "mark": "area",
