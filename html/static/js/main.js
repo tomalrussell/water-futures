@@ -203,11 +203,10 @@ chart_elements.brush = {
 }
 
 APP.charts.flow = {
-    title: undefined,
     data_url: undefined,
     unroll_data: true,
     keep_keys: ['date'],
-    unroll_keys: ['flow_windsor', 'storage', 'shortfall_london', 'restrictions'],
+    unroll_keys: ['flow_windsor'],
     spec: {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
         "background": "#ffffff",
@@ -221,7 +220,6 @@ APP.charts.flow = {
 };
 
 APP.charts.multi_detail = {
-    title: undefined,
     data_url: undefined,
     unroll_data: true,
     keep_keys: ['date'],
@@ -265,10 +263,6 @@ APP.charts.multi_detail = {
         var container = document.getElementById('chart-area');
         container.classList.remove('error');
         container.classList.add('active');
-
-        var title = document.getElementById('chart-title');
-        title.textContent = chart.title;
-
         container.classList.add('loading');
         console.log('Loading '+chart.data_url);
 
@@ -651,50 +645,13 @@ APP.charts.multi_detail = {
             }
 
             var options_by_layer = {
-                reservoir: {
-                    style: {
-                        color: '#8031ff'
-                    },
-                    onEachFeature: system_popup
-                },
-                abstraction: {
-                    style: {
-                        color: '#28fd81'
-                    },
-                    onEachFeature: system_popup
-                },
-                treatment: {
-                    style: {
-                        color: '#ff2aad'
-                    },
-                    onEachFeature: system_popup
-                },
-                pumping: {
-                    style: {
-                        color: '#fd5b2a'
-                    },
-                    onEachFeature: system_popup
-                },
-                distribution: {
-                    style: {
-                        color: '#01ca55',
-                        weight: 5
-                    },
-                    onEachFeature: system_popup
-                },
-                desalination: {
-                    style: {
-                        color: '#3af8ff'
-                    },
-                    onEachFeature: system_popup
-                },
-                link: {
-                    style: {
-                        color: '#ffdf28',
-                        weight: 5
-                    },
-                    onEachFeature: link_popup
-                },
+                reservoir: { style: { color: '#8031ff' }, onEachFeature: system_popup },
+                abstraction: { style: { color: '#28fd81' }, onEachFeature: system_popup },
+                treatment: { style: { color: '#ff2aad' }, onEachFeature: system_popup },
+                pumping: { style: { color: '#fd5b2a' }, onEachFeature: system_popup },
+                distribution: { style: { color: '#01ca55', weight: 5 }, onEachFeature: system_popup },
+                desalination: { style: { color: '#3af8ff' }, onEachFeature: system_popup },
+                link: { style: { color: '#ffdf28', weight: 5 }, onEachFeature: link_popup },
             }
 
             _.mapObject(features_by_layer, function(data, layer_id){
@@ -765,7 +722,6 @@ APP.charts.multi_detail = {
         for (var i = 0; i < data.features.length; i++) {
             var feature = data.features[i]
             var id = feature.properties.id;
-            var type = feature.properties.type;
             APP.system[id] = feature;
         }
     }
