@@ -240,7 +240,7 @@ APP.charts.multi_detail = {
 
     function setup_chart(chart){
         if (!chart){
-            console.log("Chart " + chart + " not found");
+            console.error("Chart " + chart + " not found");
             return;
         }
 
@@ -267,12 +267,12 @@ APP.charts.multi_detail = {
                 APP.live_chart = result.view
             }).catch(function(error){
                 container.classList.add('error');
-                console.log(error);
+                console.error(error);
             });
         }).catch(function(error){
             container.classList.remove('loading');
             container.classList.add('error');
-            console.log(error);
+            console.error(error);
         });
     }
 
@@ -358,14 +358,21 @@ APP.charts.multi_detail = {
         }
     }
 
+    function get_radio_value(ancestor, name) {
+        var radio = ancestor.querySelector('input[name="'+name+'"]:checked')
+        if (radio) {
+            return radio.value
+        }
+        return undefined;
+    }
+
     function show_flows_chart(){
         var form = document.querySelector('form.active');
         if (!form){
             return
         }
-        var data = new FormData(form);
         var chart = APP.charts.flow;
-        var climate = data.get('period');
+        var climate = get_radio_value(form, 'period');
         var demand;
         var action;
         var iteration;
@@ -378,7 +385,7 @@ APP.charts.multi_detail = {
         } else {
             demand = '2547';
             action = 'none';
-            iteration = data.get('iteration');
+            iteration = form.iteration.value;
             iteration_part = '__iteration_' + iteration;
         }
         chart.spec.title = flow_title(climate, iteration);
@@ -394,22 +401,24 @@ APP.charts.multi_detail = {
         if (!form){
             return
         }
-        var data = new FormData(form);
         var chart = APP.charts.multi_detail;
-        var climate = data.get('period');
-        var demand = data.get('demand');
-        if (!demand) {
-            demand = "historical"
-        }
-        var action = data.get('action');
-        if (!action) {
-            action = "none"
-        }
+        var climate = get_radio_value(form, 'period');
+        var demand;
+        var action;
         var iteration = '';
         var iteration_part = '';
-        if (climate != 'historical') {
-            iteration = data.get('iteration');
+        if (climate == 'historical') {
+            demand = "historical"
+            action = "none"
+        } else {
+            iteration = form.iteration.value;
             iteration_part = '__iteration_' + iteration;
+            demand = get_radio_value(form, 'demand');
+            if (demand == "2935" && climate == "near-future"){
+                action = get_radio_value(form, 'action');
+            } else {
+                action = "none";
+            }
         }
         chart.spec.title = multi_title(climate, demand, action, iteration);
         chart.data_url = 'data/model_outputs/climate_' + climate +
@@ -469,8 +478,7 @@ APP.charts.multi_detail = {
         if (!form){
             return
         }
-        var data = new FormData(form);
-        var is_historical = (data.get('period') == 'historical');
+        var is_historical = (get_radio_value(form, 'period') == 'historical');
 
         var input = document.querySelector('.tab-content.active input[name="iteration"]');
         input.disabled = is_historical;
@@ -485,10 +493,9 @@ APP.charts.multi_detail = {
         }
 
         // check demand only after perhaps enabling demand radios
-        var data = new FormData(form);
         var enable_actions = (
-            data.get('demand') == '2935' &&
-            data.get('period') == 'near-future'
+            form.demand && get_radio_value(form, 'demand') == '2935' &&
+            form.period && get_radio_value(form, 'period') == 'near-future'
         );
 
         var action_radios = document.querySelectorAll('.tab-content.active input[name="action"]');
@@ -880,7 +887,7 @@ APP.charts.multi_detail = {
                 return {}
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return {}
         }
     }
@@ -896,7 +903,7 @@ APP.charts.multi_detail = {
         try {
             window.location.hash = encodeURIComponent(JSON.stringify(next));
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand">
       <a class="navbar-brand" href="index.html">
         <h1>
-          <img src="./static/images/waterfutures_logo.png" width="230" class-"align-bottom" alt="Water Futures: East London"/>
+          <img src="./static/images/waterfutures_logo.png" width="230" class="align-bottom" alt="Water Futures: East London"/>
         </h1>
       </a>
       <ul class="navbar-nav">
@@ -130,14 +130,16 @@
         <div class="decisions-table-container">
             <table class="table table-hover table-sm">
               <thead>
-                <th scope="col">River flows</th>
-                <th scope="col">Demand</th>
-                <th scope="col">Option</th>
-                <th scope="col">Expected level 1 restrictions</th>
-                <th scope="col">Expected level 2 restrictions</th>
-                <th scope="col">Expected level 3 restrictions</th>
-                <th scope="col">Expected level 4 restrictions</th>
-                <th scope="col">Meets regulations</th>
+                <tr>
+                  <th scope="col">River flows</th>
+                  <th scope="col">Demand</th>
+                  <th scope="col">Option</th>
+                  <th scope="col">Expected level 1 restrictions</th>
+                  <th scope="col">Expected level 2 restrictions</th>
+                  <th scope="col">Expected level 3 restrictions</th>
+                  <th scope="col">Expected level 4 restrictions</th>
+                  <th scope="col">Meets regulations</th>
+                </tr>
               </thead>
               <tbody>
                 <tr>
@@ -374,7 +376,7 @@
           </p>
         </div>
         <form id="tab-content-model" class="tab-content">
-          <h2 class="h5">Model</h3>
+          <h2 class="h5">Model</h2>
           <p>
             What can we learn by simulating possible futures using a model?
           </p>
@@ -475,6 +477,7 @@
   </main>
   <script src="./static/js/promise.min.js"></script>
   <script src="./static/js/symbol.min.js"></script>
+  <script src="./static/js/fetch.min.js"></script>
   <script src="./static/js/underscore.min.js"></script>
   <script src="./static/js/turf.min.js"></script>
   <script src="./static/js/d3.min.js"></script>
