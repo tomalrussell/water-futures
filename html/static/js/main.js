@@ -364,14 +364,27 @@ APP.charts.multi_detail = {
         container.classList.remove('active');
     }
 
-    function show_table(){
-        var container = document.querySelector('.options-table-container');
-        container.classList.add('active');
+    function show_table(table){
+        var options = document.querySelector('.options-table-container');
+        var decisions = document.querySelector('.decisions-table-container');
+        switch (table) {
+            case 'options':
+                options.classList.add('active');
+                decisions.classList.remove('active');
+                break;
+
+            case 'decisions':
+                options.classList.remove('active');
+                decisions.classList.add('active');
+                break;
+        }
     }
 
     function hide_table(){
-        var container = document.querySelector('.options-table-container');
-        container.classList.remove('active');
+        var options = document.querySelector('.options-table-container');
+        options.classList.remove('active');
+        var decisions = document.querySelector('.decisions-table-container');
+        decisions.classList.remove('active');
     }
 
     function unroll_data(data, keep_keys, unroll_keys){
@@ -398,20 +411,26 @@ APP.charts.multi_detail = {
     /**
      * Set up chart controls
      */
-    function toggle_chart(){
+    function setup_chart_controls(){
         // Flows (single chart)
         var form = document.getElementById('tab-content-flow');
-        form.addEventListener("submit", show_flows_chart);
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+            show_flows_chart();
+        });
 
         // Model (multi chart)
         var form = document.getElementById('tab-content-model');
-        form.addEventListener("submit", show_multi_chart);
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+            show_multi_chart();
+        });
 
         // Enable/disable form sections
         var radios = document.querySelectorAll('input[type="radio"]')
         for (var i = 0; i < radios.length; i++) {
             var radio = radios[i];
-            radio.addEventListener('change', enable_disable_historical);
+            radio.addEventListener('change', setup_chart_state);
         }
 
         // Random iteration buttons
@@ -422,10 +441,13 @@ APP.charts.multi_detail = {
         }
     }
 
-    function show_flows_chart(e){
-        e.preventDefault();
+    function show_flows_chart(){
+        var form = document.querySelector('form.active');
+        if (!form){
+            return
+        }
+        var data = new FormData(form);
         var chart_spec = APP.charts.flow;
-        const data = new FormData(e.target);
         var climate = data.get('period');
         var demand;
         var action;
@@ -464,10 +486,13 @@ APP.charts.multi_detail = {
         return title;
     }
 
-    function show_multi_chart(e){
-        e.preventDefault();
+    function show_multi_chart(){
+        var form = document.querySelector('form.active');
+        if (!form){
+            return
+        }
+        var data = new FormData(form);
         var chart_spec = APP.charts.multi_detail;
-        var data = new FormData(e.target);
         var climate = data.get('period');
         var demand = data.get('demand');
         if (!demand) {
@@ -488,7 +513,7 @@ APP.charts.multi_detail = {
         setup_chart(chart_spec);
     }
 
-    function enable_disable_historical(){
+    function setup_chart_state(){
         var form = document.querySelector('form.active');
         if (!form){
             return
@@ -936,13 +961,12 @@ APP.charts.multi_detail = {
             switch (options.tab) {
                 case "tab-content-system":
                     hide_chart();
-                    hide_table();
                     break;
 
                 case "tab-content-flow":
-                    enable_disable_historical();
+                    setup_chart_state();
                     hide_table();
-                    blank_chart();
+                    show_flows_chart();
                     break;
 
                 case "tab-content-demand":
@@ -951,19 +975,19 @@ APP.charts.multi_detail = {
                     break;
 
                 case "tab-content-options":
-                    show_table();
                     blank_chart();
+                    show_table('options');
                     break;
 
                 case "tab-content-model":
-                    enable_disable_historical();
                     hide_table();
-                    blank_chart();
+                    setup_chart_state();
+                    show_multi_chart();
                     break;
 
                 case "tab-content-decision":
-                    hide_table();
                     blank_chart();
+                    show_table('decisions');
                     break;
             }
         }
@@ -1020,7 +1044,7 @@ APP.charts.multi_detail = {
             });
         }
         if (document.querySelector('.show-chart')){
-            toggle_chart();
+            setup_chart_controls();
         }
         if (document.querySelector('.pullout')){
             pullout(options);

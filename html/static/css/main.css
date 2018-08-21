@@ -10,86 +10,78 @@
     bottom: 0;
     min-width: 780px;
  }
-    .fullscreen-map {
-        position: absolute;
-        top: 0;
-        left: 320px; /* pullout */
-        right: 0;
-        bottom: 0;
-    }
-    /* override leaflet text style, reset to bootstrap */
-    .leaflet-container {
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        text-align: left;
-    }
-    .leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
-        font-size: 0.833rem;
-    }
-    .leaflet-popup-content-wrapper {
-        max-height: 500px;
-        overflow-y: scroll;
-    }
-    .leaflet-container a.leaflet-popup-close-button {
-        right: 15px; /* nudge close button out from over scroll bar */
-    }
+.fullscreen-map {
+    position: absolute;
+    top: 0;
+    left: 320px; /* pullout */
+    right: 0;
+    bottom: 0;
+}
+/* override leaflet text style, reset to bootstrap */
+.leaflet-container {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+.leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
+    font-size: 0.833rem;
+}
+.leaflet-popup-content-wrapper {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+.leaflet-container a.leaflet-popup-close-button {
+    right: 15px; /* nudge close button out from over scroll bar */
+}
 
-    #chart-area {
-        background: #fff;
-        box-shadow: -2px 0px 2px -2px #222;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 320px;
-        padding: 0.5em 2.5em 0.5em 3.5em;
-        z-index: 1000;
-        transform: translateY(100%);
-        transition: transform 0.2s;
-        overflow: auto;
-    }
-    #chart-area.active {
-        transform: translateY(0);
-    }
-    #chart-area .close {
-        position: absolute;
-        top: 4px;
-        right: 16px;
-        z-index: 100;
-        padding: 12px;
-    }
-        .overlay-chart {
-            position: absolute;
-            top: 5em;
-            right: 5em;
-            height: 20em;
-            width: 50em;
-            z-index: 900;
-        }
-        .loading-indicator {
-            display: none;
-        }
-        .chart-outer-container {
-            opacity: 1;
-            transition: opacity 0.2s;
-        }
-        .error .chart-outer-container,
-        .loading .chart-outer-container{
-            opacity: 0;
-            transition: opacity 0s;
-        }
-        .loading .loading-indicator {
-            display: block;
-        }
-        .error-indicator {
-            display: none;
-        }
-        .error .error-indicator {
-            display: block;
-        }
+#chart-area {
+    background: #fff;
+    box-shadow: -2px 0px 2px -2px #222;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 320px;
+    padding: 0.5em 2.5em 0.5em 3.5em;
+    z-index: 1000;
+    transform: translateY(100%);
+    overflow: auto;
+}
+#chart-area.active {
+    transform: translateY(0);
+}
+.overlay-chart {
+    position: absolute;
+    top: 5em;
+    right: 5em;
+    height: 20em;
+    width: 50em;
+    z-index: 900;
+}
+.loading-indicator {
+    display: none;
+}
+.chart-outer-container {
+    opacity: 1;
+    transition: opacity 0.4s;
+}
+.error .chart-outer-container,
+.loading .chart-outer-container{
+    opacity: 0;
+    transition: opacity 0s;
+}
+.loading .loading-indicator {
+    display: block;
+}
+.error-indicator {
+    display: none;
+}
+.error .error-indicator {
+    display: block;
+}
  /**
  * Header
  */
@@ -141,7 +133,6 @@
     .main-header.hover-to-show {
         transform: translateY(-120px);
     }
-
 }
 /**
  * Text
@@ -243,12 +234,6 @@ strong {
 .pullout .tab-content.active {
     display: block;
 }
-.pullout .close {
-    z-index: 100;
-    position: absolute;
-    top: 1px;
-    right: 13px;
-}
 /**
  * Layer control
  */
@@ -296,10 +281,12 @@ strong {
 /**
  * Table hints
  */
-.options-table-container {
+.options-table-container,
+.decisions-table-container {
     display: none;
 }
-.options-table-container.active {
+.options-table-container.active,
+.decisions-table-container.active {
     display: block;
 }
 .table td,
