@@ -407,11 +407,11 @@ APP.charts.multi_detail = {
         var form = document.getElementById('tab-content-model');
         form.addEventListener("submit", show_multi_chart);
 
-        // Enable/disable iteration
-        var climate_radios = document.querySelectorAll('.climate-group input[type="radio"]')
-        for (var i = 0; i < climate_radios.length; i++) {
-            var radio = climate_radios[i];
-            radio.addEventListener('change', enable_disable_iteration);
+        // Enable/disable form sections
+        var radios = document.querySelectorAll('input[type="radio"]')
+        for (var i = 0; i < radios.length; i++) {
+            var radio = radios[i];
+            radio.addEventListener('change', enable_disable_historical);
         }
 
         // Random iteration buttons
@@ -467,10 +467,16 @@ APP.charts.multi_detail = {
     function show_multi_chart(e){
         e.preventDefault();
         var chart_spec = APP.charts.multi_detail;
-        const data = new FormData(e.target);
+        var data = new FormData(e.target);
         var climate = data.get('period');
         var demand = data.get('demand');
+        if (!demand) {
+            demand = "historical"
+        }
         var action = data.get('action');
+        if (!action) {
+            action = "none"
+        }
         var iteration = '';
         if (climate != 'historical') {
             iteration = '__iteration_' + data.get('iteration');
@@ -482,16 +488,39 @@ APP.charts.multi_detail = {
         setup_chart(chart_spec);
     }
 
-    function enable_disable_iteration(e){
-        var input = document.querySelector('.tab-content.active input[name="iteration"]');
-        var button = document.querySelector('.tab-content.active .random-iteration');
-        if (e.target.value == "historical") {
-            input.disabled = true;
-            button.disabled = true;
-        } else {
-            input.disabled = false;
-            button.disabled = false;
+    function enable_disable_historical(){
+        var form = document.querySelector('form.active');
+        if (!form){
+            return
         }
+        var data = new FormData(form);
+        var is_historical = (data.get('period') == 'historical');
+
+        var input = document.querySelector('.tab-content.active input[name="iteration"]');
+        input.disabled = is_historical;
+
+        var button = document.querySelector('.tab-content.active .random-iteration');
+        button.disabled = is_historical;
+
+        var demand_radios = document.querySelectorAll('.tab-content.active input[name="demand"]');
+        for (var i = 0; i < demand_radios.length; i++) {
+            var radio = demand_radios[i];
+            radio.disabled = is_historical;
+        }
+
+        // check demand only after perhaps enabling demand radios
+        var data = new FormData(form);
+        var enable_actions = (
+            data.get('demand') == '2935' &&
+            data.get('period') == 'near-future'
+        );
+
+        var action_radios = document.querySelectorAll('.tab-content.active input[name="action"]');
+        for (var i = 0; i < action_radios.length; i++) {
+            var radio = action_radios[i];
+            radio.disabled = !enable_actions;
+        }
+
     }
 
     function random_iteration(e){
@@ -911,6 +940,7 @@ APP.charts.multi_detail = {
                     break;
 
                 case "tab-content-flow":
+                    enable_disable_historical();
                     hide_table();
                     blank_chart();
                     break;
@@ -926,6 +956,7 @@ APP.charts.multi_detail = {
                     break;
 
                 case "tab-content-model":
+                    enable_disable_historical();
                     hide_table();
                     blank_chart();
                     break;
@@ -987,9 +1018,6 @@ APP.charts.multi_detail = {
                 });
                 navigate(options);
             });
-        }
-        if (document.getElementById('chart')){
-            setup_chart();
         }
         if (document.querySelector('.show-chart')){
             toggle_chart();

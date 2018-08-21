@@ -230,7 +230,7 @@
           <h3 class="h6">River flows</h3>
           <div class="form-group climate-group">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="period" id="period-historical" value="historical">
+              <input class="form-check-input" type="radio" name="period" id="period-historical" value="historical" checked>
               <label class="form-check-label" for="period-historical">Historical (1970-2010)</label>
             </div>
             <div class="form-check">
@@ -245,28 +245,27 @@
           <div class="form-row">
             <div class="form-group col-10">
               <label for="model-iteration">Scenario iteration (1-100):</label>
-              <input id="model-iteration" name="iteration" class="form-control" type="number" step="1" min="1" max="100" value="42">
+              <input id="model-iteration" name="iteration" class="form-control" type="number" step="1" min="1" max="100" value="42" disabled>
             </div>
             <div class="form-group col-2">
               <label>&nbsp;</label>
-              <button type="button" class="btn btn-outline-light random-iteration">
-                <img src="static/images/random.svg" alt="Random" width="16"/>
+              <button type="button" class="btn btn-outline-light random-iteration" disabled>
+                <img src="static/images/random.svg" alt="Random" width="16" />
               </button>
             </div>
           </div>
 
           <h3 class="h6">Demand for water</h3>
+          <label for="action">
+            <small>(Available only if a future river flows scenario is selected.)</small>
+          </label>
           <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="demand" id="demand-historical" value="historical">
-              <label class="form-check-label" for="demand-historical">Historical (1970-2010)</label>
-            </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="demand" id="demand-2063" value="2063">
               <label class="form-check-label" for="demand-2063">Low</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="demand" id="demand-2547" value="2547">
+              <input class="form-check-input" type="radio" name="demand" id="demand-2547" value="2547" checked>
               <label class="form-check-label" for="demand-2547">Baseline</label>
             </div>
             <div class="form-check">
