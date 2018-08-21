@@ -369,7 +369,7 @@ APP.charts.multi_detail = {
         var demand;
         var action;
         var iteration;
-        var iteration_part;
+        var iteration_part = '';
         if (climate == 'historical') {
             demand = 'historical';
             action = 'none';
@@ -406,6 +406,7 @@ APP.charts.multi_detail = {
             action = "none"
         }
         var iteration = '';
+        var iteration_part = '';
         if (climate != 'historical') {
             iteration = data.get('iteration');
             iteration_part = '__iteration_' + iteration;
@@ -453,7 +454,7 @@ APP.charts.multi_detail = {
         if (iteration) {
             title += ', iteration ' + iteration;
         }
-        if (demand) {
+        if (demand && demand != "historical") {
             title += ', ' + label[demand];
         }
         if (action && action != "none") {
@@ -794,7 +795,6 @@ APP.charts.multi_detail = {
                 tab_contents[i].classList.remove('active');
             }
         }
-        var el = document.querySelector('.pullout');
         if (options.tab){
             var tab = document.querySelector('.tab[href="#'+options.tab+'"]');
             tab.classList.add('active');
@@ -806,6 +806,9 @@ APP.charts.multi_detail = {
     function togglePullout(e){
         e.preventDefault();
         var tab = e.target;
+        if (!tab.attributes["href"]){
+            tab = e.target.parentElement;
+        }
         var id;
 
         if (!tab.classList.contains('active')){
@@ -850,6 +853,20 @@ APP.charts.multi_detail = {
                 return l
             }
         }
+    }
+
+    function toggle_menu() {
+        var show = document.querySelector('[href="#menu"]');
+        var menu = document.querySelector('.main-header');
+        show.addEventListener("click", function(e){
+            e.preventDefault();
+            menu.classList.add('active');
+        })
+        var close = document.querySelector('.main-header .close');
+        close.addEventListener("click", function(e){
+            e.preventDefault();
+            menu.classList.remove('active');
+        })
     }
 
     /**
@@ -943,7 +960,7 @@ APP.charts.multi_detail = {
         }
 
         // map
-        var duration = 0.25;  // zoom/pan duration in seconds
+        var duration = 0.2;  // zoom/pan duration in seconds
         var layer_names, layer_name, layer;
         if (options.map_layers) {
             layer_names = options.map_layers;
@@ -1003,6 +1020,7 @@ APP.charts.multi_detail = {
         if (document.querySelector('.map-link')){
             link_to_map();
         }
+        toggle_menu();
     }
 
     setup();
