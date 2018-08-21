@@ -504,21 +504,18 @@ APP.charts.multi_detail = {
             }
         ).addTo(APP.map);
 
-        add_thames(map, control);
-        add_tributaries(map, control);
-        add_catchment_areas(map, control);
-        add_water_resource_zones(map, control);
-        add_system(map, control);
+        var thames = add_thames(map, control);
+        var tributaries = add_tributaries(map, control);
+        var catchment_areas = add_catchment_areas(map, control);
+        var water_resource_zones = add_water_resource_zones(map, control);
+        var system = add_system(map, control);
 
-        return map;
+        return Promise.all([
+            map, thames, tributaries, catchment_areas, water_resource_zones, system]);
     }
 
     function add_thames(map, control){
-        d3.json('/data/system/river_thames.geojson', function(error, data){
-            if (error){
-                console.error(error);
-                return;
-            }
+        return d3.json('/data/system/river_thames.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -535,15 +532,13 @@ APP.charts.multi_detail = {
             );
             var layer_id = 'river_thames';
             APP.layers[layer_id] = layer;
+        }).catch(function(error){
+            console.error(error);
         });
     }
 
     function add_tributaries(map, control){
-        d3.json('/data/system/thames_basin_rivers.geojson', function(error, data){
-            if (error){
-                console.error(error);
-                return;
-            }
+        return d3.json('/data/system/thames_basin_rivers.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -560,14 +555,12 @@ APP.charts.multi_detail = {
             );
             var layer_id = 'thames_basin_rivers';
             APP.layers[layer_id] = layer;
+        }).catch(function(error){
+            console.error(error);
         });
     }
     function add_catchment_areas(map, control){
-        d3.json('/data/boundaries/catchment_areas.geojson', function(error, data){
-            if (error){
-                console.error(error);
-                return;
-            }
+        return d3.json('/data/boundaries/catchment_areas.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -583,15 +576,13 @@ APP.charts.multi_detail = {
             );
             var layer_id = 'catchment_areas';
             APP.layers[layer_id] = layer;
+        }).catch(function(error){
+            console.error(error);
         });
     }
 
     function add_water_resource_zones(map, control){
-        d3.json('/data/boundaries/water_resource_zones.geojson', function(error, data){
-            if (error){
-                console.error(error);
-                return;
-            }
+        return d3.json('/data/boundaries/water_resource_zones.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -607,16 +598,13 @@ APP.charts.multi_detail = {
             );
             var layer_id = 'water_resource_zones';
             APP.layers[layer_id] = layer;
+        }).catch(function(error){
+            console.error(error);
         });
     }
 
     function add_system(map, control){
-        d3.json('/data/system/system.geojson', function(error, data){
-            if (error){
-                console.error(error);
-                return;
-            }
-
+        return d3.json('/data/system/system.geojson').then(function(data) {
             // Rely on globals
             // APP.system = {}
             // APP.layers = {}
@@ -663,6 +651,8 @@ APP.charts.multi_detail = {
                     '</span>');
                 APP.layers[layer_id] = layer;
             });
+        }).catch(function(error){
+            console.error(error);
         });
     }
 
@@ -751,31 +741,12 @@ APP.charts.multi_detail = {
 
     function togglePullout(e){
         e.preventDefault();
-        var el = document.querySelector('.pullout');
-        var tabs = document.querySelectorAll('.pullout .tab');
-        var tab_contents = document.querySelectorAll('.pullout .tab-content');
         var tab = e.target;
+        var id;
 
         if (!tab.classList.contains('active')){
-            // clear others, activate this
-            var id = tab.attributes["href"].value.replace('#','');
-            var content = document.getElementById(id);
-            tab.classList.add('active');
-            content.classList.add('active');
-            for (var i = 0; i < tabs.length; i++) {
-                if (tabs[i] != tab){
-                    tabs[i].classList.remove('active');
-                }
-            }
-            for (var i = 0; i < tab_contents.length; i++) {
-                if (tab_contents[i] != content) {
-                    tab_contents[i].classList.remove('active');
-                }
-            }
-            set_hash({'tab': id});
-        }
-        if (!el.classList.contains('active')) {
-            el.classList.add('active');
+            id = tab.attributes["href"].value.replace('#','');
+            navigate({'tab': id});
         }
     }
 
@@ -790,35 +761,13 @@ APP.charts.multi_detail = {
         e.preventDefault();
         var link = e.target;
         var id = link.dataset.location;
-        var feature = APP.system[id];
         var zoom = link.dataset.zoom || 14;
         var layer_names = link.dataset.layers.split(" ");
-        var layers = [];
-
-        var chart_area = document.getElementById('chart-area');
-        if (chart_area.classList.contains('active')){
-            chart_area.classList.remove('active')
-        }
-
-        var layer_name, layer;
-
-        clear_layers_except(layer_names);
-
-        for (var i = 0; i < layer_names.length; i++) {
-            layer_name = layer_names[i];
-            layer = APP.layers[layer_name];
-            if (layer && !APP.map.hasLayer(layer)){
-                APP.map.addLayer(layer);
-            }
-        }
-
-        layer = APP.layers[layer_names.pop()]; // last layer in list must contain feature
-        if (id && feature){
-            var coords = turf.centroid(feature).geometry.coordinates;
-            var center = [coords[1], coords[0]];
-            get_geojson_feature_layer(layer, feature).openPopup(center);
-            APP.map.flyTo(center, zoom)
-        }
+        navigate({
+            zoom: zoom,
+            map_layers: layer_names,
+            map_focus: id
+        })
     }
 
     function clear_layers_except(except){
@@ -870,19 +819,81 @@ APP.charts.multi_detail = {
         }
     }
 
-    function setup(){
-        var url_options = get_hash();
+    function navigate(options) {
+        console.log(options);
 
-        if (document.getElementById('map')){
-            var options = _.defaults(url_options, {
+        // activate tab label
+        if (options.tab) {
+            var tab = document.querySelector('.tab[href="#' + options.tab + '"]');
+            tab.classList.add('active');
+            // activate tab contents
+            var content = document.getElementById(options.tab);
+            content.classList.add('active');
+            // deactivate other tab labels
+            var tabs = document.querySelectorAll('.pullout .tab');
+            for (var i = 0; i < tabs.length; i++) {
+                if (tabs[i] != tab){
+                    tabs[i].classList.remove('active');
+                }
+            }
+            // deactivate other tab contents
+            var tab_contents = document.querySelectorAll('.pullout .tab-content');
+            for (var i = 0; i < tab_contents.length; i++) {
+                if (tab_contents[i] != content) {
+                    tab_contents[i].classList.remove('active');
+                }
+            }
+        }
+
+        // map
+        var layer_names, layer_name, layer;
+        if (options.map_layers) {
+            layer_names = options.map_layers;
+            clear_layers_except(layer_names);
+
+            for (var i = 0; i < layer_names.length; i++) {
+                layer_name = layer_names[i];
+                layer = APP.layers[layer_name];
+                if (layer && !APP.map.hasLayer(layer)){
+                    APP.map.addLayer(layer);
+                }
+            }
+        }
+        var feature;
+        if (options.map_focus && options.map_layers) {
+            feature = APP.system[options.map_focus];
+            layer_names = options.map_layers
+            layer = APP.layers[layer_names[layer_names.length - 1]]; // last layer in list must contain feature
+            if (feature){
+                var coords = turf.centroid(feature).geometry.coordinates;
+                var center = [coords[1], coords[0]];
+                get_geojson_feature_layer(layer, feature).openPopup(center);
+                APP.map.flyTo(center, options.zoom);  // TODO ensure hash is set properly, no loop
+            }
+        }
+
+        set_hash(options);
+    }
+
+    function setup(){
+        var options = _.defaults(
+            get_hash(),
+            {
+                'tab': 'tab-content-system',
                 'center': {'lat': 51.523014, 'lng': -0.008132},
-                'zoom': 4
-            });
-            setup_map(options).on('moveend', function(ev){
-                var map_options = {}
-                map_options.center = ev.target.getCenter();
-                map_options.zoom = ev.target.getZoom();
-                set_hash(map_options);
+                'zoom': 5
+            }
+        );
+        if (document.getElementById('map')){
+            setup_map(options).then(function(values){
+                var map = values[0];
+                map.on('moveend', function(ev){
+                    var map_options = {}
+                    map_options.center = ev.target.getCenter();
+                    map_options.zoom = ev.target.getZoom();
+                    navigate(map_options);
+                });
+                navigate(options);
             });
         }
         if (document.getElementById('chart')){
@@ -892,7 +903,7 @@ APP.charts.multi_detail = {
             toggle_chart();
         }
         if (document.querySelector('.pullout')){
-            pullout(url_options);
+            pullout(options);
         }
         if (document.querySelector('.map-link')){
             link_to_map();
