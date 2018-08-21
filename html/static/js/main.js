@@ -219,6 +219,41 @@ APP.charts.flow = {
     }
 };
 
+APP.charts.demand = {
+    data_url: "data/model_parameters/demand.csv",
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "config": chart_elements.config,
+        "data": undefined,
+        "title": "Possible change in water demand",
+        "width": 500,
+        "height": 200,
+        "mark": "line",
+        "encoding": {
+            "x": {
+                "field": "date",
+                "type": "temporal",
+                "timeUnit": "year",
+                "axis": {
+                    "format": "%Y",
+                    "title": "Year"
+                }
+            },
+            "y": {
+                "field": "value",
+                "type": "quantitative",
+                "axis": {
+                    "title": "Relative water demand"
+                }
+            },
+            "color": {
+                "field": "scenario",
+                "type": "nominal"
+            }
+        }
+    }
+}
+
 APP.charts.multi_detail = {
     data_url: undefined,
     unroll_data: true,
@@ -260,18 +295,12 @@ APP.charts.multi_detail = {
             return;
         }
 
+        clear_chart();
         var container = document.getElementById('chart-area');
-        container.classList.remove('error');
-        container.classList.add('active');
         container.classList.add('loading');
+        container.classList.add('active');
         console.log('Loading '+chart.data_url);
 
-        if (APP.live_chart){
-            // prepare for removal
-            APP.live_chart.finalize();
-            // remove
-            document.getElementById('chart').textContent = '';
-        }
 
         d3.csv(chart.data_url).then(function(data){
             try {
@@ -307,6 +336,32 @@ APP.charts.multi_detail = {
             container.classList.add('error');
             console.log(error);
         });
+    }
+
+    function clear_chart(){
+        var container = document.getElementById('chart-area');
+        container.classList.remove('error');
+
+        if (APP.live_chart){
+            // prepare for removal
+            APP.live_chart.finalize();
+            // remove
+            document.getElementById('chart').textContent = '';
+        }
+    }
+
+    function blank_chart(){
+        clear_chart();
+        var container = document.getElementById('chart-area');
+        container.classList.remove('error');
+        container.classList.remove('loading');
+        container.classList.add('active');
+    }
+
+    function hide_chart(){
+        var container = document.getElementById('chart-area');
+        container.classList.remove('error');
+        container.classList.remove('active');
     }
 
     function unroll_data(data, keep_keys, unroll_keys){
@@ -663,11 +718,6 @@ APP.charts.multi_detail = {
      * @param {GeoJSON feature} feature
      * @param {Leaflet layer} layer
      */
-    function name_popup(feature, layer){
-        var content = feature.properties.popup || feature.properties.name;
-        layer.bindPopup(content);
-    }
-
     function wrz_popup(feature, layer){
         var content = feature.properties.popup || feature.properties.name +
             " (" + feature.properties.company + ")";
@@ -842,6 +892,32 @@ APP.charts.multi_detail = {
                 if (tab_contents[i] != content) {
                     tab_contents[i].classList.remove('active');
                 }
+            }
+
+            switch (options.tab) {
+                case "tab-content-system":
+                    hide_chart();
+                    break;
+
+                case "tab-content-flow":
+                    blank_chart();
+                    break;
+
+                case "tab-content-demand":
+                    setup_chart(APP.charts.demand);
+                    break;
+
+                case "tab-content-options":
+                    blank_chart();
+                    break;
+
+                case "tab-content-model":
+                    blank_chart();
+                    break;
+
+                case "tab-content-decision":
+                    blank_chart();
+                    break;
             }
         }
 
