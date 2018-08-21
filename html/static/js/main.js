@@ -7,8 +7,6 @@ var APP = {
     charts: {}, // chart id => vega definition
 };
 
-vega.scheme('waterfutures', ['#0078c8', '#f5871c', '#e45756', '#4b33aa']);
-
 var chart_elements = {}
 chart_elements.config = {
     "title": {
@@ -21,16 +19,9 @@ chart_elements.config = {
 chart_elements.riverflow = {
     "mark": {
         "type": "line",
-        "interpolate": "step-after"
+        "interpolate": "step-after",
+        "color": "#0078c8"
     },
-    "transform": [
-        {
-            "filter": {
-                "field": "series",
-                "equal": 'flow_windsor'
-            }
-        }
-    ],
     "encoding": {
         "x": {
             "field": "date",
@@ -42,15 +33,9 @@ chart_elements.riverflow = {
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
-            "field": "value",
+            "field": "flow_windsor",
             "type": "quantitative",
             "axis": {"title": "River flow at Windsor (ML/day)"}
-        },
-        "color": {
-            "field": "series",
-            "type": "nominal",
-            "scale": {"scheme": "waterfutures"},
-            "legend": {"title": "Legend"}
         }
     },
     "width": 1000
@@ -59,16 +44,9 @@ chart_elements.riverflow = {
 chart_elements.storage = {
     "mark": {
         "type": "line",
-        "interpolate": "step-after"
+        "interpolate": "step-after",
+        "color": "#4b33aa"
     },
-    "transform": [
-        {
-            "filter": {
-                "field": "series",
-                "equal": 'storage'
-            }
-        }
-    ],
     "encoding": {
         "x": {
             "field": "date",
@@ -80,15 +58,9 @@ chart_elements.storage = {
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
-            "field": "value",
+            "field": "storage",
             "type": "quantitative",
-            "axis": {"title": "Total Lower Thames Storage (ML)"}
-        },
-        "color": {
-            "field": "series",
-            "type": "nominal",
-            "scale": {"scheme": "waterfutures"},
-            "legend": {"title": "Legend"}
+            "axis": {"title": "Total Storage (ML)"}
         }
     },
     "width": 1000,
@@ -98,16 +70,9 @@ chart_elements.storage = {
 chart_elements.shortfall = {
     "mark": {
         "type": "line",
-        "interpolate": "step-after"
+        "interpolate": "step-after",
+        "color": "#f5871c"
     },
-    "transform": [
-        {
-            "filter": {
-                "field": "series",
-                "equal": 'shortfall_london'
-            }
-        }
-    ],
     "encoding": {
         "x": {
             "field": "date",
@@ -119,15 +84,9 @@ chart_elements.shortfall = {
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
-            "field": "value",
+            "field": "shortfall_london",
             "type": "quantitative",
             "axis": {"title": "Shortfall"}
-        },
-        "color": {
-            "field": "series",
-            "type": "nominal",
-            "scale": {"scheme": "waterfutures"},
-            "legend": {"title": "Legend"}
         }
     },
     "width": 1000,
@@ -137,16 +96,9 @@ chart_elements.shortfall = {
 chart_elements.restrictions = {
     "mark": {
         "type": "line",
-        "interpolate": "step-after"
+        "interpolate": "step-after",
+        "color": "#e45756"
     },
-    "transform": [
-        {
-            "filter": {
-                "field": "series",
-                "equal": 'restrictions'
-            }
-        }
-    ],
     "encoding": {
         "x": {
             "field": "date",
@@ -158,15 +110,9 @@ chart_elements.restrictions = {
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
-            "field": "value",
+            "field": "restrictions",
             "type": "quantitative",
             "axis": {"title": "Restriction level"}
-        },
-        "color": {
-            "field": "series",
-            "type": "nominal",
-            "scale": {"scheme": "waterfutures"},
-            "legend": {"title": "Legend"}
         }
     },
     "width": 1000,
@@ -300,25 +246,17 @@ APP.charts.multi_detail = {
 
         clear_chart();
         var container = document.getElementById('chart-area');
+        container.classList.remove('error');
         container.classList.add('loading');
         container.classList.add('active');
         console.log('Loading '+chart.data_url);
 
 
         d3.csv(chart.data_url).then(function(data){
-            try {
-                if (chart.unroll_data){
-                    data = unroll_data(data, chart.keep_keys, chart.unroll_keys);
-                }
-            } catch (error) {
-                container.classList.remove('loading');
-                container.classList.add('error');
-                return
-            }
-
             chart.spec.data = {
                 "values": data
             }
+            container.classList.remove('loading');
             vegaEmbed('#chart', chart.spec, {
                 actions: {
                     export: true,
@@ -327,10 +265,7 @@ APP.charts.multi_detail = {
                 }
             }).then(function(result){
                 APP.live_chart = result.view
-                container.classList.remove('loading');
-                container.classList.remove('error');
             }).catch(function(error){
-                container.classList.remove('loading');
                 container.classList.add('error');
                 console.log(error);
             });
@@ -390,27 +325,6 @@ APP.charts.multi_detail = {
         decisions.classList.remove('active');
     }
 
-    function unroll_data(data, keep_keys, unroll_keys){
-        var unrolled = [];
-        var obs, unroll_key, keep_key;
-        for (var i = 0; i < data.length; i++) {
-            obs = data[i];
-            for (var j = 0; j < unroll_keys.length; j++) {
-                unroll_key = unroll_keys[j];
-                datum = {
-                    value: obs[unroll_key],
-                    series: unroll_key
-                };
-                for (var k = 0; k < keep_keys.length; k++) {
-                    keep_key = keep_keys[k];
-                    datum[keep_key] = obs[keep_key];
-                }
-                unrolled.push(datum);
-            }
-        }
-        return unrolled;
-    }
-
     /**
      * Set up chart controls
      */
@@ -450,7 +364,7 @@ APP.charts.multi_detail = {
             return
         }
         var data = new FormData(form);
-        var chart_spec = APP.charts.flow;
+        var chart = APP.charts.flow;
         var climate = data.get('period');
         var demand;
         var action;
@@ -467,12 +381,41 @@ APP.charts.multi_detail = {
             iteration = data.get('iteration');
             iteration_part = '__iteration_' + iteration;
         }
-        chart_spec.spec.title = flow_title(climate, iteration);
-        chart_spec.data_url = 'data/model_outputs/climate_' + climate +
+        chart.spec.title = flow_title(climate, iteration);
+        chart.data_url = 'data/model_outputs/climate_' + climate +
             '__demand_' + demand +
             '__action_' + action +
             iteration_part + '.csv';
-        setup_chart(chart_spec);
+        setup_chart(chart);
+    }
+
+    function show_multi_chart(){
+        var form = document.querySelector('form.active');
+        if (!form){
+            return
+        }
+        var data = new FormData(form);
+        var chart = APP.charts.multi_detail;
+        var climate = data.get('period');
+        var demand = data.get('demand');
+        if (!demand) {
+            demand = "historical"
+        }
+        var action = data.get('action');
+        if (!action) {
+            action = "none"
+        }
+        var iteration = '';
+        if (climate != 'historical') {
+            iteration = data.get('iteration');
+            iteration_part = '__iteration_' + iteration;
+        }
+        chart.spec.title = multi_title(climate, demand, action, iteration);
+        chart.data_url = 'data/model_outputs/climate_' + climate +
+            '__demand_' + demand +
+            '__action_' + action +
+            iteration_part + '.csv';
+        setup_chart(chart);
     }
 
     function flow_title(climate, iteration){
@@ -489,31 +432,35 @@ APP.charts.multi_detail = {
         return title;
     }
 
-    function show_multi_chart(){
-        var form = document.querySelector('form.active');
-        if (!form){
-            return
+    function multi_title(climate, demand, action, iteration){
+        var label = {
+            // climate
+            "historical": "historical, 1970-2010",
+            "near-future": "near future climate scenario",
+            "far-future": "far future climate scenario",
+            // demand
+            "2063": "low demand",
+            "2547": "baseline demand",
+            "2935": "high demand",
+            // action
+            "1": "option 1",
+            "2": "option 2",
+            "3": "option 3",
+            "4": "option 4",
+            "5": "option 5",
         }
-        var data = new FormData(form);
-        var chart_spec = APP.charts.multi_detail;
-        var climate = data.get('period');
-        var demand = data.get('demand');
-        if (!demand) {
-            demand = "historical"
+        var title = 'WATHNET model results (' + label[climate];
+        if (iteration) {
+            title += ', iteration ' + iteration;
         }
-        var action = data.get('action');
-        if (!action) {
-            action = "none"
+        if (demand) {
+            title += ', ' + label[demand];
         }
-        var iteration = '';
-        if (climate != 'historical') {
-            iteration = '__iteration_' + data.get('iteration');
+        if (action && action != "none") {
+            title += ', ' + label[action];
         }
-        chart_spec.data_url = 'data/model_outputs/climate_' + climate +
-            '__demand_' + demand +
-            '__action_' + action +
-            iteration + '.csv';
-        setup_chart(chart_spec);
+        title += ')';
+        return title;
     }
 
     function setup_chart_state(){
