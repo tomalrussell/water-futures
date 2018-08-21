@@ -364,6 +364,16 @@ APP.charts.multi_detail = {
         container.classList.remove('active');
     }
 
+    function show_table(){
+        var container = document.querySelector('.options-table-container');
+        container.classList.add('active');
+    }
+
+    function hide_table(){
+        var container = document.querySelector('.options-table-container');
+        container.classList.remove('active');
+    }
+
     function unroll_data(data, keep_keys, unroll_keys){
         var unrolled = [];
         var obs, unroll_key, keep_key;
@@ -897,25 +907,31 @@ APP.charts.multi_detail = {
             switch (options.tab) {
                 case "tab-content-system":
                     hide_chart();
+                    hide_table();
                     break;
 
                 case "tab-content-flow":
+                    hide_table();
                     blank_chart();
                     break;
 
                 case "tab-content-demand":
+                    hide_table();
                     setup_chart(APP.charts.demand);
                     break;
 
                 case "tab-content-options":
+                    show_table();
                     blank_chart();
                     break;
 
                 case "tab-content-model":
+                    hide_table();
                     blank_chart();
                     break;
 
                 case "tab-content-decision":
+                    hide_table();
                     blank_chart();
                     break;
             }

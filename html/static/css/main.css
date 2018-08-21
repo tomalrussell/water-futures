@@ -293,3 +293,34 @@ strong {
 .layer-control-text.catchment_areas::before {
     background: #513eff;
 }
+/**
+ * Table hints
+ */
+.options-table-container {
+    display: none;
+}
+.options-table-container.active {
+    display: block;
+}
+.table td,
+.table th {
+    border-top-color: #fff;
+}
+.bg-low {
+    background: #ebfff3;
+}
+tr:hover .bg-low {
+    background: #d3ffe5;
+}
+.bg-med {
+    background: #fffbe5;
+}
+tr:hover .bg-med {
+    background: #fff7c9;
+}
+.bg-high {
+    background: #ffede7;
+}
+tr:hover .bg-high {
+    background: #ffdace;
+}
