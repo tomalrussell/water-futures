@@ -4,10 +4,221 @@ Water Futures Copyright 2018 Tom Russell License: MIT
 var APP = {
     system: {}, // feature id => geojson feature
     layers: {}, // layer id => leaflet layer
+    charts: {}, // chart id => vega definition
 };
-APP.charts = {}
 
 vega.scheme('waterfutures', ['#0078c8', '#f5871c', '#e45756', '#4b33aa']);
+
+var chart_elements = {}
+chart_elements.config = {
+    "title": {
+        "anchor": "start",
+        "fontSize": 14,
+        "fontColor": "#222"
+    }
+}
+
+chart_elements.riverflow = {
+    "mark": {
+        "type": "line",
+        "interpolate": "step-after"
+    },
+    "transform": [
+        {
+            "filter": {
+                "field": "series",
+                "equal": 'flow_windsor'
+            }
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "timeUnit": "yearmonthdate",
+            "axis": {
+                "title": ""
+            },
+            "scale": {"domain": {"selection": "brush"}},
+        },
+        "y": {
+            "field": "value",
+            "type": "quantitative",
+            "axis": {"title": "River flow at Windsor (ML/day)"}
+        },
+        "color": {
+            "field": "series",
+            "type": "nominal",
+            "scale": {"scheme": "waterfutures"},
+            "legend": {"title": "Legend"}
+        }
+    },
+    "width": 1000
+}
+
+chart_elements.storage = {
+    "mark": {
+        "type": "line",
+        "interpolate": "step-after"
+    },
+    "transform": [
+        {
+            "filter": {
+                "field": "series",
+                "equal": 'storage'
+            }
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "timeUnit": "yearmonthdate",
+            "axis": {
+                "title": ""
+            },
+            "scale": {"domain": {"selection": "brush"}},
+        },
+        "y": {
+            "field": "value",
+            "type": "quantitative",
+            "axis": {"title": "Total Lower Thames Storage (ML)"}
+        },
+        "color": {
+            "field": "series",
+            "type": "nominal",
+            "scale": {"scheme": "waterfutures"},
+            "legend": {"title": "Legend"}
+        }
+    },
+    "width": 1000,
+    "height": 100
+}
+
+chart_elements.shortfall = {
+    "mark": {
+        "type": "line",
+        "interpolate": "step-after"
+    },
+    "transform": [
+        {
+            "filter": {
+                "field": "series",
+                "equal": 'shortfall_london'
+            }
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "timeUnit": "yearmonthdate",
+            "axis": {
+                "title": ""
+            },
+            "scale": {"domain": {"selection": "brush"}},
+        },
+        "y": {
+            "field": "value",
+            "type": "quantitative",
+            "axis": {"title": "Shortfall"}
+        },
+        "color": {
+            "field": "series",
+            "type": "nominal",
+            "scale": {"scheme": "waterfutures"},
+            "legend": {"title": "Legend"}
+        }
+    },
+    "width": 1000,
+    "height": 100
+}
+
+chart_elements.restrictions = {
+    "mark": {
+        "type": "line",
+        "interpolate": "step-after"
+    },
+    "transform": [
+        {
+            "filter": {
+                "field": "series",
+                "equal": 'restrictions'
+            }
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "timeUnit": "yearmonthdate",
+            "axis": {
+                "title": ""
+            },
+            "scale": {"domain": {"selection": "brush"}},
+        },
+        "y": {
+            "field": "value",
+            "type": "quantitative",
+            "axis": {"title": "Restriction level"}
+        },
+        "color": {
+            "field": "series",
+            "type": "nominal",
+            "scale": {"scheme": "waterfutures"},
+            "legend": {"title": "Legend"}
+        }
+    },
+    "width": 1000,
+    "height": 100
+}
+
+chart_elements.brush = {
+    "title": "Click and drag to select a date range",
+    "width": 1000,
+    "height": 20,
+    "mark": "area",
+    "selection": {
+        "brush": {
+            "type": "interval",
+            "encodings": ["x"],
+            "mark": {
+                "fill": "#222",
+                "fillOpacity": 0.7,
+                "stroke": "#222"
+            }
+        },
+    },
+    "encoding": {
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "timeUnit": "yearmonthdate",
+            "axis": {
+                "format": "%Y",
+                "title": ""
+            }
+        }
+    }
+}
+
+APP.charts.flow = {
+    title: undefined,
+    data_url: undefined,
+    unroll_data: true,
+    keep_keys: ['date'],
+    unroll_keys: ['flow_windsor', 'storage', 'shortfall_london', 'restrictions'],
+    spec: {
+        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+        "background": "#ffffff",
+        "config": chart_elements.config,
+        "data": undefined,
+        "vconcat": [
+            chart_elements.riverflow,
+            chart_elements.brush
+        ]
+    }
+};
 
 APP.charts.multi_detail = {
     title: undefined,
@@ -18,179 +229,14 @@ APP.charts.multi_detail = {
     spec: {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
         "background": "#ffffff",
+        "config": chart_elements.config,
         "data": undefined,
         "vconcat": [
-            {
-                "mark": {
-                    "type": "line",
-                    "interpolate": "step-after"
-                },
-                "transform": [
-                    {
-                        "filter": {
-                            "field": "series",
-                            "equal": 'flow_windsor'
-                        }
-                    }
-                ],
-                "encoding": {
-                    "x": {
-                        "field": "date",
-                        "type": "temporal",
-                        "timeUnit": "yearmonthdate",
-                        "axis": {
-                            "title": ""
-                        },
-                        "scale": {"domain": {"selection": "brush"}},
-                    },
-                    "y": {
-                        "field": "value",
-                        "type": "quantitative",
-                        "axis": {"title": "River flow at Windsor (ML/day)"}
-                    },
-                    "color": {
-                        "field": "series",
-                        "type": "nominal",
-                        "scale": {"scheme": "waterfutures"},
-                        "legend": {"title": "Legend"}
-                    }
-                },
-                "width": 1000
-            },
-            {
-                "mark": {
-                    "type": "line",
-                    "interpolate": "step-after"
-                },
-                "transform": [
-                    {
-                        "filter": {
-                            "field": "series",
-                            "equal": 'storage'
-                        }
-                    }
-                ],
-                "encoding": {
-                    "x": {
-                        "field": "date",
-                        "type": "temporal",
-                        "timeUnit": "yearmonthdate",
-                        "axis": {
-                            "title": ""
-                        },
-                        "scale": {"domain": {"selection": "brush"}},
-                    },
-                    "y": {
-                        "field": "value",
-                        "type": "quantitative",
-                        "axis": {"title": "Total Lower Thames Storage (ML)"}
-                    },
-                    "color": {
-                        "field": "series",
-                        "type": "nominal",
-                        "scale": {"scheme": "waterfutures"},
-                        "legend": {"title": "Legend"}
-                    }
-                },
-                "width": 1000,
-                "height": 100
-            },
-            {
-                "mark": {
-                    "type": "line",
-                    "interpolate": "step-after"
-                },
-                "transform": [
-                    {
-                        "filter": {
-                            "field": "series",
-                            "equal": 'shortfall_london'
-                        }
-                    }
-                ],
-                "encoding": {
-                    "x": {
-                        "field": "date",
-                        "type": "temporal",
-                        "timeUnit": "yearmonthdate",
-                        "axis": {
-                            "title": ""
-                        },
-                        "scale": {"domain": {"selection": "brush"}},
-                    },
-                    "y": {
-                        "field": "value",
-                        "type": "quantitative",
-                        "axis": {"title": "Shortfall"}
-                    },
-                    "color": {
-                        "field": "series",
-                        "type": "nominal",
-                        "scale": {"scheme": "waterfutures"},
-                        "legend": {"title": "Legend"}
-                    }
-                },
-                "width": 1000,
-                "height": 100
-            },
-            {
-                "mark": {
-                    "type": "line",
-                    "interpolate": "step-after"
-                },
-                "transform": [
-                    {
-                        "filter": {
-                            "field": "series",
-                            "equal": 'restrictions'
-                        }
-                    }
-                ],
-                "encoding": {
-                    "x": {
-                        "field": "date",
-                        "type": "temporal",
-                        "timeUnit": "yearmonthdate",
-                        "axis": {
-                            "title": ""
-                        },
-                        "scale": {"domain": {"selection": "brush"}},
-                    },
-                    "y": {
-                        "field": "value",
-                        "type": "quantitative",
-                        "axis": {"title": "Restriction level"}
-                    },
-                    "color": {
-                        "field": "series",
-                        "type": "nominal",
-                        "scale": {"scheme": "waterfutures"},
-                        "legend": {"title": "Legend"}
-                    }
-                },
-                "width": 1000,
-                "height": 100
-            },
-            {
-                "width": 1000,
-                "height": 30,
-                "mark": "area",
-                "selection": {
-                    "brush": {"type": "interval", "encodings": ["x"]}
-                },
-                "encoding": {
-                    "x": {
-                        "field": "date",
-                        "type": "temporal",
-                        "timeUnit": "yearmonthdate",
-                        "axis": {
-                            "format": "%Y",
-                            "title": "Click and drag to select a date range",
-                            "orient": "top"
-                        }
-                    }
-                }
-            }
+            chart_elements.riverflow,
+            chart_elements.storage,
+            chart_elements.shortfall,
+            chart_elements.restrictions,
+            chart_elements.brush
         ]
     }
 };
@@ -233,7 +279,7 @@ APP.charts.multi_detail = {
             document.getElementById('chart').textContent = '';
         }
 
-        d3.csv(chart.data_url, function(data){
+        d3.csv(chart.data_url).then(function(data){
             try {
                 if (chart.unroll_data){
                     data = unroll_data(data, chart.keep_keys, chart.unroll_keys);
@@ -262,6 +308,10 @@ APP.charts.multi_detail = {
                 container.classList.add('error');
                 console.log(error);
             });
+        }).catch(function(error){
+            container.classList.remove('loading');
+            container.classList.add('error');
+            console.log(error);
         });
     }
 
@@ -286,31 +336,112 @@ APP.charts.multi_detail = {
         return unrolled;
     }
 
+    /**
+     * Set up chart controls
+     */
     function toggle_chart(){
+        // Flows (single chart)
+        var form = document.getElementById('tab-content-flow');
+        form.addEventListener("submit", show_flows_chart);
+
+        // Model (multi chart)
         var form = document.getElementById('tab-content-model');
-        form.addEventListener("submit", function(e){
-            e.preventDefault();
-            var chart_spec = APP.charts.multi_detail;
-            const data = new FormData(e.target);
-            var climate = data.get('period');
-            var demand = data.get('demand');
-            var action = data.get('action');
+        form.addEventListener("submit", show_multi_chart);
 
-            var iteration = (climate == 'historical')? '': '__iteration_' +
-                Math.floor(Math.random()*100+1);
-            chart_spec.data_url = 'data/model_outputs/climate_' + climate +
-                '__demand_' + demand +
-                '__action_' + action +
-                iteration + '.csv';
-            setup_chart(chart_spec);
-        });
+        // Enable/disable iteration
+        var climate_radios = document.querySelectorAll('.climate-group input[type="radio"]')
+        for (var i = 0; i < climate_radios.length; i++) {
+            var radio = climate_radios[i];
+            radio.addEventListener('change', enable_disable_iteration);
+        }
 
-        var close_button = document.querySelector('#chart-area .close');
-        close_button.addEventListener("click", function(e){
-            e.preventDefault();
-            document.getElementById('chart-area').classList.remove('active');
-            set_hash({'chart': null});
-        });
+        // Random iteration buttons
+        var randomise_buttons = document.querySelectorAll('.random-iteration');
+        for (var i = 0; i < randomise_buttons.length; i++) {
+            var btn = randomise_buttons[i];
+            btn.addEventListener('click', random_iteration);
+        }
+    }
+
+    function show_flows_chart(e){
+        e.preventDefault();
+        var chart_spec = APP.charts.flow;
+        const data = new FormData(e.target);
+        var climate = data.get('period');
+        var demand;
+        var action;
+        var iteration;
+        var iteration_part;
+        if (climate == 'historical') {
+            demand = 'historical';
+            action = 'none';
+            iteration = '';
+            iteration_part = '';
+        } else {
+            demand = '2547';
+            action = 'none';
+            iteration = data.get('iteration');
+            iteration_part = '__iteration_' + iteration;
+        }
+        chart_spec.spec.title = flow_title(climate, iteration);
+        chart_spec.data_url = 'data/model_outputs/climate_' + climate +
+            '__demand_' + demand +
+            '__action_' + action +
+            iteration_part + '.csv';
+        setup_chart(chart_spec);
+    }
+
+    function flow_title(climate, iteration){
+        var label = {
+            "historical": "historical, 1970-2010",
+            "near-future": "near future climate scenario",
+            "far-future": "far future climate scenario"
+        }
+        var title = 'River flows (' + label[climate];
+        if (iteration) {
+            title += ', iteration ' + iteration;
+        }
+        title += ')';
+        return title;
+    }
+
+    function show_multi_chart(e){
+        e.preventDefault();
+        var chart_spec = APP.charts.multi_detail;
+        const data = new FormData(e.target);
+        var climate = data.get('period');
+        var demand = data.get('demand');
+        var action = data.get('action');
+        var iteration = '';
+        if (climate != 'historical') {
+            iteration = '__iteration_' + data.get('iteration');
+        }
+        chart_spec.data_url = 'data/model_outputs/climate_' + climate +
+            '__demand_' + demand +
+            '__action_' + action +
+            iteration + '.csv';
+        setup_chart(chart_spec);
+    }
+
+    function enable_disable_iteration(e){
+        var input = document.querySelector('.tab-content.active input[name="iteration"]');
+        var button = document.querySelector('.tab-content.active .random-iteration');
+        if (e.target.value == "historical") {
+            input.disabled = true;
+            button.disabled = true;
+        } else {
+            input.disabled = false;
+            button.disabled = false;
+        }
+    }
+
+    function random_iteration(e){
+        var iteration_inputs = document.querySelectorAll('input[name="iteration"]');
+        e.preventDefault();
+        for (var i = 0; i < iteration_inputs.length; i++) {
+            var input = iteration_inputs[i];
+            input.value = Math.floor(Math.random()*100+1);
+        }
     }
 
     function setup_map(options){

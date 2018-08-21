@@ -42,7 +42,6 @@
     <div id="map" class="half left"></div>
   -->
     <div id="chart-area" class="offscreen-right half right">
-        <a href="#" class="close">×</a>
         <h2 class="h3" id="chart-title">No data loaded</h2>
         <p class="alert alert-light loading-indicator">
           <img width="75" src="/static/images/loading.gif" alt="Loading"> Loading data &hellip;
@@ -108,28 +107,30 @@
           <p>
             How might the amount of water flowing down the Thames change in the future?
           </p>
-          <div class="form-group">
+          <div class="form-group climate-group">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="period" id="period-historical" value="historical">
-              <label class="form-check-label" for="period-historical">Historical (1970-2010)</label>
+              <input class="form-check-input" type="radio" name="period" id="flow-period-historical" value="historical" checked>
+              <label class="form-check-label" for="flow-period-historical">Historical (1970-2010)</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="period" id="period-near-future" value="near-future">
-              <label class="form-check-label" for="period-near-future">Near future climate scenario</label>
+              <input class="form-check-input" type="radio" name="period" id="flow-period-near-future" value="near-future">
+              <label class="form-check-label" for="flow-period-near-future">Near future climate scenario</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="period" id="period-far-future" value="far-future">
-              <label class="form-check-label" for="period-far-future">Far future climate scenario</label>
+              <input class="form-check-input" type="radio" name="period" id="flow-period-far-future" value="far-future">
+              <label class="form-check-label" for="flow-period-far-future">Far future climate scenario</label>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-10">
-              <label for="replicate">Scenario variant (1-100):</label>
-              <input id="replicate" name="replicate" class="form-control" type="number" step="1" min="1" max="100" value="42">
+              <label for="flow-iteration">Scenario iteration (1-100):</label>
+              <input id="flow-iteration" name="iteration" class="form-control" type="number" step="1" min="1" max="100" value="42" disabled>
             </div>
             <div class="form-group col-2">
               <label>&nbsp;</label>
-              <button type="button" class="btn btn-outline-light"><img src="static/images/random.svg" alt="Random" width="16"/></button>
+              <button type="button" class="btn btn-outline-light random-iteration" disabled>
+                <img src="static/images/random.svg" alt="Random" width="16"/>
+              </button>
             </div>
           </div>
           <div class="form-group">
@@ -154,7 +155,7 @@
             What can we learn by simulating possible futures using a model?
           </p>
           <h3 class="h6">River flows</h3>
-          <div class="form-group">
+          <div class="form-group climate-group">
             <div class="form-check">
               <input class="form-check-input" type="radio" name="period" id="period-historical" value="historical">
               <label class="form-check-label" for="period-historical">Historical (1970-2010)</label>
@@ -170,12 +171,14 @@
           </div>
           <div class="form-row">
             <div class="form-group col-10">
-              <label for="replicate">Scenario variant (1-100):</label>
-              <input id="replicate" name="replicate" class="form-control" type="number" step="1" min="1" max="100" value="42">
+              <label for="model-iteration">Scenario iteration (1-100):</label>
+              <input id="model-iteration" name="iteration" class="form-control" type="number" step="1" min="1" max="100" value="42">
             </div>
             <div class="form-group col-2">
               <label>&nbsp;</label>
-              <button class="btn btn-outline-light"><img src="static/images/random.svg" alt="Random" width="16"/></button>
+              <button type="button" class="btn btn-outline-light random-iteration">
+                <img src="static/images/random.svg" alt="Random" width="16"/>
+              </button>
             </div>
           </div>
 
@@ -245,7 +248,7 @@
   <script src="./static/js/symbol.min.js"></script>
   <script src="./static/js/underscore.min.js"></script>
   <script src="./static/js/turf.min.js"></script>
-  <script src="./static/js/d3.v4.min.js"></script>
+  <script src="./static/js/d3.min.js"></script>
   <script src="./static/js/vega-core.min.js"></script>
   <script src="./static/js/vega-lite.min.js"></script>
   <script src="./static/js/vega-embed.min.js"></script>
