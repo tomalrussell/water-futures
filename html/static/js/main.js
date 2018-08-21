@@ -943,6 +943,7 @@ APP.charts.multi_detail = {
         }
 
         // map
+        var duration = 0.25;  // zoom/pan duration in seconds
         var layer_names, layer_name, layer;
         if (options.map_layers) {
             layer_names = options.map_layers;
@@ -964,8 +965,8 @@ APP.charts.multi_detail = {
             if (feature){
                 var coords = turf.centroid(feature).geometry.coordinates;
                 var center = [coords[1], coords[0]];
+                APP.map.flyTo(center, options.zoom, {duration: duration});
                 get_geojson_feature_layer(layer, feature).openPopup(center);
-                APP.map.flyTo(center, options.zoom);  // TODO ensure hash is set properly, no loop
             }
         }
 
