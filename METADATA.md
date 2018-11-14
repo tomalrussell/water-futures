@@ -1,56 +1,40 @@
 # Metadata
 
-Time series CSV files have the following columns:
+The visualisation loads various geographical and time series data to plot the maps and charts.
 
-id | description
----|---
-date | Simulation date in format `yyyy-mm-dd`
-restriction_level_lower_thames_mean |
-restriction_level_lower_thames_stdev |
-restriction_level_lower_thames_max |
-restriction_level_lower_thames_min |
-restriction_level_lower_thames_sample_1 |
-restriction_level_lower_thames_sample_2 |
-restriction_level_lower_thames_sample_3 |
-storage_lower_thames_mean |
-storage_lower_thames_stdev |
-storage_lower_thames_max |
-storage_lower_thames_min |
-storage_lower_thames_sample_1 |
-storage_lower_thames_sample_2 |
-storage_lower_thames_sample_3 |
-abstraction_lower_thames_mean |
-abstraction_lower_thames_stdev |
-abstraction_lower_thames_max |
-abstraction_lower_thames_min |
-abstraction_lower_thames_sample_1 |
-abstraction_lower_thames_sample_2 |
-abstraction_lower_thames_sample_3 |
-shortfall_london_mean |
-shortfall_london_stdev |
-shortfall_london_max |
-shortfall_london_min |
-shortfall_london_sample_1 |
-shortfall_london_sample_2 |
-shortfall_london_sample_3 |
-shortfall_teddington_mean |
-shortfall_teddington_stdev |
-shortfall_teddington_max |
-shortfall_teddington_min |
-shortfall_teddington_sample_1 |
-shortfall_teddington_sample_2 |
-shortfall_teddington_sample_3 |
-flow_teddington_mean |
-flow_teddington_stdev |
-flow_teddington_max |
-flow_teddington_min |
-flow_teddington_sample_1 |
-flow_teddington_sample_2 |
-flow_teddington_sample_3 |
-flow_windsor_mean |
-flow_windsor_stdev |
-flow_windsor_max |
-flow_windsor_min |
-flow_windsor_sample_1 |
-flow_windsor_sample_2 |
-flow_windsor_sample_3 |
+File/folder structure:
+
+```
+data
+    /boundaries
+        catchment_areas.geojson
+            - e.g. properties: { "id": "ca:Cherwell, Thame and Wye", "name": "Cherwell, Thame and Wye", "region": "EA South East", "area": "West Thames"}
+        water_resource_zones.geojson
+            - e.g. properties: { "id": "wrz:London", "name": "London", "company": "Thames Water", "popup": "<html content>" }
+    /images
+        - png/jpg as referred to in popup HTML content
+    /model_outputs
+        - climate_historical__demand_historical__action__none.csv
+        - climate_{near-future,far-future}__demand_{2063,2547,2935}__action__(none,1,2,3,4,5)_iteration_{1..100}.csv
+    /model_parameters
+        demand.csv
+            - columns: scenario, value
+    /system
+        river_thames.geojson
+            - e.g. properties: { "id": "TH00", "name": "Thames (Tidal)", "popup": "<html content>" }
+        system.geojson
+            - e.g. properties: { "id": 4, "name": "Beckton desalination plant", "popup": "<html content>", "type": "desalination" }
+            - or, for links: { "from": 8, "to": 1, "type": "link" }
+        thames_basin_rivers.geojson
+            - e.g. properties: { "id": "53LN", "name": "Lee Navigation", "popup": "<html content>" }
+```
+
+Model output CSV files have the following columns:
+
+id               | description
+-----------------|----------------------------------------
+date             | Simulation date in format `yyyy-mm-dd`
+flow_windsor     | Flow at Windsor (Ml)
+storage          | Total London storage (Ml)
+shortfall_london | Total London shortfall (Ml)
+restrictions     | Level of restrictions (0, 1, 2, 3 or 4)
