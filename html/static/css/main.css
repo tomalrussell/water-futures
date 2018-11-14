@@ -322,6 +322,16 @@ strong {
 }
 .table {
     width: auto;
+    margin-bottom: 3rem;
+}
+.table caption {
+    caption-side: top;
+    padding: 0;
+    margin: .5rem 0;
+    line-height: 1.2;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #222;
 }
 .table td,
 .table th {

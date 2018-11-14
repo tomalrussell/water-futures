@@ -50,6 +50,7 @@
         </div>
         <div class="options-table-container">
           <table class="table table-hover table-sm">
+            <caption>Possible Interventions</caption>
             <thead>
               <tr>
                 <th scope="col">Intervention</th>
@@ -98,6 +99,7 @@
             </tbody>
         </table>
         <table class="table table-hover table-sm">
+            <caption>Plans (combinations of interventions)</caption>
             <thead>
               <tr>
                 <th scope="col">Plan</th>
@@ -112,6 +114,17 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <th scope="row">No change</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+              </tr>
               <tr>
                 <th scope="row">Reuse-only</th>
                 <td>100</td>
@@ -173,15 +186,19 @@
 
         <div class="decisions-table-container">
             <table class="table table-hover table-sm">
+              <caption>Comparing demand and future flow scenarios, under &lsquo;no change&rsquo; plan (all realisations)</caption>
               <thead>
                 <tr>
-                  <th scope="col">River flows (climate scenario)</th>
-                  <th scope="col">Demand</th>
-                  <th scope="col">Expected level 1 restrictions</th>
-                  <th scope="col">Expected level 2 restrictions</th>
-                  <th scope="col">Expected level 3 restrictions</th>
-                  <th scope="col">Expected level 4 restrictions</th>
-                  <th scope="col">Meets regulations</th>
+                  <th scope="col" rowspan="2" width="250">River flows (climate scenario)</th>
+                  <th scope="col" rowspan="2" width="100">Demand</th>
+                  <th scope="col" colspan="4">Expected frequency of restrictions (per year)</th>
+                  <th scope="col" rowspan="2">Meets regulations</th>
+                </tr>
+                <tr>
+                  <th scope="col">Level 1</th>
+                  <th scope="col">Level 2</th>
+                  <th scope="col">Level 3</th>
+                  <th scope="col">Level 4</th>
                 </tr>
               </thead>
               <tbody>
@@ -242,15 +259,21 @@
               </tbody>
             </table>
             <table class="table table-hover table-sm">
+              <caption>Comparing plans under high demand, near future flows scenario (all realisations)</caption>
               <thead>
-                <tr>
-                  <th scope="col">Plan</th>
-                  <th scope="col">Expected level 1 restrictions</th>
-                  <th scope="col">Expected level 2 restrictions</th>
-                  <th scope="col">Expected level 3 restrictions</th>
-                  <th scope="col">Expected level 4 restrictions</th>
-                  <th scope="col">Meets regulations</th>
-                </tr>
+                <thead>
+                  <tr>
+                    <th scope="col" rowspan="2" width="350">Plan</th>
+                    <th scope="col" colspan="4">Expected frequency of restrictions (per year)</th>
+                    <th scope="col" rowspan="2">Meets regulations</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Level 1</th>
+                    <th scope="col">Level 2</th>
+                    <th scope="col">Level 3</th>
+                    <th scope="col">Level 4</th>
+                  </tr>
+                </thead>
               </thead>
               <tbody>
                 <tr>
@@ -466,10 +489,10 @@
           </p>
           <p>
             For example, in &lsquo;Reuse and Reduce&rsquo; we plan to reuse 100 Ml of water per
-            day, and reduce demand by 67 Ml/day.
+            day, and reduce demand by 67 Ml per day.
           </p>
           <p>
-            The five plans described in the second table can all be tested in the Water Futures
+            The plans described in the second table can all be tested in the Water Futures
             model with near future flows and high demand &ndash; otherwise we assume no change
             from the current system.
           </p>
