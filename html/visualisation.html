@@ -49,77 +49,125 @@
           <div id="chart" class="chart-container"></div>
         </div>
         <div class="options-table-container">
-          <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Options (Ml/day)</th>
-                  <th scope="col">Water reuse</th>
-                  <th scope="col">New reservoir</th>
-                  <th scope="col">Desalination</th>
-                  <th scope="col">Usage reductions</th>
-                  <th scope="col">Leakage reductions</th>
-                  <th scope="col">Financial cost</th>
-                  <th scope="col">Social contribution</th>
-                  <th scope="col">Environmental impact</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Option 1</th>
-                  <td>100</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td class="bg-low">Low</td>
-                  <td class="bg-low">Low</td>
-                  <td class="bg-low">Low</td>
-                </tr>
-                <tr>
-                  <th scope="row">Option 2</th>
-                  <td>46</td>
-                  <td>287</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td class="bg-med">Medium</td>
-                  <td class="bg-low">Low</td>
-                  <td class="bg-med">Medium</td>
-                </tr>
-                <tr>
-                  <th scope="row">Option 3</th>
-                  <td>100</td>
-                  <td>287</td>
-                  <td>150</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td class="bg-high">High</td>
-                  <td class="bg-low">Low</td>
-                  <td class="bg-high">High</td>
-                </tr>
-                <tr>
-                  <th scope="row">Option 4</th>
-                  <td>100</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>67</td>
-                  <td>-</td>
-                  <td class="bg-low">Low</td>
-                  <td class="bg-high">High</td>
-                  <td class="bg-low">Low</td>
-                </tr>
-                <tr>
-                  <th scope="row">Option 5</th>
-                  <td>46</td>
-                  <td>-</td>
-                  <td>150</td>
-                  <td>67</td>
-                  <td>53</td>
-                  <td class="bg-high">High</td>
-                  <td class="bg-high">High</td>
-                  <td class="bg-med">Medium</td>
-                </tr>
-              </tbody>
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Intervention</th>
+                <th scope="col">Contribution (Ml/day)</th>
+                <th scope="col">Financial cost</th>
+                <th scope="col">Social contribution</th>
+                <th scope="col">Environmental impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Water reuse</th>
+                <td>46&mdash;100</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+              </tr>
+              <tr>
+                <th scope="row">New reservoir</th>
+                <td>287</td>
+                <td class="bg-high">High</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-high">High</td>
+              </tr>
+              <tr>
+                <th scope="row">Desalination</th>
+                <td>150</td>
+                <td class="bg-high">High</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-med">Medium</td>
+              </tr>
+              <tr>
+                <th scope="row">Usage reductions</th>
+                <td>67</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-high">High</td>
+                <td class="bg-low">Low</td>
+              </tr>
+              <tr>
+                <th scope="row">Leakage reductions</th>
+                <td>53</td>
+                <td class="bg-high">High</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+              </tr>
+            </tbody>
+        </table>
+        <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Plan</th>
+                <th scope="col">Water reuse</th>
+                <th scope="col">New reservoir</th>
+                <th scope="col">Desalination</th>
+                <th scope="col">Usage reductions</th>
+                <th scope="col">Leakage reductions</th>
+                <th scope="col">Overall financial cost</th>
+                <th scope="col">Overall social contribution</th>
+                <th scope="col">Overall environmental impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Reuse-only</th>
+                <td>100</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-low">Low</td>
+              </tr>
+              <tr>
+                <th scope="row">Reuse and Reservoir</th>
+                <td>46</td>
+                <td>287</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="bg-med">Medium</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-med">Medium</td>
+              </tr>
+              <tr>
+                <th scope="row">Reuse, Reservoir and Desalination</th>
+                <td>100</td>
+                <td>287</td>
+                <td>150</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="bg-high">High</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-high">High</td>
+              </tr>
+              <tr>
+                <th scope="row">Reuse and Reduce</th>
+                <td>100</td>
+                <td>-</td>
+                <td>-</td>
+                <td>67</td>
+                <td>-</td>
+                <td class="bg-low">Low</td>
+                <td class="bg-high">High</td>
+                <td class="bg-low">Low</td>
+              </tr>
+              <tr>
+                <th scope="row">Reuse and Reduce, with Desalination</th>
+                <td>46</td>
+                <td>-</td>
+                <td>150</td>
+                <td>67</td>
+                <td>53</td>
+                <td class="bg-high">High</td>
+                <td class="bg-high">High</td>
+                <td class="bg-med">Medium</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -127,9 +175,8 @@
             <table class="table table-hover table-sm">
               <thead>
                 <tr>
-                  <th scope="col">River flows</th>
+                  <th scope="col">River flows (climate scenario)</th>
                   <th scope="col">Demand</th>
-                  <th scope="col">Option</th>
                   <th scope="col">Expected level 1 restrictions</th>
                   <th scope="col">Expected level 2 restrictions</th>
                   <th scope="col">Expected level 3 restrictions</th>
@@ -141,7 +188,6 @@
                 <tr>
                   <td>Near future</td>
                   <td>Low</td>
-                  <td>No change</td>
                   <td class="bg-med">0.252</td>
                   <td class="bg-med">0.121</td>
                   <td class="bg-low">0.043</td>
@@ -151,7 +197,6 @@
                 <tr>
                   <td>Near future</td>
                   <td>Baseline</td>
-                  <td>No change</td>
                   <td class="bg-high">0.463</td>
                   <td class="bg-high">0.294</td>
                   <td class="bg-high">0.160</td>
@@ -161,7 +206,6 @@
                 <tr>
                   <td>Near future</td>
                   <td>High</td>
-                  <td>No change</td>
                   <td class="bg-high">0.997</td>
                   <td class="bg-high">0.986</td>
                   <td class="bg-high">0.991</td>
@@ -169,59 +213,8 @@
                   <td class="bg-high">No*</td>
                 </tr>
                 <tr>
-                  <td>Near future</td>
-                  <td>High</td>
-                  <td>Option 1</td>
-                  <td class="bg-high">0.409</td>
-                  <td class="bg-high">0.252</td>
-                  <td class="bg-med">0.130</td>
-                  <td class="bg-med">0.015</td>
-                  <td class="bg-high">No</td>
-                </tr>
-                <tr>
-                  <td>Near future</td>
-                  <td>High</td>
-                  <td>Option 2</td>
-                  <td class="bg-high">0.312</td>
-                  <td class="bg-med">0.170</td>
-                  <td class="bg-med">0.074</td>
-                  <td class="bg-med">0.005</td>
-                  <td class="bg-high">No</td>
-                </tr>
-                <tr>
-                  <td>Near future</td>
-                  <td>High</td>
-                  <td>Option 3</td>
-                  <td class="bg-med">0.233</td>
-                  <td class="bg-med">0.108</td>
-                  <td class="bg-low">0.033</td>
-                  <td class="bg-low">0.002</td>
-                  <td class="bg-med">Close</td>
-                </tr>
-                <tr>
-                  <td>Near future</td>
-                  <td>High</td>
-                  <td>Option 4</td>
-                  <td class="bg-high">0.379</td>
-                  <td class="bg-high">0.230</td>
-                  <td class="bg-med">0.112</td>
-                  <td class="bg-med">0.011</td>
-                  <td class="bg-high">No</td>
-                </tr>
-                <tr>
-                  <td>Near future</td>
-                  <td>High</td>
-                  <td>Option 5</td>
-                  <td class="bg-high">0.321</td>
-                  <td class="bg-med">0.175</td>
-                  <td class="bg-med">0.078</td>
-                  <td class="bg-med">0.005</td>
-                  <td class="bg-high">No</td>
-                </tr>
-                <tr>
                   <td>Far future</td>
                   <td>Low</td>
-                  <td>No change</td>
                   <td class="bg-high">0.51</td>
                   <td class="bg-high">0.331</td>
                   <td class="bg-med">0.178</td>
@@ -231,7 +224,6 @@
                 <tr>
                   <td>Far future</td>
                   <td>Baseline</td>
-                  <td>No change</td>
                   <td class="bg-high">0.741</td>
                   <td class="bg-high">0.583</td>
                   <td class="bg-high">0.419</td>
@@ -241,12 +233,73 @@
                 <tr>
                   <td>Far future</td>
                   <td>High</td>
-                  <td>No change</td>
                   <td class="bg-high">0.991</td>
                   <td class="bg-high">0.999</td>
                   <td class="bg-high">0.989</td>
                   <td class="bg-high">0.844</td>
                   <td class="bg-high">No*</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-hover table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Expected level 1 restrictions</th>
+                  <th scope="col">Expected level 2 restrictions</th>
+                  <th scope="col">Expected level 3 restrictions</th>
+                  <th scope="col">Expected level 4 restrictions</th>
+                  <th scope="col">Meets regulations</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>No change</td>
+                  <td class="bg-high">0.997</td>
+                  <td class="bg-high">0.986</td>
+                  <td class="bg-high">0.991</td>
+                  <td class="bg-high">0.922</td>
+                  <td class="bg-high">No*</td>
+                </tr>
+                <tr>
+                  <td>Reuse-only</td>
+                  <td class="bg-high">0.409</td>
+                  <td class="bg-high">0.252</td>
+                  <td class="bg-med">0.130</td>
+                  <td class="bg-med">0.015</td>
+                  <td class="bg-high">No</td>
+                </tr>
+                <tr>
+                  <td>Reuse and Reservoir</td>
+                  <td class="bg-high">0.312</td>
+                  <td class="bg-med">0.170</td>
+                  <td class="bg-med">0.074</td>
+                  <td class="bg-med">0.005</td>
+                  <td class="bg-high">No</td>
+                </tr>
+                <tr>
+                  <td>Reuse, Reservoir and Desalination</td>
+                  <td class="bg-med">0.233</td>
+                  <td class="bg-med">0.108</td>
+                  <td class="bg-low">0.033</td>
+                  <td class="bg-low">0.002</td>
+                  <td class="bg-med">Close</td>
+                </tr>
+                <tr>
+                  <td>Reuse and Reduce</td>
+                  <td class="bg-high">0.379</td>
+                  <td class="bg-high">0.230</td>
+                  <td class="bg-med">0.112</td>
+                  <td class="bg-med">0.011</td>
+                  <td class="bg-high">No</td>
+                </tr>
+                <tr>
+                  <td>Reuse and Reduce, with Desalination</td>
+                  <td class="bg-high">0.321</td>
+                  <td class="bg-med">0.175</td>
+                  <td class="bg-med">0.078</td>
+                  <td class="bg-med">0.005</td>
+                  <td class="bg-high">No</td>
                 </tr>
               </tbody>
             </table>
@@ -387,11 +440,33 @@
             Water Futures considers three scenarios of future water demand: low, central and
             high.
           </p>
+          <p>
+            This is another important input to the model. River flows define the amount of
+            water coming into the system. Demand defines the amount of water that we would
+            like to take out of the system.
+          </p>
         </div>
         <div id="tab-content-options" class="tab-content">
           <h2 class="h5">Options</h2>
           <p>
             What could we do in response to how the world might change?
+          </p>
+          <p>
+            We could build or change different things in the water system. These are the
+            <strong>interventions</strong> in the first table.
+          </p>
+          <p>
+            For example, we could build a new
+            desalination plant, which would supply more water to the system. Or we could
+            reduce how much water we use, which would put less demand on the system.
+          </p>
+          <p>
+            Then we need to make a <strong>plan</strong> which includes some of these
+            interventions.
+          </p>
+          <p>
+            For example, in &lsquo;Reuse and Reduce&rsquo; we plan to reuse 100 Ml of water per
+            day, and reduce demand by 67 Ml/day.
           </p>
         </div>
         <form id="tab-content-model" class="tab-content">
@@ -446,7 +521,7 @@
             </div>
           </div>
 
-          <h3 class="h6">Options</h3>
+          <h3 class="h6">Plans</h3>
           <div class="form-group">
             <label for="action">
               <small>(Available only if 'Near future' river flows and
@@ -458,23 +533,23 @@
             </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="action" id="action-1" value="1">
-              <label class="form-check-label" for="action-1">Option 1</label>
+              <label class="form-check-label" for="action-1">Reuse-only</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="action" id="action-2" value="2">
-              <label class="form-check-label" for="action-2">Option 2</label>
+              <label class="form-check-label" for="action-2">Reuse and Reservoir</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="action" id="action-3" value="3">
-              <label class="form-check-label" for="action-3">Option 3</label>
+              <label class="form-check-label" for="action-3">Reuse, Reservoir and Desalination</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="action" id="action-4" value="4">
-              <label class="form-check-label" for="action-4">Option 4</label>
+              <label class="form-check-label" for="action-4">Reuse and Reduce</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="action" id="action-5" value="5">
-              <label class="form-check-label" for="action-5">Option 5</label>
+              <label class="form-check-label" for="action-5">Reuse and Reduce, with Desalination</label>
             </div>
           </div>
           <div class="form-group">

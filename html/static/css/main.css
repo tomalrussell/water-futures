@@ -317,6 +317,9 @@ strong {
 .decisions-table-container.active {
     display: block;
 }
+.table {
+    width: auto;
+}
 .table td,
 .table th {
     border-top-color: #fff;
