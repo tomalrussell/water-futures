@@ -12,7 +12,11 @@ chart_elements.config = {
     "title": {
         "anchor": "start",
         "fontSize": 16,
-        "fontColor": "#222"
+        "fontColor": "#222",
+    },
+    "axis": {
+        "titleFontSize": 13,
+        "labelFontSize": 12
     }
 }
 
