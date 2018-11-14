@@ -174,30 +174,25 @@ APP.charts.demand = {
         "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
         "config": chart_elements.config,
         "data": undefined,
-        "title": "Possible change in water demand",
-        "width": 500,
-        "height": 200,
-        "mark": "line",
+        "title": "Water demand scenarios",
+        "width": 300,
+        "height": 400,
+        "mark": "bar",
         "encoding": {
             "x": {
-                "field": "date",
-                "type": "temporal",
-                "timeUnit": "year",
+                "field": "scenario",
+                "type": "nominal",
                 "axis": {
-                    "format": "%Y",
-                    "title": "Year"
-                }
+                    "title": "Demand scenario"
+                },
+                "sort": ["Low", "Central", "High"]
             },
             "y": {
                 "field": "value",
                 "type": "quantitative",
                 "axis": {
-                    "title": "Relative water demand"
+                    "title": "Water demand"
                 }
-            },
-            "color": {
-                "field": "scenario",
-                "type": "nominal"
             }
         }
     }
