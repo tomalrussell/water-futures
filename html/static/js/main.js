@@ -22,9 +22,10 @@ chart_elements.config = {
 
 chart_elements.riverflow = {
     "mark": {
-        "type": "line",
+        "type": "area",
         "interpolate": "step-after",
-        "color": "#0078c8"
+        "color": "#0078c8",
+        "point": "transparent"
     },
     "encoding": {
         "x": {
@@ -32,7 +33,9 @@ chart_elements.riverflow = {
             "type": "temporal",
             "timeUnit": "yearmonthdate",
             "axis": {
-                "title": ""
+                "title": "",
+                "grid": false,
+                "orient": "top"
             },
             "scale": {"domain": {"selection": "brush"}},
         },
@@ -40,32 +43,58 @@ chart_elements.riverflow = {
             "field": "flow_windsor",
             "type": "quantitative",
             "axis": {"title": "River flow at Windsor (ML/day)"}
-        }
+        },
+        "tooltip": [
+            {
+                "field": "flow_windsor",
+                "title": "River flow (ML/day)"
+            },
+            {
+                "field": "date",
+                "type": "temporal",
+                "timeUnit": "yearmonthdate",
+                "title": "Date"
+            }
+        ]
     },
     "width": 1000
 }
 
 chart_elements.storage = {
     "mark": {
-        "type": "line",
+        "type": "area",
         "interpolate": "step-after",
-        "color": "#4b33aa"
+        "color": "#4b33aa",
+        "point": "transparent"
     },
     "encoding": {
         "x": {
             "field": "date",
             "type": "temporal",
             "timeUnit": "yearmonthdate",
-            "axis": {
-                "title": ""
-            },
+            "axis": null,
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
             "field": "storage",
             "type": "quantitative",
-            "axis": {"title": "Total Storage (ML)"}
-        }
+            "axis": {
+                "title": "Total Storage (ML)",
+                "titleBaseline": "bottom"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "storage",
+                "title": "Storage (ML)"
+            },
+            {
+                "field": "date",
+                "type": "temporal",
+                "timeUnit": "yearmonthdate",
+                "title": "Date"
+            }
+        ]
     },
     "width": 1000,
     "height": 100
@@ -73,25 +102,39 @@ chart_elements.storage = {
 
 chart_elements.shortfall = {
     "mark": {
-        "type": "line",
+        "type": "area",
         "interpolate": "step-after",
-        "color": "#f5871c"
+        "color": "#f5871c",
+        "point": "transparent"
     },
     "encoding": {
         "x": {
             "field": "date",
             "type": "temporal",
             "timeUnit": "yearmonthdate",
-            "axis": {
-                "title": ""
-            },
+            "axis": null,
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
             "field": "shortfall_london",
             "type": "quantitative",
-            "axis": {"title": "Shortfall"}
-        }
+            "axis": {
+                "title": "Shortfall",
+                "titleBaseline": "bottom"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "shortfall_london",
+                "title": "Shortfall (ML)"
+            },
+            {
+                "field": "date",
+                "type": "temporal",
+                "timeUnit": "yearmonthdate",
+                "title": "Date"
+            }
+        ]
     },
     "width": 1000,
     "height": 100
@@ -99,25 +142,39 @@ chart_elements.shortfall = {
 
 chart_elements.restrictions = {
     "mark": {
-        "type": "line",
+        "type": "area",
         "interpolate": "step-after",
-        "color": "#e45756"
+        "color": "#e45756",
+        "point": "transparent"
     },
     "encoding": {
         "x": {
             "field": "date",
             "type": "temporal",
             "timeUnit": "yearmonthdate",
-            "axis": {
-                "title": ""
-            },
+            "axis": null,
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
             "field": "restrictions",
             "type": "quantitative",
-            "axis": {"title": "Restriction level"}
-        }
+            "axis": {
+                "title": "Restriction level",
+                "titleBaseline": "bottom"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "restrictions",
+                "title": "Restriction level"
+            },
+            {
+                "field": "date",
+                "type": "temporal",
+                "timeUnit": "yearmonthdate",
+                "title": "Date"
+            }
+        ]
     },
     "width": 1000,
     "height": 100
@@ -195,7 +252,7 @@ APP.charts.demand = {
                 "field": "value",
                 "type": "quantitative",
                 "axis": {
-                    "title": "Water demand"
+                    "title": "Total water demand (Ml/day)"
                 }
             }
         }
@@ -258,7 +315,10 @@ APP.charts.multi_detail = {
             container.classList.remove('loading');
             vegaEmbed('#chart', chart.spec, {
                 actions: {
-                    export: true,
+                    export: {
+                        svg: false,
+                        png: true
+                    },
                     source: false,
                     editor: false
                 }
