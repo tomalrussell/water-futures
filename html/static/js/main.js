@@ -324,6 +324,12 @@ APP.charts.multi_detail = {
                 }
             }).then(function(result){
                 APP.live_chart = result.view
+
+                var link = document.createElement('a')
+                link.textContent = 'Download data'
+                link.setAttribute('href', chart.data_url)
+                var actions = document.querySelector('#chart .vega-actions')
+                actions.appendChild(link)
             }).catch(function(error){
                 container.classList.add('error');
                 console.error(error);

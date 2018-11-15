@@ -82,6 +82,10 @@
 .error .error-indicator {
     display: block;
 }
+.vega-actions a {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
  /**
  * Header
  */
