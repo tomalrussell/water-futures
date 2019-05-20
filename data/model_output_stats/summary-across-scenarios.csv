@@ -1,0 +1,7 @@
+River flows (climate scenario),Demand,Expected frequency of level 1 restrictions (per year),Expected frequency of level 2 restrictions (per year),Expected frequency of level 3 restrictions (per year),Expected frequency of level 4 restrictions (per year),Meets regulations
+Near future,Low,0.252,0.121,0.043,0.002,Close
+Near future,Baseline,0.463,0.294,0.160,0.027,No
+Near future,High,0.997,0.986,0.991,0.922,No*
+Far future,Low,0.51,0.331,0.178,0.01,No
+Far future,Baseline,0.741,0.583,0.419,0.115,No
+Far future,High,0.991,0.999,0.989,0.844,No*

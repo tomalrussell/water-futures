@@ -1,0 +1,7 @@
+Plan,Water reuse,New reservoir,Desalination,Usage reductions,Leakage reductions,Overall financial cost,Overall social contribution,Overall environmental impact
+No change,-,-,-,-,-,Low,Low,Low
+Reuse-only,100,-,-,-,-,Low,Low,Low
+Reuse and Reservoir,46,287,-,-,-,Medium,Low,Medium
+"Reuse, Reservoir and Desalination",100,287,150,-,-,High,Low,High
+Reuse and Reduce,100,-,-,67,-,Low,High,Low
+"Reuse and Reduce, with Desalination",46,-,150,67,53,High,High,Medium

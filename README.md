@@ -68,12 +68,21 @@ Thanks to the following open source libraries:
 
 #### Model Parameters and Outputs
 
-`/data/model_parameters` contains demand scenario parameters.
+`/data/model_parameters` contains parameters:
+- `demand.csv` lists the demand scenarios
+- `interventions.csv` lists the possible interventions (actions that could be taken)
+- `plans.csv` lists the plans modelled (each plan contains a combination of interventions)
 
 `/data/model_outputs` contains model outputs, files named by climate (river flows) scenario,
 demand scenario, action taken, and iteration:
 - `climate_historical__demand_historical__action__none.csv`
 - `climate_{near-future,far-future}__demand_{2063,2547,2935}__action__(none,1,2,3,4,5)_iteration_{1..100}.csv`
+
+`data/model_output_stats` contains summaries over model outputs:
+- `summary-across-plans.csv` compares plans under high demand, near future flows scenario (all
+  realisations)
+- `summary-across-scenarios.csv` compares demand and future flow scenarios, under 'no change'
+  plan (all realisations)
 
 Model output CSV files have the following columns:
 
