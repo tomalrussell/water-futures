@@ -3,9 +3,5 @@
 *~
 aws.txt
 
-# data
-data/*
-html/data/*
-
 *.zip
 
