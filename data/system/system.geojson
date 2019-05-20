@@ -6,7 +6,7 @@
         "properties": {
           "id": 1,
           "name": "London reservoirs treatment",
-          "popup": "<h3 class=\"h4\">Water treatment</h3><img src=\"/data/images/treatment.jpg\" alt=\"View of the Aquafin waste water treatment plant of Antwerpen-Zuid, located in the south side of the conurbation of Antwerp, by Annabel 2009 CC-BY-SA\"/><p>Water treatment is any process that improves the quality of water to make it more acceptable for a specific end-use. The end use may be drinking, industrial water supply, irrigation, river flow maintenance, water recreation or many other uses, including being safely returned to the environment. Water treatment removes contaminants and undesirable components, or reduces their concentration so that the water becomes fit for its desired end-use.</p><p><a href=\"https://en.wikipedia.org/wiki/Water_treatment\" target=\"_blank\">Wikipedia</a></p>",
+          "popup": "<h3 class=\"h4\">Water treatment</h3><img src=\"data/images/treatment.jpg\" alt=\"View of the Aquafin waste water treatment plant of Antwerpen-Zuid, located in the south side of the conurbation of Antwerp, by Annabel 2009 CC-BY-SA\"/><p>Water treatment is any process that improves the quality of water to make it more acceptable for a specific end-use. The end use may be drinking, industrial water supply, irrigation, river flow maintenance, water recreation or many other uses, including being safely returned to the environment. Water treatment removes contaminants and undesirable components, or reduces their concentration so that the water becomes fit for its desired end-use.</p><p><a href=\"https://en.wikipedia.org/wiki/Water_treatment\" target=\"_blank\">Wikipedia</a></p>",
           "type": "treatment"
         },
         "geometry": {
@@ -19,7 +19,7 @@
         "properties": {
           "id": 12,
           "name": "Abbey Mills Pumping Station",
-          "popup": "<h3 class=\"h4\">Abbey Mills Pumping Station</h3><img src=\"/data/images/abbey-mills-pumping-station.jpg\" alt=\"Abbey Mills Pumping Station, by Velella 2005 CC-BY-SA\"/><p>Abbey Mills is a sewage pumping station, designed by engineer Joseph Bazalgette, Edmund Cooper, and architect Charles Driver. It was built between 1865 and 1868.</p><p><a href=\"https://en.wikipedia.org/wiki/Abbey_Mills_Pumping_Station\" target=\"_blank\">Wikipedia</a></p>",
+          "popup": "<h3 class=\"h4\">Abbey Mills Pumping Station</h3><img src=\"data/images/abbey-mills-pumping-station.jpg\" alt=\"Abbey Mills Pumping Station, by Velella 2005 CC-BY-SA\"/><p>Abbey Mills is a sewage pumping station, designed by engineer Joseph Bazalgette, Edmund Cooper, and architect Charles Driver. It was built between 1865 and 1868.</p><p><a href=\"https://en.wikipedia.org/wiki/Abbey_Mills_Pumping_Station\" target=\"_blank\">Wikipedia</a></p>",
           "type": "pumping"
         },
         "geometry": {
@@ -33,7 +33,7 @@
           "id": 104,
           "name": "Littleton Pumping Station",
           "type": "pumping",
-          "popup": "<h3 class=\"h4\">Littleton Pumping Station</h3><img src=\"/data/images/littleton.jpg\" alt=\"Littleton Pumping Station, by Chris Allen 1997 CC-SA\"/><p>Water works pumping station built for the Metropolitan Water Board, which is now Thames Water. Originally used four steam pumping engines &ndash; one is preserved.</p><p><a href=\"http://www.geograph.org.uk/photo/101193\" target=\"_blank\">Geograph</a></p>"
+          "popup": "<h3 class=\"h4\">Littleton Pumping Station</h3><img src=\"data/images/littleton.jpg\" alt=\"Littleton Pumping Station, by Chris Allen 1997 CC-SA\"/><p>Water works pumping station built for the Metropolitan Water Board, which is now Thames Water. Originally used four steam pumping engines &ndash; one is preserved.</p><p><a href=\"http://www.geograph.org.uk/photo/101193\" target=\"_blank\">Geograph</a></p>"
         },
         "geometry": {
           "type": "Polygon",
@@ -45,7 +45,7 @@
         "properties": {
           "id": 4,
           "name": "Beckton desalination plant",
-          "popup": "<h3 class=\"h4\">Beckton desalination plant</h3><img src=\"/data/images/desalination.jpg\" alt=\"London's desalination plant is on the site of the Beckton Sewage Treatment Works. Photo from Thames Water via Londonist 2015\"/><p>The Thames Water Desalination Plant or Beckton Desalination Plant is a water desalination plant in Beckton, London, United Kingdom.The first of its kind in the UK, it was constructed for Thames Water by a consortium of Interserve, Atkins Water and Acciona Agua.The plant was officially opened by Prince Philip, Duke of Edinburgh on 2 June 2010. The plant provides up to 150 million litres of drinking water each day – enough for nearly one million people.</p><p><a href=\"https://en.wikipedia.org/wiki/Thames_Water_Desalination_Plant\" target=\"_blank\">Wikipedia</a></p>",
+          "popup": "<h3 class=\"h4\">Beckton desalination plant</h3><img src=\"data/images/desalination.jpg\" alt=\"London's desalination plant is on the site of the Beckton Sewage Treatment Works. Photo from Thames Water via Londonist 2015\"/><p>The Thames Water Desalination Plant or Beckton Desalination Plant is a water desalination plant in Beckton, London, United Kingdom.The first of its kind in the UK, it was constructed for Thames Water by a consortium of Interserve, Atkins Water and Acciona Agua.The plant was officially opened by Prince Philip, Duke of Edinburgh on 2 June 2010. The plant provides up to 150 million litres of drinking water each day – enough for nearly one million people.</p><p><a href=\"https://en.wikipedia.org/wiki/Thames_Water_Desalination_Plant\" target=\"_blank\">Wikipedia</a></p>",
           "type": "desalination"
         },
         "geometry": {
@@ -58,7 +58,7 @@
         "properties": {
           "id": 5,
           "name": "Greater London distribution network",
-          "popup": "<h3 class=\"h4\">Distribution network</h3><img src=\"/data/images/distribution.jpg\" alt=\"Pipes, John Mann CC-BY-SA 2.0\"/><p>Greater London is currently supplied by four companies: Thames Water (76% of population), Affinity Water (14%), Essex and Suffolk Water (6.6%) and Sutton and East Surrey Water (3.7%). Most of London's water comes from non-tidal parts of the Thames and Lea, with the remainder being abstracted from underground (groundwater) sources. Much of the water piping in London is still cast iron piping which dates back to the nineteenth century and is slowly deteriorating. This has led to widespread criticism of Thames Water for the amount of water lost to leaks in its distribution network. As of 2007, Thames Water is still in the process of a programme to upgrade the water supply network to use modern plastic piping. A large infrastructure investment has been the creation of the Thames Water Ring Main, a backbone network for London's water supply. This network connects all the waterworks and pumping stations.</p><p><a href=\"https://en.wikipedia.org/wiki/London_water_supply_infrastructure\" target=\"_blank\">Wikipedia</a></p>",
+          "popup": "<h3 class=\"h4\">Distribution network</h3><img src=\"data/images/distribution.jpg\" alt=\"Pipes, John Mann CC-BY-SA 2.0\"/><p>Greater London is currently supplied by four companies: Thames Water (76% of population), Affinity Water (14%), Essex and Suffolk Water (6.6%) and Sutton and East Surrey Water (3.7%). Most of London's water comes from non-tidal parts of the Thames and Lea, with the remainder being abstracted from underground (groundwater) sources. Much of the water piping in London is still cast iron piping which dates back to the nineteenth century and is slowly deteriorating. This has led to widespread criticism of Thames Water for the amount of water lost to leaks in its distribution network. As of 2007, Thames Water is still in the process of a programme to upgrade the water supply network to use modern plastic piping. A large infrastructure investment has been the creation of the Thames Water Ring Main, a backbone network for London's water supply. This network connects all the waterworks and pumping stations.</p><p><a href=\"https://en.wikipedia.org/wiki/London_water_supply_infrastructure\" target=\"_blank\">Wikipedia</a></p>",
           "type": "distribution"
         },
         "geometry": {
@@ -83,7 +83,7 @@
         "properties": {
           "id": 2,
           "name": "Lee reservoirs treatment works",
-          "popup": "<h3 class=\"h4\">Water treatment</h3><img src=\"/data/images/treatment.jpg\" alt=\"View of the Aquafin waste water treatment plant of Antwerpen-Zuid, located in the south side of the conurbation of Antwerp, by Annabel 2009 CC-BY-SA\"/><p>Water treatment is any process that improves the quality of water to make it more acceptable for a specific end-use. The end use may be drinking, industrial water supply, irrigation, river flow maintenance, water recreation or many other uses, including being safely returned to the environment. Water treatment removes contaminants and undesirable components, or reduces their concentration so that the water becomes fit for its desired end-use.</p><p><a href=\"https://en.wikipedia.org/wiki/Water_treatment\" target=\"_blank\">Wikipedia</a></p>",
+          "popup": "<h3 class=\"h4\">Water treatment</h3><img src=\"data/images/treatment.jpg\" alt=\"View of the Aquafin waste water treatment plant of Antwerpen-Zuid, located in the south side of the conurbation of Antwerp, by Annabel 2009 CC-BY-SA\"/><p>Water treatment is any process that improves the quality of water to make it more acceptable for a specific end-use. The end use may be drinking, industrial water supply, irrigation, river flow maintenance, water recreation or many other uses, including being safely returned to the environment. Water treatment removes contaminants and undesirable components, or reduces their concentration so that the water becomes fit for its desired end-use.</p><p><a href=\"https://en.wikipedia.org/wiki/Water_treatment\" target=\"_blank\">Wikipedia</a></p>",
           "type": "treatment"
         },
         "geometry": {
@@ -218,7 +218,7 @@
         "properties": {
           "id": 6,
           "name": "Groundwater abstraction",
-          "popup": "<h3 class=\"h4\">Groundwater abstraction</h3><img src=\"/data/images/groundwater.png\" alt=\"Ground-water flow paths vary greatly in length, depth, and traveltime from points of recharge to points of discharge in the groundwater system, by T.C. Winter, J.W. Harvey, O.L. Franke, and W.M. Alley (USGS, 1998) public domain.\"/><p>Groundwater refers to water present beneath Earth's surface. It moves through soil pore spaces and fractures in rock formations. The light blue bands represent aquifers contained below the earth’s surface. An aquifer is a layer of water-bearing permeable rock, rock fractures or unconsolidated materials (gravel, sand, or silt) from which groundwater can be extracted using a water well.</p><p><a href=\"https://en.wikipedia.org/wiki/Groundwater\" target=\"_blank\">Wikipedia</a></p>",
+          "popup": "<h3 class=\"h4\">Groundwater abstraction</h3><img src=\"data/images/groundwater.png\" alt=\"Ground-water flow paths vary greatly in length, depth, and traveltime from points of recharge to points of discharge in the groundwater system, by T.C. Winter, J.W. Harvey, O.L. Franke, and W.M. Alley (USGS, 1998) public domain.\"/><p>Groundwater refers to water present beneath Earth's surface. It moves through soil pore spaces and fractures in rock formations. The light blue bands represent aquifers contained below the earth’s surface. An aquifer is a layer of water-bearing permeable rock, rock fractures or unconsolidated materials (gravel, sand, or silt) from which groundwater can be extracted using a water well.</p><p><a href=\"https://en.wikipedia.org/wiki/Groundwater\" target=\"_blank\">Wikipedia</a></p>",
           "type": "abstraction"
         },
         "geometry": {
@@ -229,7 +229,7 @@
       {
         "type": "Feature",
         "properties": {
-          "type": "reservoir", "name": "North London Reservoirs", "id": 8, "popup": "<h3 class=\"h4\">Reservoirs</h3><img src=\"/data/images/reservoirs.jpg\" alt=\"Staines Reservoirs from the Air, Christine Matthews 2011 CC-BY-SA\"/><p>A reservoir is an enlarged natural or artificial lake, storage pond or impoundment created using a dam or lock to store water. Reservoirs can be created by controlling a stream that drains an existing body of water. They can also be constructed in river valleys using a dam. Alternately, a reservoir can be built by excavating flat ground or constructing retaining walls and levees.</p><p><a href=\"https://en.wikipedia.org/wiki/Reservoir\" target=\"_blank\">Wikipedia</a></p>"
+          "type": "reservoir", "name": "North London Reservoirs", "id": 8, "popup": "<h3 class=\"h4\">Reservoirs</h3><img src=\"data/images/reservoirs.jpg\" alt=\"Staines Reservoirs from the Air, Christine Matthews 2011 CC-BY-SA\"/><p>A reservoir is an enlarged natural or artificial lake, storage pond or impoundment created using a dam or lock to store water. Reservoirs can be created by controlling a stream that drains an existing body of water. They can also be constructed in river valleys using a dam. Alternately, a reservoir can be built by excavating flat ground or constructing retaining walls and levees.</p><p><a href=\"https://en.wikipedia.org/wiki/Reservoir\" target=\"_blank\">Wikipedia</a></p>"
 
         },
         "geometry": {
@@ -240,7 +240,7 @@
       {
         "type": "Feature",
         "properties": {
-          "type": "reservoir", "name": "Lee Reservoirs", "id": 10, "popup": "<h3 class=\"h4\">Reservoirs</h3><img src=\"/data/images/reservoirs.jpg\" alt=\"Staines Reservoirs from the Air, Christine Matthews 2011 CC-BY-SA\"/><p>A reservoir is an enlarged natural or artificial lake, storage pond or impoundment created using a dam or lock to store water. Reservoirs can be created by controlling a stream that drains an existing body of water. They can also be constructed in river valleys using a dam. Alternately, a reservoir can be built by excavating flat ground or constructing retaining walls and levees.</p><p><a href=\"https://en.wikipedia.org/wiki/Reservoir\" target=\"_blank\">Wikipedia</a></p>"
+          "type": "reservoir", "name": "Lee Reservoirs", "id": 10, "popup": "<h3 class=\"h4\">Reservoirs</h3><img src=\"data/images/reservoirs.jpg\" alt=\"Staines Reservoirs from the Air, Christine Matthews 2011 CC-BY-SA\"/><p>A reservoir is an enlarged natural or artificial lake, storage pond or impoundment created using a dam or lock to store water. Reservoirs can be created by controlling a stream that drains an existing body of water. They can also be constructed in river valleys using a dam. Alternately, a reservoir can be built by excavating flat ground or constructing retaining walls and levees.</p><p><a href=\"https://en.wikipedia.org/wiki/Reservoir\" target=\"_blank\">Wikipedia</a></p>"
 
         },
         "geometry": {

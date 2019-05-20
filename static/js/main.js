@@ -657,7 +657,7 @@ APP.charts.multi_detail = {
     }
 
     function add_thames(map, control){
-        return d3.json('/data/system/river_thames.geojson').then(function(data) {
+        return d3.json('data/system/river_thames.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -680,7 +680,7 @@ APP.charts.multi_detail = {
     }
 
     function add_tributaries(map, control){
-        return d3.json('/data/system/thames_basin_rivers.geojson').then(function(data) {
+        return d3.json('data/system/thames_basin_rivers.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -702,7 +702,7 @@ APP.charts.multi_detail = {
         });
     }
     function add_catchment_areas(map, control){
-        return d3.json('/data/boundaries/catchment_areas.geojson').then(function(data) {
+        return d3.json('data/boundaries/catchment_areas.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -724,7 +724,7 @@ APP.charts.multi_detail = {
     }
 
     function add_water_resource_zones(map, control){
-        return d3.json('/data/boundaries/water_resource_zones.geojson').then(function(data) {
+        return d3.json('data/boundaries/water_resource_zones.geojson').then(function(data) {
             store_features(data);
             var layer = L.geoJson(data, {
                 style: {
@@ -746,7 +746,7 @@ APP.charts.multi_detail = {
     }
 
     function add_system(map, control){
-        return d3.json('/data/system/system.geojson').then(function(data) {
+        return d3.json('data/system/system.geojson').then(function(data) {
             // Rely on globals
             // APP.system = {}
             // APP.layers = {}
