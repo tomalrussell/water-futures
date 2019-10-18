@@ -1,8 +1,7 @@
 # Water Futures
 
-Interactive visualisation of water supply scenarios and outcomes.
-
-See the [beta site](http://waterfutures-eastlondon.org.uk/) under development.
+Interactive visualisation of water supply scenarios and outcomes:
+[http://waterfutures-eastlondon.org.uk/](http://waterfutures-eastlondon.org.uk/).
 
 ## Description
 
