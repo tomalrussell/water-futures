@@ -1,7 +1,15 @@
 # Water Futures
 
+[![DOI](https://zenodo.org/badge/111852808.svg)](https://zenodo.org/badge/latestdoi/111852808)
+
 Interactive visualisation of water supply scenarios and outcomes:
 [http://waterfutures-eastlondon.org.uk/](http://waterfutures-eastlondon.org.uk/).
+
+The full site source code, including data and model outputs, is available to 
+download:
+
+> Tom Russell, Mohammad Mortazavi-Naeini, Kayla Schulte, & Catharina Landström. (2019). 
+> Water Futures (Version v1.0.0). Zenodo. DOI: [10.5281/zenodo.4680586](https://doi.org/10.5281/zenodo.4680586)
 
 ## Description
 
