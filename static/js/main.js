@@ -34,7 +34,7 @@ chart_elements.riverflow = {
             "timeUnit": "yearmonthdate",
             "axis": {
                 "title": "",
-                "grid": false,
+                "grid": true,
                 "orient": "top"
             },
             "scale": {"domain": {"selection": "brush"}},
@@ -72,7 +72,8 @@ chart_elements.storage = {
             "field": "date",
             "type": "temporal",
             "timeUnit": "yearmonthdate",
-            "axis": null,
+           
+            "axis": { "grid": true},
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
@@ -112,7 +113,8 @@ chart_elements.shortfall = {
             "field": "date",
             "type": "temporal",
             "timeUnit": "yearmonthdate",
-            "axis": null,
+
+            "axis": { "grid": true,},
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
@@ -152,7 +154,8 @@ chart_elements.restrictions = {
             "field": "date",
             "type": "temporal",
             "timeUnit": "yearmonthdate",
-            "axis": null,
+
+            "axis": { "grid": true,},
             "scale": {"domain": {"selection": "brush"}},
         },
         "y": {
